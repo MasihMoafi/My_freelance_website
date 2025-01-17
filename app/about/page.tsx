@@ -109,8 +109,8 @@ export default function About() {
         </motion.h1>
       )}
 
-      {/* Navigation Icons (Centered Vertically, Right Side) */}
-      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-20 flex flex-col items-center gap-4">
+      {/* Navigation Icons (Positioned at the Top with Reduced Spacing) */}
+      <div className="fixed top-8 right-8 z-20 flex flex-col items-center" style={{ gap: '0.5rem' }}> {/* Explicitly set gap to 0.5rem */}
         {/* Triangle Up (Previous Section) */}
         {section !== 'top' && (
           <motion.div
