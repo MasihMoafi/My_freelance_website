@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Roboto } from 'next/font/google';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react'; // Added useEffect
 import ThemeSelector from './ThemeSelector'; // Correct import path
 
 const roboto = Roboto({ subsets: ['latin'], weight: '400' }); // Regular weight for subtitle
@@ -18,6 +18,11 @@ export default function Home() {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Set a default theme when the component mounts
+  useEffect(() => {
+    handleThemeChange('sunny'); // Set the default theme to 'sunny'
+  }, []);
 
   const handleThemeChange = (theme: 'sunny' | 'gloomy' | 'dark-gloomy') => {
     const backgrounds =
