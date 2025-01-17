@@ -119,8 +119,8 @@ export default function Home() {
                 Architecture
               </a>
               <a
-                href="/machine-learning"
-                className="text-gray-200 hover:bg-gray-700/50 px-3 py-1 rounded-md transition-colors" // Adjusted padding
+                href="https://github.com/MasihMoafi?tab=repositories&q=&type=&language=&sort=name"
+                className="text-gray-200 hover:bg-gray-700/50 px-3 py-1 rounded-md transition-colors" // Link updated to GitHub
               >
                 Machine Learning
               </a>
