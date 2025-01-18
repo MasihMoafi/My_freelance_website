@@ -6,36 +6,72 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Architecture() {
-  const [currentPage, setCurrentPage] = useState(0); // Start with the first page (0.png)
-  const totalPages = 16; // Total number of pages (0.png to 15.png)
-  const [isZoomed, setIsZoomed] = useState(false); // Track zoom state
-  const [isFullScreen, setIsFullScreen] = useState(false); // Track full screen state
-  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false); // Track sidebar state
-  const imageRef = useRef<HTMLImageElement>(null); // Ref for the image element
-  const imageContainerRef = useRef<HTMLDivElement>(null); // Ref for the image container
+  const [currentPage, setCurrentPage] = useState(0);
+  const totalPages = 16;
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   // Disable scrolling on the page
   useEffect(() => {
-    document.body.style.overflow = 'hidden'; // Disable scrolling
+    document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = 'auto'; // Re-enable scrolling on unmount
+      document.body.style.overflow = 'auto';
     };
   }, []);
 
   // Handle full screen mode
   const toggleFullScreen = () => {
-    if (!document.fullscreenElement) {
-      imageContainerRef.current?.requestFullscreen();
+    if (!document.fullscreenElement && imageContainerRef.current) {
+      imageContainerRef.current.requestFullscreen();
+      setIsFullScreen(true);
+      imageContainerRef.current.focus();
     } else {
       document.exitFullscreen();
+      setIsFullScreen(false);
     }
-    setIsFullScreen(!isFullScreen);
   };
 
-  // Handle full screen change
+  // Handle keydown events on image container when in full-screen mode
+  useEffect(() => {
+    if (isFullScreen && imageContainerRef.current) {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          if (currentPage > 0) setCurrentPage(currentPage - 1);
+        }
+      };
+      imageContainerRef.current.addEventListener('keydown', handleKeyDown);
+      return () => {
+        if (imageContainerRef.current) {
+          imageContainerRef.current.removeEventListener('keydown', handleKeyDown);
+        }
+      };
+    }
+  }, [isFullScreen, currentPage, totalPages]);
+
+  // Adjust padding for full screen mode
+  useEffect(() => {
+    if (imageContainerRef.current) {
+      if (isFullScreen) {
+        imageContainerRef.current.style.paddingLeft = '0';
+      } else {
+        imageContainerRef.current.style.paddingLeft = isSidebarMinimized ? '4rem' : '16rem';
+      }
+    }
+  }, [isFullScreen, isSidebarMinimized]);
+
+  // Ensure navigation bar is displayed correctly after exiting full screen mode
   useEffect(() => {
     const handleFullScreenChange = () => {
-      setIsFullScreen(!!document.fullscreenElement);
+      if (!document.fullscreenElement) {
+        setIsFullScreen(false);
+      }
     };
 
     document.addEventListener('fullscreenchange', handleFullScreenChange);
@@ -44,79 +80,44 @@ export default function Architecture() {
     };
   }, []);
 
-  // Adjust padding for full screen mode
-  useEffect(() => {
-    const imageContainer = imageContainerRef.current;
-    if (imageContainer) {
-      if (isFullScreen) {
-        // Remove left padding in full screen mode
-        imageContainer.style.paddingLeft = '0';
-      } else {
-        // Restore left padding when exiting full screen mode
-        imageContainer.style.paddingLeft = isSidebarMinimized ? '4rem' : '16rem';
-      }
-    }
-  }, [isFullScreen, isSidebarMinimized]);
-
+  // Navigation handlers
   const handleNextPage = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // Prevent default behavior
-    event.stopPropagation(); // Stop event propagation
-    if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1); // Go to the next page
+    event.preventDefault();
+    event.stopPropagation();
+    if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
   };
 
   const handlePreviousPage = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault(); // Prevent default behavior
-    event.stopPropagation(); // Stop event propagation
-    if (currentPage > 0) setCurrentPage(currentPage - 1); // Go to the previous page
+    event.preventDefault();
+    event.stopPropagation();
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
   };
 
+  // Zoom handlers
   const handleZoom = (event: React.MouseEvent<HTMLDivElement>) => {
     const image = imageRef.current;
     if (image) {
       if (isZoomed) {
-        // Zoom out to default 105% scale
         image.style.transform = 'scale(1.05)';
       } else {
-        // Zoom in further
         const { left, top, width, height } = image.getBoundingClientRect();
         const x = ((event.clientX - left) / width) * 100;
         const y = ((event.clientY - top) / height) * 100;
         image.style.transformOrigin = `${x}% ${y}%`;
-        image.style.transform = 'scale(2.5)'; // Zoom in further
+        image.style.transform = 'scale(2.5)';
       }
       setIsZoomed(!isZoomed);
     }
   };
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (isZoomed) {
-      const image = imageRef.current;
-      if (image) {
-        const { left, top, width, height } = image.getBoundingClientRect();
-        const x = ((event.clientX - left) / width) * 100;
-        const y = ((event.clientY - top) / height) * 100;
-        image.style.transformOrigin = `${x}% ${y}%`;
-      }
+    if (isZoomed && imageRef.current) {
+      const { left, top, width, height } = imageRef.current.getBoundingClientRect();
+      const x = ((event.clientX - left) / width) * 100;
+      const y = ((event.clientY - top) / height) * 100;
+      imageRef.current.style.transformOrigin = `${x}% ${y}%`;
     }
   };
-
-  // Add arrow key navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowRight') {
-        event.preventDefault(); // Prevent default behavior
-        event.stopPropagation(); // Stop event propagation
-        if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1); // Go to the next page
-      } else if (event.key === 'ArrowLeft') {
-        event.preventDefault(); // Prevent default behavior
-        event.stopPropagation(); // Stop event propagation
-        if (currentPage > 0) setCurrentPage(currentPage - 1); // Go to the previous page
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [currentPage]);
 
   // Table of Contents items
   const tableOfContentsItems = [
@@ -129,9 +130,9 @@ export default function Architecture() {
     { name: 'CPU, Cultural Center', page: 6 },
     { name: 'Cinema, Library', page: 7 },
     { name: 'Sonography Clinic', page: 8 },
-    { name: 'Architectural Visualizations', page: 9 }, // Corrected to 9.jpg
-    { name: 'Sketches', page: 10 }, // Corrected to 10.jpg
-    { name: 'Paintings', page: 12 }, // Corrected to 12.png
+    { name: 'Architectural Visualizations', page: 9 },
+    { name: 'Sketches', page: 10 },
+    { name: 'Paintings', page: 12 },
     { name: 'Back Cover', page: 15 },
   ];
 
@@ -139,9 +140,7 @@ export default function Architecture() {
     <div className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden bg-gray-900">
       {/* Table of Contents Sidebar */}
       <div
-        className={`absolute top-0 left-0 h-full ${
-          isSidebarMinimized ? 'w-12' : 'w-64'
-        } bg-gray-800 p-4 z-30 overflow-y-auto transition-all duration-300 ease-in-out`} // Smooth transition
+        className={`absolute top-0 left-0 h-full ${isFullScreen ? 'w-0' : isSidebarMinimized ? 'w-12' : 'w-64'} bg-gray-800 p-4 z-30 overflow-y-auto transition-all duration-300 ease-in-out`}
       >
         <button
           onClick={() => setIsSidebarMinimized(!isSidebarMinimized)}
@@ -157,9 +156,7 @@ export default function Architecture() {
                 <li key={item.page}>
                   <button
                     onClick={() => setCurrentPage(item.page)}
-                    className={`w-full text-left text-white p-2 rounded ${
-                      currentPage === item.page ? 'bg-gray-700' : 'hover:bg-gray-700'
-                    }`}
+                    className={`w-full text-left text-white p-2 rounded ${currentPage === item.page ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
                   >
                     {item.name}
                   </button>
@@ -173,30 +170,24 @@ export default function Architecture() {
       {/* Portfolio Image */}
       <motion.div
         ref={imageContainerRef}
-        key={currentPage} // Re-render on page change for seamless transition
-        initial={{ opacity: 0 }} // Start faded
-        animate={{ opacity: 1 }} // Become fully clear
-        transition={{ duration: 1 }} // Smooth transition
-        className={`relative w-full h-full flex justify-center items-center ${
-          isSidebarMinimized ? 'pl-12' : 'pl-64'
-        } transition-all duration-300 ease-in-out`} // Adjust for sidebar width
-        onClick={handleZoom} // Left-click for zoom
-        onMouseMove={handleMouseMove} // Hover to move around zoomed area
+        tabIndex={0}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className={`relative w-full h-full flex justify-center items-center ${isFullScreen ? 'pl-0' : isSidebarMinimized ? 'pl-12' : 'pl-64'} transition-all duration-300 ease-in-out`}
+        onClick={handleZoom}
+        onMouseMove={handleMouseMove}
       >
         <Image
-          ref={imageRef} // Ref for the image element
-          src={`/${currentPage}.${
-            currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10
-              ? 'jpg'
-              : 'png'
-          }`} // Load the current page image
+          ref={imageRef}
+          src={`/${currentPage}.${currentPage === 7 || currentPage === 8 || currentPage === 9 || currentPage === 10 ? 'jpg' : 'png'}`}
           alt={`Page ${currentPage}`}
-          width={1200} // Set a fixed width (adjust as needed)
-          height={800} // Set a fixed height (adjust as needed)
-          className="object-contain scale-105 cursor-pointer" // Default 105% scale
-          style={{ transform: 'scale(1.05)' }} // Ensure 105% scale is applied
+          width={1200}
+          height={800}
+          className="object-contain scale-105 cursor-pointer"
+          style={{ transform: 'scale(1.05)' }}
           quality={100}
-          priority // Prioritize loading the image
+          priority
         />
       </motion.div>
 
@@ -204,7 +195,7 @@ export default function Architecture() {
       <div
         className="absolute bottom-8 z-20 flex gap-4"
         style={{
-          left: `calc(50% + ${isSidebarMinimized ? '4rem' : '16rem'} / 2)`, // Adjusted for sidebar width
+          left: `calc(50% + ${isFullScreen ? '0' : isSidebarMinimized ? '4rem' : '16rem'} / 2)`,
           transform: 'translateX(-50%)',
         }}
       >
@@ -246,11 +237,7 @@ export default function Architecture() {
       {/* Back to Main Page Button */}
       <Link
         href="/"
-        className={`absolute top-8 ${
-          isSidebarMinimized ? 'left-16' : 'left-72'
-        } z-20 text-white bg-gray-700 p-2 rounded-full ${
-          isZoomed ? 'hidden' : ''
-        }`}
+        className={`absolute top-8 ${isFullScreen ? 'left-8' : isSidebarMinimized ? 'left-16' : 'left-72'} z-20 text-white bg-gray-700 p-2 rounded-full ${isZoomed ? 'hidden' : ''}`}
         title="Back to Main Page"
       >
         🏠
