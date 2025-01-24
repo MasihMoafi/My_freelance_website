@@ -24,38 +24,51 @@ const handleSendMessage = async () => {
     setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
     setInputText('');
 
-    // Fix: Remove any existing 'const response' declarations
-    const ollamaResponse = await fetch('https://joe-ollama.loca.lt/api/generate', {
+    // API call with CORRECT model name
+    const response = await fetch('https://joe-ollama.loca.lt/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa('joe:yourpassword')
+        'Authorization': 'Basic ' + btoa('joe:yourpassword') // USE ACTUAL CREDS
       },
       body: JSON.stringify({
-        model: 'llama3.2',
+        model: 'llama3.2', // MUST MATCH EXACTLY
         prompt: userMessage,
         stream: false,
-        options: {
-          temperature: 0.7,
-          max_tokens: 500
-        }
+        options: { temperature: 0.7, max_tokens: 500 }
       }),
     });
 
-    if (!ollamaResponse.ok) throw new Error('Failed to get response');
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
-    const responseData = await ollamaResponse.json();
+    const responseData = await response.json();
     setMessages(prev => [...prev, { text: responseData.response, sender: 'bot' }]);
   } catch (error) {
     console.error('Chat error:', error);
     setMessages(prev => [...prev, { 
-      text: "Connection issue - check tunnel/ollama", 
+      text: "Connection issue - check Ollama is running", 
       sender: 'bot' 
     }]);
   } finally {
     setIsLoading(false);
   }
 };
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    
+    const responseData = await response.json();
+    setMessages(prev => [...prev, { text: responseData.response, sender: 'bot' }]);
+  } catch (error) {
+    console.error('Chat error:', error);
+    setMessages(prev => [...prev, { 
+      text: "Connection issue - check Ollama is running", 
+      sender: 'bot' 
+    }]);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
       // Directly call Ollama API via local tunnel
       const response = await fetch('https://joe-ollama.loca.lt/api/generate', {
         method: 'POST',
