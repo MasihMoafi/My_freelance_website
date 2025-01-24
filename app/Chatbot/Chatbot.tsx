@@ -159,9 +159,9 @@ const closeButtonStyle = {
   justifyContent: 'center',
 };
 
-const messageContainerStyle = {
+const messageContainerStyle: React.CSSProperties = {
   height: '330px',
-  overflowY: 'auto',
+  overflowY: 'auto' as 'auto',
   marginBottom: '16px',
   padding: '8px',
   backgroundColor: '#f3f4f6',
