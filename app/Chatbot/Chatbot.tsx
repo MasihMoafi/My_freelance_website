@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect, useRef } from 'react';
 
 type Message = {
@@ -14,45 +13,70 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-// components/Chatbot.tsx
-const handleSendMessage = async () => {
-  if (!inputText.trim() || isLoading) return;
+  const handleSendMessage = async () => {
+    if (!inputText.trim() || isLoading) return;
 
-  try {
-    setIsLoading(true);
-    const userMessage = inputText.trim();
-    setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
-    setInputText('');
+    try {
+      setIsLoading(true);
+      const userMessage = inputText.trim();
+      setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
+      setInputText('');
 
-    // API call with CORRECT model name
-    const response = await fetch('https://joe-ollama.loca.lt/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa('joe:yourpassword') // USE ACTUAL CREDS
-      },
-      body: JSON.stringify({
-        model: 'llama3.2', // MUST MATCH EXACTLY
-        prompt: userMessage,
-        stream: false,
-        options: { temperature: 0.7, max_tokens: 500 }
-      }),
-    });
+      // Streaming response handling
+      const response = await fetch('http://joe-ollama.loca.lt/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + btoa('joe:yourpassword')
+        },
+        body: JSON.stringify({
+          model: 'llama3.2',
+          prompt: userMessage,
+          stream: true  // Enable streaming
+        }),
+      });
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    
-    const responseData = await response.json();
-    setMessages(prev => [...prev, { text: responseData.response, sender: 'bot' }]);
-  } catch (error) {
-    console.error('Chat error:', error);
-    setMessages(prev => [...prev, { 
-      text: "Connection issue - check Ollama is running", 
-      sender: 'bot' 
-    }]);
-  } finally {
-    setIsLoading(false);
-  }
-};
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let fullResponse = '';
+
+      while (true) {
+        const { done, value } = await reader!.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+        
+        for (const line of lines) {
+          if (line.trim()) {
+            try {
+              const parsed = JSON.parse(line);
+              fullResponse += parsed.response;
+              setMessages(prev => {
+                const last = prev[prev.length - 1];
+                if (last?.sender === 'bot') {
+                  return [...prev.slice(0, -1), { text: fullResponse, sender: 'bot' }];
+                }
+                return [...prev, { text: fullResponse, sender: 'bot' }];
+              });
+            } catch (e) {
+              console.error('Error parsing chunk:', e);
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Chat error:', error);
+      setMessages(prev => [...prev, { 
+        text: "Connection issue - check Ollama is running", 
+        sender: 'bot' 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
