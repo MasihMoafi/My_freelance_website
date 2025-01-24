@@ -14,15 +14,26 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleSendMessage = async () => {
-    if (!inputText.trim() || isLoading) return;
-
-    try {
-      setIsLoading(true);
-      const userMessage = inputText.trim();
-      setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
-      setInputText('');
-
+// components/Chatbot.tsx
+const handleSendMessage = async () => {
+  try {
+    const response = await fetch('https://ai.joewebsite.com/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + btoa('joe:your_strong_password')
+      },
+      body: JSON.stringify({
+        model: 'llama3.2',
+        prompt: userMessage,
+        stream: false,
+        options: {
+          temperature: 0.7,
+          num_ctx: 4096,
+          num_gpu: 20
+        }
+      })
+    });
       // Directly call Ollama API via local tunnel
       const response = await fetch('https://joe-ollama.loca.lt/api/generate', {
         method: 'POST',
