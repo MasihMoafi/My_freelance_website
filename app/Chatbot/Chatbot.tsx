@@ -168,12 +168,12 @@ const messageContainerStyle: React.CSSProperties = {
   borderRadius: '8px',
 };
 
-const messageBubbleStyle = (sender: 'user' | 'bot') => ({
+const messageBubbleStyle = (sender: 'user' | 'bot'): React.CSSProperties => ({
   textAlign: sender === 'user' ? 'right' : 'left',
   margin: '8px 0',
 });
 
-const textStyle = (sender: 'user' | 'bot') => ({
+const textStyle = (sender: 'user' | 'bot'): React.CSSProperties => ({
   display: 'inline-block',
   padding: '8px 12px',
   borderRadius: '12px',
@@ -182,7 +182,6 @@ const textStyle = (sender: 'user' | 'bot') => ({
   maxWidth: '80%',
   wordWrap: 'break-word' as const,
 });
-
 const inputContainerStyle = {
   display: 'flex',
   gap: '8px',
