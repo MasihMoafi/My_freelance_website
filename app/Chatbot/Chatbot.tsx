@@ -1,36 +1,61 @@
-'use client'; // Mark this as a client component
+'use client';
 
 import { useState, useEffect, useRef } from 'react';
 
+type Message = {
+  text: string;
+  sender: 'user' | 'bot';
+};
+
 export default function Chatbot() {
-  const [isOpen, setIsOpen] = useState(false); // State to toggle chat window
-  const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot' }[]>([]); // Store chat messages
-  const [inputText, setInputText] = useState(''); // Store user input
-  const chatContainerRef = useRef<HTMLDivElement>(null); // Ref for the chat container
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Function to handle sending a message
   const handleSendMessage = async () => {
-    if (inputText.trim()) {
-      // Add the user's message to the chat
-      setMessages([...messages, { text: inputText, sender: 'user' }]);
-      setInputText(''); // Clear the input field
+    if (!inputText.trim() || isLoading) return;
 
-      // Call the API route to get the bot's response
-      const response = await fetch('/api/chat', {
+    try {
+      setIsLoading(true);
+      const userMessage = inputText.trim();
+      setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
+      setInputText('');
+
+      // Directly call Ollama API via local tunnel
+      const response = await fetch('https://joe-ollama.loca.lt/api/generate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: inputText }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + btoa('username:password') // Add your auth
+        },
+        body: JSON.stringify({
+          model: 'llama3',
+          prompt: userMessage,
+          stream: false,
+          options: {
+            temperature: 0.7,
+            max_tokens: 500
+          }
+        }),
       });
 
+      if (!response.ok) throw new Error('Failed to get response');
+      
       const data = await response.json();
-      const botResponse = data.response;
-
-      // Add the bot's response to the chat
-      setMessages((prev) => [...prev, { text: botResponse, sender: 'bot' }]);
+      setMessages(prev => [...prev, { text: data.response, sender: 'bot' }]);
+    } catch (error) {
+      console.error('Chat error:', error);
+      setMessages(prev => [...prev, { 
+        text: "Sorry, I'm having trouble connecting. Please try again later.", 
+        sender: 'bot' 
+      }]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Auto-scroll to the latest message
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -40,124 +65,54 @@ export default function Chatbot() {
   return (
     <div style={{ position: 'fixed', bottom: '20px', right: '29.6px', zIndex: 1000 }}>
       {isOpen && (
-        <div
-          style={{
-            width: '350px',
-            border: '1px solid #e5e7eb',
-            borderRadius: '12px',
-            padding: '16px',
-            backgroundColor: '#ffffff', // Solid white background for the chat window
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          }}
-        >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-            <div style={{ fontSize: '18px', fontWeight: '600', color: '#1f2937' }}>Chat with Masih!</div>
-            <button
-              onClick={() => setIsOpen(false)} // Close the chat window
-              style={{
-                padding: '8px',
-                borderRadius: '50%',
-                border: 'none',
-                backgroundColor: '#31616c', // Use #31616c for the close button
-                color: '#fff',
-                cursor: 'pointer',
-                fontWeight: '600',
-                width: '32px',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
+        <div style={chatWindowStyle}>
+          <div style={headerStyle}>
+            <div style={titleStyle}>Chat with Joe's AI</div>
+            <button onClick={() => setIsOpen(false)} style={closeButtonStyle}>
               ×
             </button>
           </div>
-          <div
-            ref={chatContainerRef}
-            style={{
-              height: '330px',
-              overflowY: 'auto',
-              marginBottom: '16px',
-              padding: '8px',
-              backgroundColor: '#f3f4f6', // Solid gray background for the chat section
-              borderRadius: '8px',
-            }}
-          >
+          
+          <div ref={chatContainerRef} style={messageContainerStyle}>
             {messages.map((msg, index) => (
-              <div
-                key={index}
-                style={{
-                  textAlign: msg.sender === 'user' ? 'right' : 'left',
-                  margin: '8px 0',
-                }}
-              >
-                <span
-                  style={{
-                    display: 'inline-block',
-                    padding: '8px 12px',
-                    borderRadius: '12px',
-                    backgroundColor: msg.sender === 'user' ? '#31616c' : '#e5e7eb',
-                    color: msg.sender === 'user' ? '#fff' : '#1f2937',
-                    maxWidth: '80%',
-                    wordWrap: 'break-word',
-                  }}
-                >
+              <div key={index} style={messageBubbleStyle(msg.sender)}>
+                <span style={textStyle(msg.sender)}>
                   {msg.text}
                 </span>
               </div>
             ))}
+            {isLoading && (
+              <div style={loadingStyle}>
+                <div className="dot-flashing" />
+              </div>
+            )}
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
+
+          <div style={inputContainerStyle}>
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              style={{
-                flex: 1,
-                padding: '8px',
-                borderRadius: '8px',
-                border: '1px solid #e5e7eb',
-                backgroundColor: '#ffffff',
-                color: '#1f2937',
-                outline: 'none',
-              }}
-              placeholder="Type a message..."
+              style={inputStyle}
+              placeholder="Ask me anything..."
+              disabled={isLoading}
             />
             <button
               onClick={handleSendMessage}
-              style={{
-                padding: '8px 16px',
-                borderRadius: '8px',
-                border: 'none',
-                backgroundColor: '#31616c', // Use #31616c for the send button
-                color: '#fff',
-                cursor: 'pointer',
-                fontWeight: '600',
-              }}
+              style={sendButtonStyle}
+              disabled={isLoading}
             >
-              Send
+              {isLoading ? '...' : 'Send'}
             </button>
           </div>
         </div>
       )}
-      {!isOpen && ( // Only show the chatbot button when the chat window is closed
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          style={{
-            padding: '12px',
-            borderRadius: '50%',
-            border: 'none',
-            backgroundColor: '#31616c', // Use #31616c for the chatbot button
-            color: '#fff',
-            cursor: 'pointer',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '48px', // Restore the original size
-            height: '48px', // Restore the original size
-          }}
+      
+      {!isOpen && (
+        <button 
+          onClick={() => setIsOpen(true)}
+          style={toggleButtonStyle}
         >
           💬
         </button>
@@ -165,3 +120,111 @@ export default function Chatbot() {
     </div>
   );
 }
+
+// Style constants
+const chatWindowStyle = {
+  width: '350px',
+  border: '1px solid #e5e7eb',
+  borderRadius: '12px',
+  padding: '16px',
+  backgroundColor: '#ffffff',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+};
+
+const headerStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '16px',
+};
+
+const titleStyle = {
+  fontSize: '18px',
+  fontWeight: '600',
+  color: '#1f2937',
+};
+
+const closeButtonStyle = {
+  padding: '8px',
+  borderRadius: '50%',
+  border: 'none',
+  backgroundColor: '#31616c',
+  color: '#fff',
+  cursor: 'pointer',
+  fontWeight: '600',
+  width: '32px',
+  height: '32px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+const messageContainerStyle = {
+  height: '330px',
+  overflowY: 'auto',
+  marginBottom: '16px',
+  padding: '8px',
+  backgroundColor: '#f3f4f6',
+  borderRadius: '8px',
+};
+
+const messageBubbleStyle = (sender: 'user' | 'bot') => ({
+  textAlign: sender === 'user' ? 'right' : 'left',
+  margin: '8px 0',
+});
+
+const textStyle = (sender: 'user' | 'bot') => ({
+  display: 'inline-block',
+  padding: '8px 12px',
+  borderRadius: '12px',
+  backgroundColor: sender === 'user' ? '#31616c' : '#e5e7eb',
+  color: sender === 'user' ? '#fff' : '#1f2937',
+  maxWidth: '80%',
+  wordWrap: 'break-word' as const,
+});
+
+const inputContainerStyle = {
+  display: 'flex',
+  gap: '8px',
+};
+
+const inputStyle = {
+  flex: 1,
+  padding: '8px',
+  borderRadius: '8px',
+  border: '1px solid #e5e7eb',
+  backgroundColor: '#ffffff',
+  color: '#1f2937',
+  outline: 'none',
+};
+
+const sendButtonStyle = {
+  padding: '8px 16px',
+  borderRadius: '8px',
+  border: 'none',
+  backgroundColor: '#31616c',
+  color: '#fff',
+  cursor: 'pointer',
+  fontWeight: '600',
+};
+
+const toggleButtonStyle = {
+  padding: '12px',
+  borderRadius: '50%',
+  border: 'none',
+  backgroundColor: '#31616c',
+  color: '#fff',
+  cursor: 'pointer',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '48px',
+  height: '48px',
+};
+
+const loadingStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  padding: '8px',
+};
