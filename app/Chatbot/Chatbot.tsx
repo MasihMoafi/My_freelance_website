@@ -16,12 +16,20 @@ export default function Chatbot() {
 
 // components/Chatbot.tsx
 const handleSendMessage = async () => {
+  if (!inputText.trim() || isLoading) return;
+
   try {
-    const response = await fetch('https://ai.joewebsite.com/api/generate', {
+    setIsLoading(true);
+    const userMessage = inputText.trim();
+    setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
+    setInputText('');
+
+    // Fix: Remove any existing 'const response' declarations
+    const ollamaResponse = await fetch('https://joe-ollama.loca.lt/api/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa('joe:your_strong_password')
+        'Authorization': 'Basic ' + btoa('joe:yourpassword')
       },
       body: JSON.stringify({
         model: 'llama3.2',
@@ -29,11 +37,25 @@ const handleSendMessage = async () => {
         stream: false,
         options: {
           temperature: 0.7,
-          num_ctx: 4096,
-          num_gpu: 20
+          max_tokens: 500
         }
-      })
+      }),
     });
+
+    if (!ollamaResponse.ok) throw new Error('Failed to get response');
+    
+    const responseData = await ollamaResponse.json();
+    setMessages(prev => [...prev, { text: responseData.response, sender: 'bot' }]);
+  } catch (error) {
+    console.error('Chat error:', error);
+    setMessages(prev => [...prev, { 
+      text: "Connection issue - check tunnel/ollama", 
+      sender: 'bot' 
+    }]);
+  } finally {
+    setIsLoading(false);
+  }
+};
       // Directly call Ollama API via local tunnel
       const response = await fetch('https://joe-ollama.loca.lt/api/generate', {
         method: 'POST',
