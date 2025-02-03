@@ -2,14 +2,17 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const { prompt } = await req.json(); // Expecting a JSON with "prompt"
-    const tunnelURL = 'https://f518062065778e.lhr.life'; // Your tunnel URL
+    const { prompt } = await req.json();
+    const tunnelURL = 'https://f518062065778e.lhr.life';
+
+    console.log('Forwarding request to:', `${tunnelURL}/api/generate`);
+    console.log('Payload:', { model: 'llama3.2', prompt, stream: false });
 
     const ollamaResponse = await fetch(`${tunnelURL}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'llama3.2', // Verified model name format
+        model: 'llama3.2',
         prompt: prompt,
         stream: false
       })
@@ -17,10 +20,12 @@ export async function POST(req: Request) {
 
     if (!ollamaResponse.ok) {
       const errorText = await ollamaResponse.text();
+      console.error('Ollama endpoint error:', errorText);
       throw new Error(`Ollama error: ${errorText}`);
     }
 
     const responseData = await ollamaResponse.json();
+    console.log('Ollama response data:', responseData);
 
     return new NextResponse(
       JSON.stringify({ response: responseData.response }),
@@ -28,7 +33,7 @@ export async function POST(req: Request) {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*' // Add CORS header if needed
+          'Access-Control-Allow-Origin': '*'
         }
       }
     );
