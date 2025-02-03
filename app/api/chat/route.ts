@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const { prompt } = await req.json();
     const tunnelURL = 'https://204d35d75563b9.lhr.life';
 
-    console.log('Forwarding request to:', `${tunnelURL}/api/generate`);
+    console.log(`Forwarding request to: ${tunnelURL}/api/generate`);
     console.log('Payload:', { model: 'llama3.2', prompt, stream: false });
 
     const ollamaResponse = await fetch(`${tunnelURL}/api/generate`, {
