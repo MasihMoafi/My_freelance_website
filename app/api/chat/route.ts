@@ -1,31 +1,48 @@
-// /pages/api/chat.js
 import { NextResponse } from 'next/server';
 
-export async function POST(req) {
-  // Expecting JSON with model, prompt, and stream
-  const { model, prompt, stream } = await req.json();
-
+export async function POST(req: Request) {
   try {
-    // Use your tunnel URL (update if it changes)
-    const tunnelURL = "https://70bc9b42bddd63.lhr.life";
-    const response = await fetch(`${tunnelURL}/api/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model, prompt, stream }),
+    const { prompt } = await req.json(); // Expecting a JSON with "prompt"
+    const tunnelURL = 'https://f518062065778e.lhr.life'; // Your tunnel URL
+
+    const ollamaResponse = await fetch(`${tunnelURL}/api/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'llama3.2', // Verified model name format
+        prompt: prompt,
+        stream: false
+      })
     });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch response from Ollama: ${response.statusText}`);
+    if (!ollamaResponse.ok) {
+      const errorText = await ollamaResponse.text();
+      throw new Error(`Ollama error: ${errorText}`);
     }
 
-    const data = await response.json();
-    // Adjust according to your Ollama response structure
-    return NextResponse.json({ response: data.response });
-  } catch (error) {
-    console.error("Error in /api/chat:", error);
-    return NextResponse.json(
-      { message: "Internal server error" },
-      { status: 500 }
+    const responseData = await ollamaResponse.json();
+
+    return new NextResponse(
+      JSON.stringify({ response: responseData.response }),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*' // Add CORS header if needed
+        }
+      }
+    );
+  } catch (error: any) {
+    console.error('Chat error:', error);
+    return new NextResponse(
+      JSON.stringify({ error: error.message || 'Failed to process request' }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      }
     );
   }
 }
