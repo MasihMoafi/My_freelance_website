@@ -1,26 +1,26 @@
+// /pages/api/chat.js
 import { NextResponse } from 'next/server';
 
-export async function POST(req: Request) {
-  const { message } = await req.json();
+export async function POST(req) {
+  // Expecting JSON with model, prompt, and stream
+  const { model, prompt, stream } = await req.json();
 
   try {
-    // Call your Hugging Face Space API
-    const response = await fetch("https://f518062065778e.lhr.life", {
+    // Use your tunnel URL (update if it changes)
+    const tunnelURL = "https://70bc9b42bddd63.lhr.life";
+    const response = await fetch(`${tunnelURL}/api/chat`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data: [message] }), // Hugging Face Spaces expect this format
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model, prompt, stream }),
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch response from Hugging Face Space: ${response.statusText}`);
+      throw new Error(`Failed to fetch response from Ollama: ${response.statusText}`);
     }
 
     const data = await response.json();
-    const botResponse = data.data[0]; // Extract the bot's response
-
-    return NextResponse.json({ response: botResponse });
+    // Adjust according to your Ollama response structure
+    return NextResponse.json({ response: data.response });
   } catch (error) {
     console.error("Error in /api/chat:", error);
     return NextResponse.json(
