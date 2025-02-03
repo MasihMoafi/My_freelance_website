@@ -24,7 +24,7 @@ export default function Chatbot() {
       setInputText('');
 
       // YOUR SERVER URL HERE 👇
-      const response = await fetch('https://4f9e6c20f78083ef467d62a26f9a2e3e.serveo.net/api/chat', {
+      const response = await fetch('https://70bc9b42bddd63.lhr.life', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
