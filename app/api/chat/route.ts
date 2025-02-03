@@ -5,7 +5,7 @@ export async function POST(req: Request) {
 
   try {
     // Call your Hugging Face Space API
-    const response = await fetch("https://masihm-what.hf.space/api/predict", {
+    const response = await fetch("https://70bc9b42bddd63.lhr.life", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
