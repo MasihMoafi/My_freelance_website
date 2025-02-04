@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { prompt } = await req.json();
+    // Update the tunnel URL if it has changed:
     const tunnelURL = 'https://426dee5b4ee71d.lhr.life';
 
     console.log(`Forwarding request to: ${tunnelURL}/api/generate`);
@@ -13,9 +14,9 @@ export async function POST(req: Request) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'llama3.2',
-        prompt: prompt,
-        stream: false
-      })
+        prompt,
+        stream: false,
+      }),
     });
 
     if (!ollamaResponse.ok) {
@@ -33,8 +34,8 @@ export async function POST(req: Request) {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        }
+          'Access-Control-Allow-Origin': '*',
+        },
       }
     );
   } catch (error: any) {
@@ -45,8 +46,8 @@ export async function POST(req: Request) {
         status: 500,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        }
+          'Access-Control-Allow-Origin': '*',
+        },
       }
     );
   }
