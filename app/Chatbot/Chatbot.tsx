@@ -33,9 +33,9 @@ export default function Chatbot() {
     
     // Select the best available voice
     const voices = synthRef.current.getVoices();
-    const preferredVoice = voices.find(v => 
-      v.lang === 'en-US' && v.name.includes('Google')
-    ) || voices.find(v => v.default);
+    const preferredVoice =
+      voices.find((v) => v.lang === 'en-US' && v.name.includes('Google')) ||
+      voices.find((v) => v.default);
     
     if (preferredVoice) {
       utterance.voice = preferredVoice;
@@ -57,7 +57,7 @@ export default function Chatbot() {
     try {
       setIsLoading(true);
       const userMessage = inputText.trim();
-      setMessages(prev => [...prev, { text: userMessage, sender: 'user' }]);
+      setMessages((prev) => [...prev, { text: userMessage, sender: 'user' }]);
       setInputText('');
 
       const response = await fetch('/api/chat', {
@@ -66,18 +66,22 @@ export default function Chatbot() {
         body: JSON.stringify({ prompt: userMessage }),
       });
 
-      if (!response.ok) throw new Error(`Error: ${response.status}`);
-      
+      if (!response.ok)
+        throw new Error(`Error: ${response.status}`);
+
       const data = await response.json();
       const botMessage: Message = { text: data.response, sender: 'bot' };
-      setMessages(prev => [...prev, botMessage]);
+      setMessages((prev) => [...prev, botMessage]);
       speak(botMessage.text);
     } catch (error: any) {
       console.error('Connection failed:', error);
-      setMessages(prev => [...prev, { 
-        text: `Error: ${error.message} - Verify the API is running properly`, 
-        sender: 'bot' 
-      }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: `Error: ${error.message} - Verify the API is running properly`,
+          sender: 'bot',
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -86,7 +90,8 @@ export default function Chatbot() {
   // Auto-scroll messages
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -211,18 +216,18 @@ export default function Chatbot() {
           <div ref={chatContainerRef} style={messageContainerStyle}>
             {messages.map((msg, index) => (
               <div key={index} style={messageBubbleStyle(msg.sender)}>
-                <span style={textStyle(msg.sender)}>
-                  {msg.text}
-                </span>
+                <span style={textStyle(msg.sender)}>{msg.text}</span>
               </div>
             ))}
             {(isLoading || isSpeaking) && (
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                padding: '8px',
-                color: '#31616c'
-              }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  padding: '8px',
+                  color: '#31616c',
+                }}
+              >
                 {isSpeaking ? '🔊 Speaking...' : 'Processing...'}
               </div>
             )}
@@ -248,10 +253,7 @@ export default function Chatbot() {
           </div>
         </div>
       ) : (
-        <button 
-          onClick={() => setIsOpen(true)}
-          style={toggleButtonStyle}
-        >
+        <button onClick={() => setIsOpen(true)} style={toggleButtonStyle}>
           🤖
         </button>
       )}
