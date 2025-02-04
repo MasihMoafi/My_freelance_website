@@ -51,4 +51,17 @@ export async function POST(req: Request): Promise<NextResponse> {
       }
     );
   }
+
+  const ollamaResponse = await fetch(`${tunnelURL}/api/generate`, {
+  method: 'POST',
+  headers: { 
+    'Content-Type': 'application/json',
+    'X-Debug-Info': 'true' // If supported by tunnel
+  },
+  body: JSON.stringify({
+    model: 'llama3:7b', // Example valid format
+    prompt,
+    stream: false,
+  }),
+});
 }
