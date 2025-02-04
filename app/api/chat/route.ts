@@ -1,61 +1,56 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request): Promise<NextResponse> {
-  const tunnelURL = 'https://125198e3ddfc11.lhr.life';
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 180000); // 3-minute timeout
-
   try {
     const { prompt } = await req.json();
-    
+    // Replace with your current ngrok URL
+    const tunnelURL = 'https://125198e3ddfc11.lhr.life';
+
+    console.log(`Forwarding request to: ${tunnelURL}/api/generate`);
+    console.log('Payload:', { model: 'llama3.2', prompt, stream: false });
+
+    // Set a longer timeout (e.g. 30 seconds)
+    const controller = new AbortController();
+    const timeout = setTimeout(() => {
+      controller.abort();
+    }, 30000);
+
     const ollamaResponse = await fetch(`${tunnelURL}/api/generate`, {
       method: 'POST',
-      signal: controller.signal,
-      headers: { 
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'llama3.2', // Verify exact model name
+        model: 'llama3.2',
         prompt,
-        stream: true, // Enable streaming
+        stream: false,
       }),
+      signal: controller.signal,
     });
-
-    clearTimeout(timeoutId);
+    clearTimeout(timeout);
 
     if (!ollamaResponse.ok) {
-      const errorData = await ollamaResponse.json();
-      console.error('Ollama Error Details:', errorData);
-      throw new Error(`Ollama API Error: ${errorData.error}`);
+      const errorText = await ollamaResponse.text();
+      console.error('Ollama endpoint error:', errorText);
+      throw new Error(`Ollama error: ${errorText}`);
     }
 
-    // Stream handling
-    const reader = ollamaResponse.body?.getReader();
-    const decoder = new TextDecoder();
-    let fullResponse = '';
+    const responseData = await ollamaResponse.json();
+    console.log('Ollama response data:', responseData);
 
-    while (true) {
-      const { done, value } = await reader!.read();
-      if (done) break;
-      fullResponse += decoder.decode(value);
-    }
-
-    return new NextResponse(
-      JSON.stringify({ response: fullResponse }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
-
+    return new NextResponse(JSON.stringify({ response: responseData.response }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+    });
   } catch (error: any) {
-    clearTimeout(timeoutId);
-    console.error('Full Error Trace:', error);
-    return new NextResponse(
-      JSON.stringify({ 
-        error: error.name === 'AbortError' 
-          ? 'Request timed out after 3 minutes' 
-          : error.message 
-      }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    console.error('Chat error:', error);
+    return new NextResponse(JSON.stringify({ error: error.message || 'Failed to process request' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+    });
   }
 }
