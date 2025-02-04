@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const { prompt } = await req.json();
-    const tunnelURL = 'https://204d35d75563b9.lhr.life';
+    const tunnelURL = 'https://86760f1ae6892d.lhr.life';
 
     console.log(`Forwarding request to: ${tunnelURL}/api/generate`);
     console.log('Payload:', { model: 'llama3.2', prompt, stream: false });
