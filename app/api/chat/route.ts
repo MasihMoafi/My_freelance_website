@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request): Promise<NextResponse> {
-  const tunnelURL = 'https://cf852666729cf0.lhr.life';
+  const tunnelURL = 'https://6db11a39669c73.lhr.life';
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 180000); // 3-minute timeout
 
