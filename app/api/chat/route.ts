@@ -4,7 +4,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { prompt } = await req.json();
     // Use the tunnel URL if provided, otherwise default to localhost (for local testing)
-    const tunnelURL = process.env.TUNNEL_URL || 'https://125198e3ddfc11.lhr.life';
+    const tunnelURL = process.env.TUNNEL_URL || 'https://99e610b6e5d521.lhr.life';
     const targetURL = `${tunnelURL}/api/generate`;
 
     console.log(`Forwarding request to: ${targetURL}`);
