@@ -1,45 +1,60 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request): Promise<NextResponse> {
-  const tunnelURL = 'https://cf852666729cf0.lhr.life'; // Moved outside try block
+  const tunnelURL = 'https://cf852666729cf0.lhr.life';
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 180000); // 3-minute timeout
 
   try {
     const { prompt } = await req.json();
-
-    console.log(`Forwarding to: ${tunnelURL}/api/generate`);
     
     const ollamaResponse = await fetch(`${tunnelURL}/api/generate`, {
       method: 'POST',
+      signal: controller.signal,
       headers: { 
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*' // Added CORS header
+        'Cache-Control': 'no-cache'
       },
       body: JSON.stringify({
-        model: 'llama3', // Verify exact model name
+        model: 'llama3.2', // Verify exact model name
         prompt,
-        stream: false,
+        stream: true, // Enable streaming
       }),
     });
 
+    clearTimeout(timeoutId);
+
     if (!ollamaResponse.ok) {
-      const errorText = await ollamaResponse.text();
-      console.error('Ollama error:', errorText);
-      return new NextResponse(JSON.stringify({ error: errorText }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const errorData = await ollamaResponse.json();
+      console.error('Ollama Error Details:', errorData);
+      throw new Error(`Ollama API Error: ${errorData.error}`);
     }
 
-    const responseData = await ollamaResponse.json();
+    // Stream handling
+    const reader = ollamaResponse.body?.getReader();
+    const decoder = new TextDecoder();
+    let fullResponse = '';
+
+    while (true) {
+      const { done, value } = await reader!.read();
+      if (done) break;
+      fullResponse += decoder.decode(value);
+    }
+
     return new NextResponse(
-      JSON.stringify({ response: responseData.response }),
+      JSON.stringify({ response: fullResponse }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
 
   } catch (error: any) {
-    console.error('Server error:', error);
+    clearTimeout(timeoutId);
+    console.error('Full Error Trace:', error);
     return new NextResponse(
-      JSON.stringify({ error: error.message || 'Internal server error' }),
+      JSON.stringify({ 
+        error: error.name === 'AbortError' 
+          ? 'Request timed out after 3 minutes' 
+          : error.message 
+      }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
