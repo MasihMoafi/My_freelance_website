@@ -3,19 +3,14 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { prompt } = await req.json();
-    // Replace with your current ngrok URL
-    const tunnelURL = 'https://125198e3ddfc11.lhr.life';
+    // Use the tunnel URL if provided, otherwise default to localhost (for local testing)
+    const tunnelURL = process.env.TUNNEL_URL || 'http://localhost:3000';
+    const targetURL = `${tunnelURL}/api/generate`;
 
-    console.log(`Forwarding request to: ${tunnelURL}/api/generate`);
+    console.log(`Forwarding request to: ${targetURL}`);
     console.log('Payload:', { model: 'llama3.2', prompt, stream: false });
 
-    // Set a longer timeout (e.g. 30 seconds)
-    const controller = new AbortController();
-    const timeout = setTimeout(() => {
-      controller.abort();
-    }, 30000);
-
-    const ollamaResponse = await fetch(`${tunnelURL}/api/generate`, {
+    const ollamaResponse = await fetch(targetURL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -23,9 +18,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         prompt,
         stream: false,
       }),
-      signal: controller.signal,
     });
-    clearTimeout(timeout);
 
     if (!ollamaResponse.ok) {
       const errorText = await ollamaResponse.text();
@@ -36,21 +29,27 @@ export async function POST(req: Request): Promise<NextResponse> {
     const responseData = await ollamaResponse.json();
     console.log('Ollama response data:', responseData);
 
-    return new NextResponse(JSON.stringify({ response: responseData.response }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-    });
+    return new NextResponse(
+      JSON.stringify({ response: responseData.response }),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+    );
   } catch (error: any) {
     console.error('Chat error:', error);
-    return new NextResponse(JSON.stringify({ error: error.message || 'Failed to process request' }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-    });
+    return new NextResponse(
+      JSON.stringify({ error: error.message || 'Failed to process request' }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+    );
   }
 }
