@@ -4,7 +4,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { prompt } = await req.json();
     // Update the tunnel URL if it has changed:
-    const tunnelURL = 'https://426dee5b4ee71d.lhr.life';
+    const tunnelURL = 'https://24398b9c303729.lhr.life';
 
     console.log(`Forwarding request to: ${tunnelURL}/api/generate`);
     console.log('Payload:', { model: 'llama3.2', prompt, stream: false });
