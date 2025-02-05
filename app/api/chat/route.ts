@@ -3,8 +3,14 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { prompt } = await req.json();
-    // Use TUNNEL_URL from environment, or default to localhost:3000 (for local testing)
-    const tunnelURL = process.env.TUNNEL_URL || 'https://2c61be55fb1c08.lhr.life';
+
+    // In production, TUNNEL_URL must be set (for example, 'https://8816c3c5a6dd71.lhr.life')
+    const tunnelURL = process.env.TUNNEL_URL;
+    if (!tunnelURL) {
+      throw new Error('TUNNEL_URL is not set in environment variables.');
+    }
+    
+    console.log(`Using tunnel URL: ${tunnelURL}`);
     const targetURL = `${tunnelURL}/api/generate`;
 
     console.log(`Forwarding request to: ${targetURL}`);
@@ -33,17 +39,20 @@ export async function POST(req: Request): Promise<NextResponse> {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
       },
     });
   } catch (error: any) {
     console.error('Chat error:', error);
-    return new NextResponse(JSON.stringify({ error: error.message || 'Failed to process request' }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-    });
+    return new NextResponse(
+      JSON.stringify({ error: error.message || 'Failed to process request' }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+    );
   }
 }
