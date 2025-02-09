@@ -4,8 +4,8 @@ export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { prompt } = await req.json();
 
-    // In production, TUNNEL_URL must be set (for example, 'https://8816c3c5a6dd71.lhr.life')
-    const tunnelURL = "//bfd207a88112ec.lhr.life";
+    // Set the tunnel URL with the protocol explicitly.
+    const tunnelURL = "https://bfd207a88112ec.lhr.life";
     if (!tunnelURL) {
       throw new Error('TUNNEL_URL is not set in environment variables.');
     }
