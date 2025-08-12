@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { getAllPosts, BlogPost } from '../../lib/blog';
-// import MovingStars from '../components/MovingStars';
+import dynamic from 'next/dynamic';
+
+const MovingStars = dynamic(() => import('../components/MovingStars'), { ssr: false });
 
 export default async function Blog() {
   // Temporarily disable posts loading to fix build
@@ -9,7 +11,7 @@ export default async function Blog() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-orange-900">
-      {/* <MovingStars /> */}
+      <MovingStars />
       
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
