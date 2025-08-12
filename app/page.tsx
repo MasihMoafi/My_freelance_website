@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import ModernNavbar from './components/ModernNavbar';
 import MovingStars from './components/MovingStars';
 import { useMusicContext } from './components/MusicProvider';
-import * as anime from 'animejs';
+// Removed anime.js for now to fix build
 
 const roboto = Roboto({ subsets: ['latin'], weight: '400' });
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '600', '700'] });
@@ -28,78 +28,6 @@ export default function Home() {
     // Split the name into individual letters with spaces preserved
     const letters = name.split('').map((letter) => letter);
     setNameLetters(letters);
-    
-    if (nameRef.current && !animationComplete.current) {
-      const letterElements = nameRef.current.querySelectorAll('.letter');
-      
-      // Initial glitch animation
-      anime({
-        targets: letterElements,
-        opacity: [0, 1],
-        translateY: function() { return [anime.random(-40, 40), 0]; },
-        translateX: function() { return [anime.random(-40, 40), 0]; },
-        scale: function() { return [anime.random(0.5, 1.5), 1]; },
-        rotate: function() { return [anime.random(-15, 15), 0]; },
-        color: ['#ffffff', 'var(--teal)'],
-        textShadow: ['0 0 0px rgba(0, 128, 128, 0)', '0 0 10px rgba(0, 128, 128, 0.8)'],
-        duration: 1800,
-        delay: anime.stagger(80),
-        easing: 'easeOutExpo',
-        complete: function() {
-          animationComplete.current = true;
-          
-          // Subtle continuous animation
-          anime({
-            targets: letterElements,
-            translateY: function() { return anime.random(-3, 3); },
-            translateX: function() { return anime.random(-2, 2); },
-            opacity: function() { return anime.random(0.8, 1); },
-            color: function(el: Element, i: number) {
-              return i % 2 ? ['var(--teal)', '#f9ddb1'] : ['#f9ddb1', 'var(--teal)'];
-            },
-            textShadow: '0 0 5px var(--teal)',
-            easing: 'easeInOutQuad',
-            direction: 'alternate',
-            loop: true,
-            duration: 3000,
-            delay: anime.stagger(100)
-          });
-          
-          // Random glitch effect every few seconds
-          const glitchInterval = setInterval(() => {
-            // Select a random subset of letters to glitch
-            const randomLetters = Array.from(letterElements).filter(() => Math.random() > 0.7);
-            if (randomLetters.length === 0) return;
-            
-            anime({
-              targets: randomLetters,
-              translateX: function() { return anime.random(-10, 10); },
-              translateY: function() { return anime.random(-5, 5); },
-              scale: function() { return anime.random(0.9, 1.1); },
-              color: 'var(--teal)',
-              textShadow: ['0 0 5px var(--teal)', '0 0 15px var(--teal)', '0 0 5px var(--teal)'],
-              duration: 200,
-              easing: 'steps(2)',
-              complete: function(anim: any) {
-                anime({
-                  targets: anim.animatables.map((a: any) => a.target),
-                  translateX: 0,
-                  translateY: 0,
-                  scale: 1,
-                  color: '#f9ddb1',
-                  textShadow: '0 0 5px var(--teal)',
-                  duration: 300,
-                  easing: 'easeOutExpo'
-                });
-              }
-            });
-          }, 2000);
-
-          // Cleanup function to clear interval
-          return () => clearInterval(glitchInterval);
-        }
-      });
-    }
   }, []);
 
   const handleThemeChange = (theme: 'sunny' | 'gloomy') => {
