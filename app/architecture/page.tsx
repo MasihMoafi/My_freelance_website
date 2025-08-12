@@ -174,7 +174,7 @@ export default function Architecture() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className={`relative w-full h-full flex justify-center items-center ${isFullScreen ? 'pl-0' : isSidebarMinimized ? 'pl-12' : 'pl-64'} transition-all duration-300 ease-in-out`}
+        className={`relative w-full h-full flex justify-center items-center ${isFullScreen ? 'pl-0 pt-0' : isSidebarMinimized ? 'pl-12 pt-16' : 'pl-64 pt-16'} transition-all duration-300 ease-in-out`}
         onClick={handleZoom}
         onMouseMove={handleMouseMove}
       >
@@ -235,13 +235,27 @@ export default function Architecture() {
       </div>
 
       {/* Back to Main Page Button */}
-      <Link
-        href="/"
-        className={`absolute top-8 ${isFullScreen ? 'left-8' : isSidebarMinimized ? 'left-16' : 'left-72'} z-20 text-white bg-gray-700 p-2 rounded-full ${isZoomed ? 'hidden' : ''}`}
-        title="Back to Main Page"
-      >
-        🏠
-      </Link>
+      {!isFullScreen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className={`fixed top-0 ${isSidebarMinimized ? 'left-12' : 'left-64'} right-0 z-30 bg-black/80 backdrop-blur-lg border-b border-white/10`}
+        >
+          <div className="flex items-center justify-between h-16 px-6">
+            <Link
+              href="/"
+              className="flex items-center space-x-2 text-white hover:text-teal-400 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span>Back to Home</span>
+            </Link>
+            <h1 className="text-xl font-bold text-white">Architecture Portfolio</h1>
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }

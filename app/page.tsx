@@ -2,152 +2,220 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Roboto } from 'next/font/google';
-import { useState, useRef, useEffect } from 'react'; // Added useEffect
-import ThemeSelector from './ThemeSelector'; // Correct import path
+import { Roboto, Inter } from 'next/font/google';
+import { useState, useRef, useEffect } from 'react';
+import ModernNavbar from './components/ModernNavbar';
+import MovingStars from './components/MovingStars';
+import { useMusicContext } from './components/MusicProvider';
+// @ts-ignore
+import anime from 'animejs';
 
-const roboto = Roboto({ subsets: ['latin'], weight: '400' }); // Regular weight for subtitle
+const roboto = Roboto({ subsets: ['latin'], weight: '400' });
+const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '600', '700'] });
 
-const sunnyBackgrounds = ['/sunny1.png'];
-const gloomyBackgrounds = ['/gloomy.png'];
-const darkGloomyBackgrounds = ['/gloomy2.png']; // Really gloomy background
 
 export default function Home() {
-  const [background, setBackground] = useState('');
-  const [isHoveringProjects, setIsHoveringProjects] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState<'sunny' | 'gloomy'>('sunny');
+  const { audioRef, isMuted, setIsMuted, toggleMute, playMusic } = useMusicContext();
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const animationComplete = useRef(false);
+  const [nameLetters, setNameLetters] = useState<string[]>([]);
+  const name = "Masih Moafi";
 
-  // Set a default theme when the component mounts
   useEffect(() => {
-    handleThemeChange('sunny'); // Set the default theme to 'sunny'
+    setMounted(true);
+
+    // Split the name into individual letters with spaces preserved
+    const letters = name.split('').map((letter) => letter);
+    setNameLetters(letters);
+    
+    if (nameRef.current && !animationComplete.current) {
+      const letterElements = nameRef.current.querySelectorAll('.letter');
+      
+      // Initial glitch animation
+      anime({
+        targets: letterElements,
+        opacity: [0, 1],
+        translateY: function() { return [anime.random(-40, 40), 0]; },
+        translateX: function() { return [anime.random(-40, 40), 0]; },
+        scale: function() { return [anime.random(0.5, 1.5), 1]; },
+        rotate: function() { return [anime.random(-15, 15), 0]; },
+        color: ['#ffffff', 'var(--teal)'],
+        textShadow: ['0 0 0px rgba(0, 128, 128, 0)', '0 0 10px rgba(0, 128, 128, 0.8)'],
+        duration: 1800,
+        delay: anime.stagger(80),
+        easing: 'easeOutExpo',
+        complete: function() {
+          animationComplete.current = true;
+          
+          // Subtle continuous animation
+          anime({
+            targets: letterElements,
+            translateY: function() { return anime.random(-3, 3); },
+            translateX: function() { return anime.random(-2, 2); },
+            opacity: function() { return anime.random(0.8, 1); },
+            color: function(el: Element, i: number) {
+              return i % 2 ? ['var(--teal)', '#f9ddb1'] : ['#f9ddb1', 'var(--teal)'];
+            },
+            textShadow: '0 0 5px var(--teal)',
+            easing: 'easeInOutQuad',
+            direction: 'alternate',
+            loop: true,
+            duration: 3000,
+            delay: anime.stagger(100)
+          });
+          
+          // Random glitch effect every few seconds
+          const glitchInterval = setInterval(() => {
+            // Select a random subset of letters to glitch
+            const randomLetters = Array.from(letterElements).filter(() => Math.random() > 0.7);
+            if (randomLetters.length === 0) return;
+            
+            anime({
+              targets: randomLetters,
+              translateX: function() { return anime.random(-10, 10); },
+              translateY: function() { return anime.random(-5, 5); },
+              scale: function() { return anime.random(0.9, 1.1); },
+              color: 'var(--teal)',
+              textShadow: ['0 0 5px var(--teal)', '0 0 15px var(--teal)', '0 0 5px var(--teal)'],
+              duration: 200,
+              easing: 'steps(2)',
+              complete: function(anim: any) {
+                anime({
+                  targets: anim.animatables.map((a: any) => a.target),
+                  translateX: 0,
+                  translateY: 0,
+                  scale: 1,
+                  color: '#f9ddb1',
+                  textShadow: '0 0 5px var(--teal)',
+                  duration: 300,
+                  easing: 'easeOutExpo'
+                });
+              }
+            });
+          }, 2000);
+
+          // Cleanup function to clear interval
+          return () => clearInterval(glitchInterval);
+        }
+      });
+    }
   }, []);
 
-  const handleThemeChange = (theme: 'sunny' | 'gloomy' | 'dark-gloomy') => {
-    const backgrounds =
-      theme === 'sunny'
-        ? sunnyBackgrounds
-        : theme === 'gloomy'
-        ? gloomyBackgrounds
-        : darkGloomyBackgrounds;
-    const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-    setBackground(randomBackground);
-    setIsInitialLoad(false); // Disable initial load effect after first theme change
+  const handleThemeChange = (theme: 'sunny' | 'gloomy') => {
+    setCurrentTheme(theme);
+    // Don't change music on theme change
   };
 
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !audioRef.current.muted;
-      setIsMuted(audioRef.current.muted);
+  const getBackgroundStyle = () => {
+    switch (currentTheme) {
+      case 'sunny':
+        return '#ffffff'; // White background for day
+      case 'gloomy':
+        return '#1f2937'; // Dark background for night
+      default:
+        return '#1f2937';
     }
   };
 
+  const getTextColor = () => {
+    return currentTheme === 'sunny' ? 'text-black' : 'text-white';
+  };
+
+  const getAccentColor = () => {
+    return currentTheme === 'sunny' ? 'text-teal-600' : 'text-orange-300'; // Teal is opposite of orange
+  };
+
+  const getButtonClass = () => {
+    return currentTheme === 'sunny' ? 'btn-primary-inverted' : 'btn-primary';
+  };
+
+  const getSecondaryButtonClass = () => {
+    return currentTheme === 'sunny' ? 'btn-secondary-inverted' : 'btn-secondary';
+  };
+
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
-      {/* Background Image with Animation */}
-      {background && (
+    <div className="min-h-screen relative overflow-hidden" style={{background: getBackgroundStyle()}}>
+      <ModernNavbar onThemeChange={handleThemeChange} currentTheme={currentTheme} />
+      
+      <MovingStars key={currentTheme} starColor={currentTheme === 'sunny' ? '#000000' : '#ffffff'} />
+
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         <motion.div
-          key={background} // Re-render on background change for seamless transition
-          initial={{ filter: 'blur(2px)' }} // Starts at 85-90% clarity
-          animate={{ filter: 'blur(8px)' }} // Ends more blurred
-          transition={{ duration: 1, ease: 'easeInOut' }} // Smooth transition
-          className="absolute inset-0 z-0"
+          initial={{ opacity: 0, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="text-center"
         >
-          <Image
-            src={background} // Randomly selected background
-            alt="Background"
-            fill
-            className="object-cover object-top" // Show only the top half
-            quality={100}
-          />
-        </motion.div>
-      )}
-
-      {/* Overlay (without backdrop-blur) */}
-      <div className="absolute inset-0 bg-black/50 z-0"></div>
-
-      {/* Name with Cool Animation */}
-      <motion.h1
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="text-[7.6rem] font-bold text-gray-100 leading-none z-10 text-center"
-      >
-        Masih Moafi
-      </motion.h1>
-
-      {/* Subtitle with Cool Animation */}
-      <motion.p
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1 }}
-        className={`text-xl text-gray-200 mt-4 px-16 text-center z-10 max-w-2xl font-medium ${roboto.className}`}
-      >
-        Welcome to my website where I showcase my <span className="font-semibold">talents</span> and{' '}
-        <span className="font-semibold">versatility</span>!
-      </motion.p>
-
-      {/* Navigation Links with Fade-In Animation */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="absolute top-8 left-8 right-8 flex justify-between z-10"
-      >
-        {/* Projects Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => setIsHoveringProjects(!isHoveringProjects)} // Toggle dropdown on click
-            className="text-xl text-gray-200 hover:text-white transition-colors"
+          <h1
+            ref={nameRef}
+            className={`text-6xl md:text-8xl lg:text-9xl font-bold leading-none mb-6 ${inter.className} ${getTextColor()}`}
           >
-            Projects
-          </button>
+            {nameLetters.map((letter, index) => (
+              <span 
+                key={index} 
+                className={`letter ${letter === ' ' ? 'mr-2' : ''}`}
+              >
+                {letter}
+              </span>
+            ))}
+          </h1>
 
-          {/* Dropdown */}
-          {isHoveringProjects && (
+          <motion.div
+            initial={{ opacity: 0, filter: 'blur(5px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 1.2, delay: 1.2 }}
+            className="space-y-4"
+          >
+            <p className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed ${inter.className} font-light ${getTextColor()}`}>
+              Welcome to my website where I showcase my{' '}
+              <span className={`font-semibold ${getAccentColor()}`}>creativity</span>,{' '}
+              <span className={`font-semibold ${getAccentColor()}`}>versatility</span> and{' '}
+              <span className={`font-semibold ${getAccentColor()}`}>technical prowess</span>!
+            </p>
+            
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="absolute top-8 left-0 bg-black/50 p-2 rounded-lg flex flex-col gap-1 backdrop-blur-sm border border-gray-700 shadow-lg w-48" // Adjusted padding and gap
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.8 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8"
             >
-              <a
-                href="/architecture"
-                className="text-gray-200 hover:bg-gray-700/50 px-3 py-1 rounded-md transition-colors" // Adjusted padding
+              <motion.a
+                href="/about"
+                whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(0,128,128,0.3)' }}
+                whileTap={{ scale: 0.95 }}
+                className={getButtonClass()}
               >
-                Architecture
-              </a>
-              <a
-                href="https://github.com/MasihMoafi?tab=repositories&q=&type=&language=&sort=name"
-                className="text-gray-200 hover:bg-gray-700/50 px-3 py-1 rounded-md transition-colors" // Link updated to GitHub
+                Learn More About Me
+              </motion.a>
+              
+              <motion.a
+                href="/projects"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={getSecondaryButtonClass()}
               >
-                Machine Learning
-              </a>
+                View My Work
+              </motion.a>
             </motion.div>
-          )}
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* About Link */}
-        <a href="/about" className="text-xl text-gray-200 hover:text-white transition-colors">
-          About
-        </a>
-      </motion.div>
+      </div>
 
-      {/* Theme Selector (Moved Below the Navigation Links) */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="absolute top-24 right-8 z-20" // Adjusted position
-      >
-        <ThemeSelector onThemeChange={handleThemeChange} />
-      </motion.div>
-
-      {/* Music Toggle Button (Moved to Bottom-Left Corner) */}
       <button
         onClick={toggleMute}
-        className="absolute bottom-8 left-8 z-20 text-white bg-gray-700 p-2 rounded-full" // Changed to left-8
+        className={`absolute bottom-8 left-8 z-20 p-2 rounded-full transition-colors ${
+          currentTheme === 'sunny' 
+            ? 'text-black bg-gray-200 hover:bg-gray-300' 
+            : 'text-white bg-gray-700 hover:bg-gray-600'
+        }`}
         title={isMuted ? 'Unmute' : 'Mute'}
       >
         {isMuted ? (
@@ -163,7 +231,8 @@ export default function Home() {
             strokeLinejoin="round"
           >
             <path d="M11 5L6 9H2v6h4l5 4V5z" />
-            <line x1="1" y1="1" x2="23" y2="23" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
           </svg>
         ) : (
           <svg
@@ -178,13 +247,11 @@ export default function Home() {
             strokeLinejoin="round"
           >
             <path d="M11 5L6 9H2v6h4l5 4V5z" />
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
           </svg>
         )}
       </button>
 
-      {/* Audio Element */}
-      <audio ref={audioRef} src="/2.mp4" loop autoPlay />
     </div>
   );
 }
