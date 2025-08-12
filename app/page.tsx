@@ -7,8 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import ModernNavbar from './components/ModernNavbar';
 import MovingStars from './components/MovingStars';
 import { useMusicContext } from './components/MusicProvider';
-// @ts-ignore
-import anime from 'animejs';
+import anime from 'animejs/lib/anime.es.js';
 
 const roboto = Roboto({ subsets: ['latin'], weight: '400' });
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '600', '700'] });
