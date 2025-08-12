@@ -2,15 +2,14 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Roboto, Inter } from 'next/font/google';
+// Using system fonts to avoid Google Fonts issues
 import { useState, useRef, useEffect } from 'react';
 import ModernNavbar from './components/ModernNavbar';
 import MovingStars from './components/MovingStars';
 import { useMusicContext } from './components/MusicProvider';
 // Removed anime.js for now to fix build
 
-const roboto = Roboto({ subsets: ['latin'], weight: '400' });
-const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '600', '700'] });
+// Using system fonts
 
 
 export default function Home() {
@@ -82,7 +81,7 @@ export default function Home() {
         >
           <h1
             ref={nameRef}
-            className={`text-6xl md:text-8xl lg:text-9xl font-bold leading-none mb-6 ${inter.className} ${getTextColor()}`}
+            className={`text-6xl md:text-8xl lg:text-9xl font-bold leading-none mb-6 font-sans ${getTextColor()}`}
           >
             {nameLetters.map((letter, index) => (
               <span 
@@ -100,7 +99,7 @@ export default function Home() {
             transition={{ duration: 1.2, delay: 1.2 }}
             className="space-y-4"
           >
-            <p className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed ${inter.className} font-light ${getTextColor()}`}>
+            <p className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed font-sans font-light ${getTextColor()}`}>
               Welcome to my website where I showcase my{' '}
               <span className={`font-semibold ${getAccentColor()}`}>creativity</span>,{' '}
               <span className={`font-semibold ${getAccentColor()}`}>versatility</span> and{' '}
