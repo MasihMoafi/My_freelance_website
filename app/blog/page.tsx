@@ -4,8 +4,7 @@ import { getAllPosts, BlogPost } from '../../lib/blog';
 import ClientMovingStars from '../components/ClientMovingStars';
 
 export default async function Blog() {
-  // Temporarily disable posts loading to fix build
-  const posts: BlogPost[] = [];
+  const posts = await getAllPosts();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-orange-900">
