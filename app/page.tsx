@@ -14,7 +14,7 @@ import { useMusicContext } from './components/MusicProvider';
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<'sunny' | 'gloomy'>('sunny');
+  const [currentTheme, setCurrentTheme] = useState<'sunny' | 'gloomy'>('gloomy');
   const { audioRef, isMuted, setIsMuted, toggleMute, playMusic } = useMusicContext();
   const nameRef = useRef<HTMLHeadingElement>(null);
   const animationComplete = useRef(false);
