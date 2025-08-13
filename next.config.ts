@@ -5,9 +5,11 @@ const nextConfig = {
       {
         source: '/api/:path*',
         headers: [
-          { 
-            key: 'Access-Control-Allow-Origin', 
-            value: 'http://localhost:3000' 
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: process.env.VERCEL_URL 
+              ? `https://${process.env.VERCEL_URL}` 
+              : 'http://localhost:3000'
           },
           {
             key: 'Access-Control-Allow-Methods',
