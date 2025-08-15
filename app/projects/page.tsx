@@ -10,12 +10,22 @@ const projects = [
   {
     id: 1,
     title: 'A-Modular-Kingdom',
-    githubUrl: 'https://github.com/MasihMoafi/A-Modular-Kingdom'
+    description: 'The Ultimate AI Multi-Agent Foundation',
+    longDescription: 'A comprehensive infrastructure for sophisticated multi-agent AI systems. Features hierarchical Council Chamber and sequential Gym workflows, unified MCP foundation with RAG, memory, vision, code execution, and more.',
+    githubUrl: 'https://github.com/MasihMoafi/A-Modular-Kingdom',
+    blogUrl: '/blog/a-modular-kingdom',
+    tags: ['AI', 'Multi-Agent', 'Python', 'RAG', 'MCP'],
+    featured: true,
+    image: '/projects/a-modular-kingdom.png'
   },
   {
     id: 2,
     title: 'VoiceCommander',
-    githubUrl: 'https://github.com/MasihMoafi/Voice-commander'
+    description: 'Advanced Voice Control System',
+    longDescription: 'Intelligent voice command interface with speech recognition and natural language processing capabilities.',
+    githubUrl: 'https://github.com/MasihMoafi/Voice-commander',
+    tags: ['Voice AI', 'NLP', 'Python'],
+    featured: false
   }
 ];
 

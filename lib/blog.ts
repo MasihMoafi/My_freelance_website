@@ -1,7 +1,5 @@
 'use server';
 
-'use server';
-
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -36,9 +34,15 @@ export async function getAllPosts(): Promise<BlogPost[]> {
         const { data, content } = matter(fileContents);
 
         // Convert markdown content to HTML
-        const processedContent = await remark()
-          .use(html)
-          .process(content);
+        let processedContent;
+        try {
+          processedContent = await remark()
+            .use(html)
+            .process(content);
+        } catch (error) {
+          console.error(`Error processing markdown for ${name}:`, error);
+          processedContent = { toString: () => content }; // Fallback to raw content
+        }
 
         return {
           slug,

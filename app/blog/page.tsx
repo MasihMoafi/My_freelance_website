@@ -1,10 +1,52 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { getAllPosts, BlogPost } from '../../lib/blog';
+import { useState, useEffect } from 'react';
 import ClientMovingStars from '../components/ClientMovingStars';
 
-export default async function Blog() {
-  const posts = await getAllPosts();
+interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  author: string;
+  tags: string[];
+  content: string;
+}
+
+export default function Blog() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('/api/blog');
+        if (response.ok) {
+          const postsData = await response.json();
+          setPosts(postsData);
+        }
+      } catch (error) {
+        console.error('Error loading blog posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-orange-900">
+        <ClientMovingStars />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-white text-xl">Loading...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-orange-900">

@@ -1,7 +1,9 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { getPostBySlug, getAllPosts } from '../../../lib/blog';
-import MovingStars from '../../components/MovingStars';
+import { useState, useEffect } from 'react';
+import ClientMovingStars from '../../components/ClientMovingStars';
 import { notFound } from 'next/navigation';
 
 interface BlogPostPageProps {
@@ -10,22 +12,70 @@ interface BlogPostPageProps {
   }>;
 }
 
-export async function generateStaticParams() {
-  // Temporarily disable static generation to fix build
-  return [];
+interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  author: string;
+  tags: string[];
+  content: string;
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
+export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [slug, setSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getSlug = async () => {
+      const resolvedParams = await params;
+      setSlug(resolvedParams.slug);
+    };
+    getSlug();
+  }, [params]);
+
+  useEffect(() => {
+    if (!slug) return;
+    
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(`/api/blog/${slug}`);
+        if (response.ok) {
+          const postData = await response.json();
+          setPost(postData);
+        } else {
+          setPost(null);
+        }
+      } catch (error) {
+        console.error('Error loading blog post:', error);
+        setPost(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-orange-900">
+        <ClientMovingStars />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-white text-xl">Loading...</div>
+        </div>
+      </div>
+    );
+  }
 
   if (!post) {
-    notFound();
+    return notFound();
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-orange-900">
-      <MovingStars />
+      <ClientMovingStars />
       
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
