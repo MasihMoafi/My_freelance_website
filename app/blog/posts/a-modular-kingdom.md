@@ -1,134 +1,53 @@
 ---
 title: "A-Modular-Kingdom: The Foundation for AI-Powered Multi-Agent Systems"
-date: "2025-01-14"
-excerpt: "A comprehensive AI infrastructure that provides the building blocks for sophisticated multi-agent workflows. Built with modularity and standardization at its core, it seamlessly connects different multi-agent architectures through a unified foundation."
+date: "2025-08-17"
+excerpt: "A comprehensive AI infrastructure providing building blocks for sophisticated multi-agent workflows. Built with modularity and standardization at its core, seamlessly connecting different multi-agent architectures through a unified foundation."
 author: "Masih Moafi"
 tags: ["AI", "Multi-Agent Systems", "LLM", "RAG", "MCP", "Python", "Automation"]
 ---
 
 # 🏰 A-Modular-Kingdom
 
-**The Foundation for AI-Powered Multi-Agent Systems**
+> **The Foundation for AI-Powered Multi-Agent Systems**
 
-A-Modular-Kingdom is a comprehensive AI infrastructure that provides the building blocks for sophisticated multi-agent workflows. Built with modularity and standardization at its core, it seamlessly connects different multi-agent architectures through a unified foundation.
+A comprehensive AI infrastructure providing building blocks for sophisticated multi-agent workflows. Built with modularity and standardization at its core, seamlessly connecting different multi-agent architectures through a unified foundation.
 
-## 🎯 What Makes This Special
+## 📑 Table of Contents
 
-This isn't just another AI project - it's a **foundation** that enables:
+- [✨ Features](#-features)
+- [🏗️ Architecture](#️-architecture)
+- [🚀 Quick Start](#-quick-start)
+- [🛠️ Core Components](#️-core-components)
+  - [📡 Host.py - MCP Server](#-hostpy---mcp-server)
+  - [💬 Main.py - Interactive Client](#-mainpy---interactive-client)
+  - [📚 RAG System](#-rag-system)
+  - [🧠 Memory System](#-memory-system)
+- [🤖 Multi-Agent Systems](#-multi-agent-systems)
+  - [👑 Council Chamber](#-council-chamber)
+  - [💪 Gym](#-gym)
+- [🔧 Tools & Extensions](#-tools--extensions)
+- [📝 Commands Reference](#-commands-reference)
+- [🎯 CLI Integration](#-cli-integration)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
 
-- **🔗 Seamless Integration**: Multi-agent systems connect to `host.py` for instant access to long-term memory, RAG, and powerful tools
-- **🏗️ Modular Architecture**: Build hierarchical (Council Chamber) or sequential (Gym) workflows on the same foundation  
-- **🛠️ Rich Toolset**: Vision, code execution, browser automation, web search, and more - all standardized and ready to use
-- **📚 Smart Memory**: Persistent memory and RAG systems that work across all your agents
-- **🌐 ACP Communication**: Agents communicate through ACP servers for reliable, structured interactions
+## ✨ Features
 
-## 🏛️ Multi-Agent Systems
-
-### 👑 Council Chamber (Hierarchical)
-A sophisticated royal court where agents have defined roles and hierarchy:
-
-![Council Chamber Architecture](https://github.com/user-attachments/assets/4cf13c5c-c66a-4e5d-b585-35d37312765a)
-
-```
-👑 King (User) → 👸 Queen Juliette → 🔥 Sexy Teacher → 🤖 Code Agent
-```
-
-**Features:**
-- **Hierarchical validation**: Each level validates the work of subordinates
-- **Smart delegation**: Intelligent routing based on task complexity  
-- **MCP tool integration**: Sexy Teacher uses all foundation tools
-- **Code-first approach**: Code Agent writes solutions as executable code using smolagents
-
-### 🏋️ Gym (Sequential) 
-A fitness-focused multi-agent system with specialized roles:
-
-![Gym System](https://github.com/user-attachments/assets/19f8d576-4267-428a-a3ff-2bcb7dab7c85)
-
-```
-Interviewer → Plan Generator →  → Nutrition Agent
-```
-
-**Features:**
-- **CrewAI powered**: Built on the CrewAI framework for sequential workflows
-- **Specialized agents**: Each agent has a specific fitness domain expertise
-- **Web interface**: Modern chat interface for user interaction
-- **Flexible LLM support**: Works with local Ollama or cloud providers
-
-## 🧠 Core Infrastructure
-
-### 🖥️ Host.py - The Central Hub
-The heart of A-Modular-Kingdom, providing MCP (Model Context Protocol) access to:
-
-- **📚 RAG System**: Advanced document retrieval with multiple strategies (V1, V2, V3)
-- **🧠 Memory Core**: Persistent conversation and context memory
-- **👁️ Vision Tools**: Image analysis and processing capabilities  
-- **⚡ Code Execution**: Safe Python code execution environment
-- **🌐 Browser Automation**: Web interaction through Playwright
-- **🔍 Web Search**: Intelligent web search capabilities
-
-### 🔧 Tool Ecosystem
-
-| Tool | Purpose | Status |
-| --- | --- | --- |
-| **[RAG](https://github.com/MasihMoafi/A-Modular-Kingdom/tree/main/A-Modular-Kingdom/rag)** | Document retrieval & knowledge | ✅ Multiple versions |
-| **[Memory](https://github.com/MasihMoafi/A-Modular-Kingdom/tree/main/A-Modular-Kingdom/memory)** | Long-term conversation storage | ✅ Fully integrated |
-| **[Vision](https://github.com/MasihMoafi/A-Modular-Kingdom/blob/main/A-Modular-Kingdom/tools/vision.py)** | Image analysis | ✅ Ready to use |
-| **[Code Exec](https://github.com/MasihMoafi/A-Modular-Kingdom/blob/main/A-Modular-Kingdom/tools/code_exec.py)** | Safe Python execution | ✅ Sandboxed |
-| **[Browser](https://github.com/MasihMoafi/A-Modular-Kingdom/blob/main/A-Modular-Kingdom/tools/browser_agent.py)** | Web automation | ✅ Playwright powered |
-| **[Web Search](https://github.com/MasihMoafi/A-Modular-Kingdom/blob/main/A-Modular-Kingdom/tools/web_search.py)** | Information retrieval | ✅ Integrated |
-| **Structured Output** | Formatted responses | 🔄 Coming soon |
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Python 3.8+
-- Ollama (for local LLM)
-- UV package manager (recommended)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone [repository-url]
-cd A-Modular-Kingdom
-
-# Install dependencies
-uv sync
-
-# Start the foundation
-python agent/host.py
-```
-
-### Launch Multi-Agent Systems
-
-**Council Chamber:**
-```bash
-# Terminal 1: Start Code Agent
-python council_chamber/code_agent_server.py
-
-# Terminal 2: Start Sexy Teacher  
-python council_chamber/enhanced_sexy_teacher_server.py
-
-# Terminal 3: Start Queen Juliette
-python council_chamber/queen_juliette.py
-```
-
-**Gym:**
-```bash
-cd gym/
-python setup.py
-python main.py
-```
+- **🔗 Seamless Integration** - Multi-agent systems connect to `host.py` for instant access to long-term memory, RAG, and powerful tools
+- **🏗️ Modular Architecture** - Build hierarchical or sequential workflows on the same foundation  
+- **🛠️ Rich Toolset** - Vision, code execution, browser automation, web search, and more
+- **📚 Smart Memory** - Persistent memory and RAG systems working across all agents
+- **🌐 MCP Protocol** - Model Context Protocol for reliable, structured interactions
+- **🎤 Voice Control** - Speech-to-text and text-to-speech capabilities
+- **📂 Transferable RAG** - Work with any document directory seamlessly
 
 ## 🏗️ Architecture
 
-A-Modular-Kingdom follows a **modular foundation** approach:
-
-![A-Modular-Kingdom Architecture](https://github.com/user-attachments/assets/fe937a83-07df-4927-a1f0-58d3a51bf1fb)
+<img width="2275" height="1183" alt="architecture" src="https://github.com/user-attachments/assets/6e4eaca7-0cae-43b8-a60d-fc8bdfe8c77e" />
 
 ```
 ┌─────────────────────────────────────┐
-│          Multi-Agent Layer          │
+│       Multi-Agent Layer             │
 │  ┌─────────────┐  ┌─────────────┐   │
 │  │   Council   │  │     Gym     │   │
 │  │   Chamber   │  │             │   │
@@ -137,7 +56,7 @@ A-Modular-Kingdom follows a **modular foundation** approach:
            │                │
            ▼                ▼
 ┌─────────────────────────────────────┐
-│         Foundation Layer            │
+│        Foundation Layer             │
 │  ┌─────────┐ ┌─────────┐ ┌────────┐ │
 │  │   RAG   │ │ Memory  │ │ Tools  │ │
 │  └─────────┘ └─────────┘ └────────┘ │
@@ -145,27 +64,243 @@ A-Modular-Kingdom follows a **modular foundation** approach:
 └─────────────────────────────────────┘
 ```
 
-**Key Principles:**
-- **Standard Interface**: All multi-agent systems use the same foundation
-- **ACP Communication**: Reliable agent-to-agent communication  
-- **Tool Sharing**: Common tools available to all agents
-- **Memory Persistence**: Shared memory across sessions
+## 🚀 Quick Start
 
-## 📖 Documentation
+### Prerequisites
 
-- **[RAG Documentation](https://github.com/MasihMoafi/A-Modular-Kingdom/blob/main/A-Modular-Kingdom/rag/RAG_Documentation_V1.md)**: Multiple RAG implementations and evaluations
-- **[Memory System](https://github.com/MasihMoafi/A-Modular-Kingdom/blob/main/A-Modular-Kingdom/memory/MEMORY_SYSTEM_DOCUMENTATION.md)**: Conversation and context persistence  
-- **[Tool Documentation](https://github.com/MasihMoafi/A-Modular-Kingdom/tree/main/A-Modular-Kingdom/tools)**: Individual tool guides
+- Python 3.8+
+- Ollama (for local LLM)
+- UV package manager (recommended)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/MasihMoafi/A-Modular-Kingdom.git
+cd A-Modular-Kingdom
+
+# Install dependencies with UV
+uv sync
+
+# Or with pip
+pip install -r requirements.txt
+```
+
+### Basic Usage
+
+```bash
+# Start the MCP server
+python agent/host.py
+
+# In another terminal, start the interactive client
+python agent/main.py
+
+# Or use UV
+uv run agent/main.py
+```
+
+## 🛠️ Core Components
+
+### 📡 Host.py - MCP Server
+
+The central hub providing MCP (Model Context Protocol) access to all capabilities:
+
+**Available Tools:**
+- `save_memory` - Direct memory storage
+- `search_memories` - Semantic memory search  
+- `query_knowledge_base` - RAG document search
+- `web_search` - Current information retrieval
+- `browser_automation` - Web interaction
+- `code_execute` - Safe Python execution
+- `analyze_media` - Image/video analysis
+- `text_to_speech` - TTS with multiple engines
+- `speech_to_text` - STT with Whisper
+
+### 💬 Main.py - Interactive Client
+
+Feature-rich chat interface with intelligent tool selection:
+
+**Key Features:**
+- Auto-completion for @ mentions and / commands
+- Direct memory saving with # prefix
+- Automatic tool selection (memory vs RAG vs web)
+- Document integration via @ mentions
+- Interactive command interface
+
+### 📚 RAG System
+
+Three versions of RAG implementation with different strategies:
+
+- **V1** - Basic Chroma + BM25 ensemble
+- **V2** - FAISS + CrossEncoder reranking  
+- **V3** - Custom indexes + RRF fusion + LLM reranking
+
+### 🧠 Memory System
+
+Mem0-based persistent memory with ChromaDB:
+- Automatic fact extraction
+- Semantic search capabilities
+- BM25 fallback for robustness
+- Memory management commands
+  
+---
+
+## 🤖 Multi-Agent Systems
+
+### 👑 Council Chamber
+
+<img width="1672" height="1426" alt="architecture" src="https://github.com/user-attachments/assets/35ed7188-6d55-4ed1-9298-cbb5ac20bbb5" />
+
+<img width="338" height="402" alt="architecture_2" src="https://github.com/user-attachments/assets/52aa3fe6-22a8-4e96-ada1-0d206a7619ee" />
+
+Hierarchical multi-agent system with defined roles:
+
+```
+👑 King (User) → 👸 Queen Juliette → 🔥 Sexy Teacher → 🤖 Code Agent
+```
+
+**Features:**
+- Hierarchical validation
+- Smart task delegation
+- MCP tool integration
+- Code-first solutions with smolagents
+  
+---
+
+### 💪 Gym
+
+<img width="2556" height="1375" alt="Screenshot from 2025-07-14 17-57-24" src="https://github.com/user-attachments/assets/32e9a3c8-3553-49e4-b106-5fc26d2d946d" />
+
+Sequential fitness-focused multi-agent system:
+
+```
+Interviewer → Plan Generator → Nutrition Agent
+```
+
+**Features:**
+- CrewAI powered workflows
+- Specialized fitness agents
+- Web interface
+- Flexible LLM support
+
+## 🔧 Tools & Extensions
+
+| Tool | Description | Note |
+|------|-------------|--------|
+| **RAG** | Document retrieval | ✅ 3 versions |
+| **Memory** | Long-term storage | ✅ Integrated |
+| **Vision** | Image analysis | ✅ Ready |
+| **Code Exec** | Python sandbox | ✅ Secure |
+| **Browser** | Web automation | ✅ Playwright |
+| **Web Search** | Info retrieval | ✅ Duckduckgo |
+| **TTS** | Text-to-speech | ✅ Kokoro |
+| **STT** | Speech-to-text | ✅ Whisper |
+
+## 📝 Commands Reference
+
+### Interactive Commands
+
+```bash
+# Memory Management
+#message          - Save directly to memory
+/memory           - List and manage memories
+
+# Document Access  
+@filename         - Reference documents
+/files            - Show available documents
+
+# RAG Search
+/rag <query> [version] [path]  - Search documents
+  Examples:
+    /rag "machine learning"           # Search current dir with v2
+    /rag "AI research" v3            # Use v3 in current dir
+    /rag "python" v1 /docs           # Use v1 in /docs
+
+# Tools & Help
+/tools            - List available tools
+/browser_automation - Run browser tasks
+/help             - Show help information
+```
+
+### Keyboard Shortcuts
+
+- `@` - Trigger document completion dropdown
+- `/` - Trigger command completion dropdown
+- `\` at line end - Continue to next line
+
+## 🎯 CLI Integration
+
+**Claude code and Gemini-cli both connect to host.py as clients.**
+
+### Gemini CLI Extension
+
+<img width="1785" height="1287" alt="Screenshot from 2025-08-16 01-10-56" src="https://github.com/user-attachments/assets/edfc887b-9f33-4b84-89e2-1113881b38f4" />
+
+Create `gemini-extension.json`:
+
+```json
+{
+  "name": "a-modular-kingdom",
+  "version": "1.0.0",
+  "description": "AI Multi-Agent System with transferable RAG",
+  "mcpServers": {
+    "unified_knowledge_agent": {
+      "command": "python",
+      "args": ["path/to/agent/host.py"]
+    }
+  },
+  "contextFileName": "KINGDOM.md"
+}
+```
+
+### RAG CLI Command
+
+Use the `/rag` command for document search:
+
+```bash
+/rag <query> [version] [path]
+
+# Default: current working directory, version 2
+/rag "search term"
+
+# Specify version
+/rag "search term" v3
+
+# Custom path
+/rag "search term" v2 /path/to/docs
+```
 
 ## 🤝 Contributing
 
-A-Modular-Kingdom grows through experimentation and iteration. Each multi-agent system teaches us more about effective AI coordination.
+We welcome contributions! Areas of interest:
 
-## 🔗 External Resources
+1. **New Multi-Agent Architectures** - Implement novel agent coordination patterns
+2. **Tool Development** - Add new MCP tools
+3. **RAG Improvements** - Enhance retrieval strategies
+4. **Memory Optimizations** - Better fact extraction and storage
 
-- **[ACP Tutorial](https://www.deeplearning.ai/short-courses/acp-agent-communication-protocol/)**  
-- **[Smolagents Paper](https://arxiv.org/pdf/2402.01030)**  
-- **[MCP Documentation](https://modelcontextprotocol.io/)**
+### Development Setup
+
+```bash
+# Fork and clone
+git clone https://github.com/yourusername/A-Modular-Kingdom.git
+
+# Create branch
+git checkout -b feature/your-feature
+
+# Make changes and test
+python -m pytest tests/
+
+# Commit with descriptive message
+git commit -m "feat: add new capability"
+
+# Push and create PR
+git push origin feature/your-feature
+```
+
+## 📜 License
+
+MIT License - See [LICENSE](LICENSE) for details
 
 ---
 
