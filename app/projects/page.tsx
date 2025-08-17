@@ -10,21 +10,21 @@ const projects = [
   {
     id: 1,
     title: 'A-Modular-Kingdom',
-    description: 'The Ultimate AI Multi-Agent Foundation',
-    longDescription: 'A comprehensive infrastructure for sophisticated multi-agent AI systems. Features hierarchical Council Chamber and sequential Gym workflows, unified MCP foundation with RAG, memory, vision, code execution, and more.',
+    description: 'The Foundation for AI-Powered Multi-Agent Systems',
+    longDescription: 'A comprehensive AI infrastructure providing building blocks for sophisticated multi-agent workflows. Built with modularity and standardization at its core, seamlessly connecting different multi-agent architectures through a unified foundation. Features Council Chamber (hierarchical) and Gym (sequential) workflows, MCP protocol integration, advanced RAG system, persistent memory, vision capabilities, code execution, and more.',
     githubUrl: 'https://github.com/MasihMoafi/A-Modular-Kingdom',
     blogUrl: '/blog/a-modular-kingdom',
-    tags: ['AI', 'Multi-Agent', 'Python', 'RAG', 'MCP'],
+    tags: ['AI', 'Multi-Agent', 'Python', 'RAG', 'MCP', 'LLM'],
     featured: true,
     image: '/projects/a-modular-kingdom.png'
   },
   {
     id: 2,
-    title: 'VoiceCommander',
-    description: 'Advanced Voice Control System',
-    longDescription: 'Intelligent voice command interface with speech recognition and natural language processing capabilities.',
-    githubUrl: 'https://github.com/MasihMoafi/Voice-commander',
-    tags: ['Voice AI', 'NLP', 'Python'],
+    title: 'TTS-STT Voice Assistant',
+    description: 'Local AI Voice Assistant with Whisper & Kokoro',
+    longDescription: 'A personal, local, and fast voice assistant built with advanced speech recognition and synthesis. Uses whisper.cpp for accurate speech-to-text and Kokoro TTS for natural speech generation, providing seamless voice interaction experience.',
+    githubUrl: 'https://github.com/MasihMoafi/TTS-STT-Voice-Assistant',
+    tags: ['Voice AI', 'Whisper', 'TTS', 'Python', 'Local AI'],
     featured: false
   }
 ];
