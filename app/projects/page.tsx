@@ -81,23 +81,49 @@ export default function Projects() {
                   transition={{ duration: 0.8, delay: 0.3 + index * 0.2 }}
                   className="relative z-10"
                 >
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-300 group"
-                  >
+                  <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-300 group">
                     <div className="text-center">
-                      <Github className="w-16 h-16 text-orange-300 mx-auto mb-6 group-hover:text-orange-200 transition-colors" />
                       <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-orange-300 transition-colors">
                         {project.title}
                       </h3>
-                      <div className="flex items-center justify-center text-orange-300 group-hover:text-orange-200 transition-colors">
-                        <span>View on GitHub</span>
-                        <ExternalLink className="w-4 h-4 ml-2" />
+                      <p className="text-gray-300 mb-6 leading-relaxed">
+                        {project.longDescription}
+                      </p>
+                      
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        {project.blogUrl ? (
+                          <Link
+                            href={project.blogUrl}
+                            className="flex items-center justify-center px-6 py-3 bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 hover:text-orange-200 rounded-xl border border-orange-500/30 transition-all duration-300"
+                          >
+                            <span>View Details</span>
+                            <ExternalLink className="w-4 h-4 ml-2" />
+                          </Link>
+                        ) : null}
+                        
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white hover:text-orange-200 rounded-xl border border-white/20 transition-all duration-300"
+                        >
+                          <Github className="w-4 h-4 mr-2" />
+                          <span>View Code</span>
+                        </a>
+                      </div>
+                      
+                      <div className="flex flex-wrap justify-center gap-2 mt-6">
+                        {project.tags.map((tag, tagIndex) => (
+                          <span
+                            key={tagIndex}
+                            className="px-3 py-1 text-xs bg-orange-500/20 text-orange-300 rounded-full border border-orange-500/30"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </motion.div>
               ))}
             </div>
