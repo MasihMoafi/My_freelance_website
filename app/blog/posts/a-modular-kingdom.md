@@ -1,9 +1,9 @@
 ---
-title: "A-Modular-Kingdom: The Foundation for AI-Powered Multi-Agent Systems"
+title: "🏰 A-Modular-Kingdom"
+subtitle: "The Foundation for AI-Powered Multi-Agent Systems"
 date: "2025-08-17"
-excerpt: "A comprehensive AI infrastructure providing building blocks for sophisticated multi-agent workflows. Built with modularity and standardization at its core, seamlessly connecting different multi-agent architectures through a unified foundation."
-author: "Masih Moafi"
-tags: ["AI", "Multi-Agent Systems", "LLM", "RAG", "MCP", "Python", "Automation"]
+readTime: "8 min read"
+tags: ["AI", "Multi-Agent Systems", "RAG", "MCP", "Python"]
 ---
 
 # 🏰 A-Modular-Kingdom
@@ -43,7 +43,8 @@ A comprehensive AI infrastructure providing building blocks for sophisticated mu
 
 ## 🏗️ Architecture
 
-<img width="2275" height="1183" alt="architecture" src="https://github.com/user-attachments/assets/6e4eaca7-0cae-43b8-a60d-fc8bdfe8c77e" />
+![architecture](https://github.com/user-attachments/assets/6e4eaca7-0cae-43b8-a60d-fc8bdfe8c77e)
+
 
 ```
 ┌─────────────────────────────────────┐
@@ -76,7 +77,7 @@ A comprehensive AI infrastructure providing building blocks for sophisticated mu
 
 ```bash
 # Clone the repository
-git clone https://github.com/MasihMoafi/A-Modular-Kingdom.git
+git clone https://github.com/yourusername/A-Modular-Kingdom.git
 cd A-Modular-Kingdom
 
 # Install dependencies with UV
@@ -149,9 +150,9 @@ Mem0-based persistent memory with ChromaDB:
 
 ### 👑 Council Chamber
 
-<img width="1672" height="1426" alt="architecture" src="https://github.com/user-attachments/assets/35ed7188-6d55-4ed1-9298-cbb5ac20bbb5" />
+![architecture](https://github.com/user-attachments/assets/35ed7188-6d55-4ed1-9298-cbb5ac20bbb5)
 
-<img width="338" height="402" alt="architecture_2" src="https://github.com/user-attachments/assets/52aa3fe6-22a8-4e96-ada1-0d206a7619ee" />
+![architecture_2](https://github.com/user-attachments/assets/52aa3fe6-22a8-4e96-ada1-0d206a7619ee)
 
 Hierarchical multi-agent system with defined roles:
 
@@ -169,7 +170,7 @@ Hierarchical multi-agent system with defined roles:
 
 ### 💪 Gym
 
-<img width="2556" height="1375" alt="Screenshot from 2025-07-14 17-57-24" src="https://github.com/user-attachments/assets/32e9a3c8-3553-49e4-b106-5fc26d2d946d" />
+![Screenshot from 2025-07-14 17-57-24](https://github.com/user-attachments/assets/32e9a3c8-3553-49e4-b106-5fc26d2d946d)
 
 Sequential fitness-focused multi-agent system:
 
@@ -230,11 +231,11 @@ Interviewer → Plan Generator → Nutrition Agent
 
 ## 🎯 CLI Integration
 
-**Claude code and Gemini-cli both connect to host.py as clients.**
+**Claude code and Gemini-cli both connect to host.py as clients. 
 
 ### Gemini CLI Extension
 
-<img width="1785" height="1287" alt="Screenshot from 2025-08-16 01-10-56" src="https://github.com/user-attachments/assets/edfc887b-9f33-4b84-89e2-1113881b38f4" />
+![Screenshot from 2025-08-16 01-10-56](https://github.com/user-attachments/assets/edfc887b-9f33-4b84-89e2-1113881b38f4)
 
 Create `gemini-extension.json`:
 

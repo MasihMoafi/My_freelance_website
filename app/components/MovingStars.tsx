@@ -40,7 +40,7 @@ const MovingStars: React.FC<MovingStarsProps> = ({ starColor = '#ffffff' }) => {
         originalX: x,
         originalY: y,
         size: Math.random() * 2 + 0.5,
-        speed: Math.random() * 0.1 + 0.02,
+        speed: Math.random() * 2 + 1,
         opacity: Math.random() * 0.8 + 0.2
       });
     }
