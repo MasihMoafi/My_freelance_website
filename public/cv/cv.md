@@ -74,7 +74,7 @@ Machine Learning Engineer committed to developing AI-driven solutions that enhan
 - **Protocols:** MCP, ACP
 - **Core Libraries:** *PyTorch*, *Pydantic*, *Ollama*, Whisper, TensorFlow, Pandas, NumPy
 - **MLOps & Deployment:** Production deployment on cloud GPUs (NVIDIA A100/H100)
-- **Languages:** Python, MQ5, C++
+- **Languages:** Python, MQ5
 - **Platforms:** MCP (Model Context Protocol), Vast.ai, Git, Google Cloud Services, Amazon Web Services
 
 ---
