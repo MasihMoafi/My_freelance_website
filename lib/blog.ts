@@ -5,6 +5,8 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import slug from 'remark-slug';
+import gfm from 'remark-gfm';
 
 const postsDirectory = path.join(process.cwd(), 'app/blog/posts');
 
@@ -37,6 +39,8 @@ export async function getAllPosts(): Promise<BlogPost[]> {
         let processedContent;
         try {
           processedContent = await remark()
+            .use(gfm)
+            .use(slug)
             .use(html)
             .process(content);
         } catch (error) {
@@ -67,6 +71,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     const { data, content } = matter(fileContents);
 
     const processedContent = await remark()
+      .use(gfm)
+      .use(slug)
       .use(html)
       .process(content);
 
