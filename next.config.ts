@@ -7,7 +7,7 @@ const nextConfig = {
     unoptimized: true
   },
   // Add webpack config for fonts
-  webpack(config: { module: { rules: { test: RegExp; use: { loader: string; options: { publicPath: string; outputPath: string; name: string; }; }; }[]; }; }) {
+  /* webpack(config: { module: { rules: { test: RegExp; use: { loader: string; options: { publicPath: string; outputPath: string; name: string; }; }; }[]; }; }) {
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/,
       use: {
@@ -20,7 +20,7 @@ const nextConfig = {
       },
     });
     return config;
-  }
+  } */
 }
 
 module.exports = nextConfig
