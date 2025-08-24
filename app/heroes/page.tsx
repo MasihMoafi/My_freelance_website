@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Crown, Zap, BookOpen } from 'lucide-react';
 import MovingStars from '../components/MovingStars';
 
