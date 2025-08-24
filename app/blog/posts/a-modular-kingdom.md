@@ -186,16 +186,16 @@ Interviewer → Plan Generator → Nutrition Agent
 
 ## 🔧 Tools & Extensions
 
-| Tool | Description | Note |
+| Tool | Description | Status |
 |------|-------------|--------|
-| **RAG** | Document retrieval | ✅ 3 versions |
-| **Memory** | Long-term storage | ✅ Integrated |
-| **Vision** | Image analysis | ✅ Ready |
-| **Code Exec** | Python sandbox | ✅ Secure |
-| **Browser** | Web automation | ✅ Playwright |
-| **Web Search** | Info retrieval | ✅ Duckduckgo |
-| **TTS** | Text-to-speech | ✅ Kokoro |
-| **STT** | Speech-to-text | ✅ Whisper |
+| **RAG** | Document retrieval | ✅ 3 versions available |
+| **Memory** | Long-term storage | ✅ Fully integrated |
+| **Vision** | Image analysis | ✅ Production ready |
+| **Code Exec** | Python sandbox | ✅ Secure execution |
+| **Browser** | Web automation | ✅ Playwright powered |
+| **Web Search** | Info retrieval | ✅ DuckDuckGo API |
+| **TTS** | Text-to-speech | ✅ Kokoro engine |
+| **STT** | Speech-to-text | ✅ Whisper integration |
 
 ## 📝 Commands Reference
 
