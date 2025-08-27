@@ -21,6 +21,14 @@ export default function Blog() {
     // Hardcoded posts for now to avoid server function issues
     setPosts([
       {
+        slug: 'eyes-wide-shut',
+        title: '👁️ Eyes Wide Shut',
+        date: '2025-08-25',
+        excerpt: 'An overarching analysis of linguistic, semantic, and architectural vulnerabilities in GPT-OSS-20B. This report details five distinct, high-severity vulnerabilities discovered through red-teaming engagement.',
+        author: 'Masih Moafi',
+        tags: ['AI Security', 'Red Team', 'LLM Vulnerabilities', 'Python', 'Ollama', 'Research']
+      },
+      {
         slug: 'a-modular-kingdom',
         title: '🏰 A-Modular-Kingdom',
         date: '2025-08-17',
