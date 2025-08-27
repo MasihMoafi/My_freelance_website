@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { ChevronDown, Home, User, Briefcase, Menu, X, BookOpen } from 'lucide-react';
+import { ChevronDown, Home, User, Briefcase, Menu, X, BookOpen, Crown } from 'lucide-react';
 
 interface ModernNavbarProps {
   onThemeChange: (theme: 'sunny' | 'gloomy') => void;
@@ -52,7 +52,7 @@ export default function ModernNavbar({ onThemeChange, currentTheme }: ModernNavb
   const navItems = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'About', href: '/about', icon: User },
-    { name: 'Blog', href: '/blog', icon: BookOpen },
+    { name: 'Heroes', href: '/heroes', icon: Crown },
   ];
 
   const projectItems = [

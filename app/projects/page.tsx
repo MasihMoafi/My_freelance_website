@@ -9,6 +9,16 @@ import MovingStars from '../components/MovingStars';
 const projects = [
   {
     id: 1,
+    title: 'Eyes Wide Shut',
+    description: 'AI Security Research - LLM Vulnerability Analysis',
+    longDescription: 'An overarching analysis of linguistic, semantic, and architectural vulnerabilities in GPT-OSS-20B. Demonstrates novel attack vectors including linguistic arbitrage, semantic bypasses, insecure internal monologue exploitation, multi-agent contextual collapse, and intent laundering. Conducted using Ollama Python library with multi-turn conversational scripts and persona engineering.',
+    githubUrl: 'https://github.com/MasihMoafi/eyes-wide-shut',
+    tags: ['AI Security', 'Red Team', 'LLM Vulnerabilities', 'Python', 'Ollama', 'Research'],
+    featured: true,
+    image: '/projects/eyes-wide-shut.png'
+  },
+  {
+    id: 2,
     title: 'A-Modular-Kingdom',
     description: 'The Foundation for AI-Powered Multi-Agent Systems',
     longDescription: 'A comprehensive AI infrastructure providing building blocks for sophisticated multi-agent workflows. Built with modularity and standardization at its core, seamlessly connecting different multi-agent architectures through a unified foundation. Features Council Chamber (hierarchical) and Gym (sequential) workflows, MCP protocol integration, advanced RAG system, persistent memory, vision capabilities, code execution, and more.',
@@ -19,7 +29,7 @@ const projects = [
     image: '/projects/a-modular-kingdom.png'
   },
   {
-    id: 2,
+    id: 3,
     title: 'TTS-STT Voice Assistant',
     description: 'Local AI Voice Assistant with Whisper & Kokoro',
     longDescription: 'A personal, local, and fast voice assistant built with advanced speech recognition and synthesis. Uses whisper.cpp for accurate speech-to-text and Kokoro TTS for natural speech generation, providing seamless voice interaction experience.',
