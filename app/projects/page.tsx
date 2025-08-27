@@ -10,12 +10,13 @@ const projects = [
   {
     id: 1,
     title: 'Eyes Wide Shut',
-    description: 'AI Security Research - LLM Vulnerability Analysis',
+    description: 'AI Security Research - LLM Vulnerability Analysis by Masih Moafi',
     longDescription: 'An overarching analysis of linguistic, semantic, and architectural vulnerabilities in GPT-OSS-20B. Demonstrates novel attack vectors including linguistic arbitrage, semantic bypasses, insecure internal monologue exploitation, multi-agent contextual collapse, and intent laundering. Conducted using Ollama Python library with multi-turn conversational scripts and persona engineering.',
     githubUrl: 'https://github.com/MasihMoafi/eyes-wide-shut',
+    blogUrl: '/blog/eyes-wide-shut',
     tags: ['AI Security', 'Red Team', 'LLM Vulnerabilities', 'Python', 'Ollama', 'Research'],
     featured: true,
-    image: '/projects/eyes-wide-shut.png'
+    image: '/cool.jpeg'
   },
   {
     id: 2,
@@ -34,6 +35,7 @@ const projects = [
     description: 'Local AI Voice Assistant with Whisper & Kokoro',
     longDescription: 'A personal, local, and fast voice assistant built with advanced speech recognition and synthesis. Uses whisper.cpp for accurate speech-to-text and Kokoro TTS for natural speech generation, providing seamless voice interaction experience.',
     githubUrl: 'https://github.com/MasihMoafi/TTS-STT-Voice-Assistant',
+    blogUrl: '/blog/tts-stt-voice-assistant',
     tags: ['Voice AI', 'Whisper', 'TTS', 'Python', 'Local AI'],
     featured: false
   }

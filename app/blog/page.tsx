@@ -22,7 +22,7 @@ export default function Blog() {
     setPosts([
       {
         slug: 'eyes-wide-shut',
-        title: '👁️ Eyes Wide Shut',
+        title: '🎭 Eyes Wide Shut',
         date: '2025-08-25',
         excerpt: 'An overarching analysis of linguistic, semantic, and architectural vulnerabilities in GPT-OSS-20B. This report details five distinct, high-severity vulnerabilities discovered through red-teaming engagement.',
         author: 'Masih Moafi',

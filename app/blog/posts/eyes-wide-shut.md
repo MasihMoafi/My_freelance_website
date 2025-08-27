@@ -1,5 +1,5 @@
 ---
-title: "👁️ Eyes Wide Shut"
+title: "🎭 Eyes Wide Shut"
 subtitle: "AI Security Research - LLM Vulnerability Analysis"
 date: "2025-08-25"
 excerpt: "An overarching analysis of linguistic, semantic, and architectural vulnerabilities in GPT-OSS-20B. This report details five distinct, high-severity vulnerabilities discovered through red-teaming engagement."
@@ -7,7 +7,7 @@ author: "Masih Moafi"
 tags: ["AI Security", "Red Team", "LLM Vulnerabilities", "Python", "Ollama", "Research"]
 ---
 
-# 👁️ Eyes Wide Shut
+# 🎭 Eyes Wide Shut
 
 > **An Overarching Analysis of Linguistic, Semantic, and Architectural Vulnerabilities in GPT-OSS-20B**
 
