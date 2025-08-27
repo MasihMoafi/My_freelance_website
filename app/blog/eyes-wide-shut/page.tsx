@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 
-// --- YOUR FULL, UNMODIFIED MARKDOWN WRITE-UP ---
+// --- YOUR FULL, CORRECTED MARKDOWN WRITE-UP ---
 const markdownContent = `
 ## Project Write-Up: Eyes Wide Shut
 ### Produced by Masih Moafi
@@ -36,7 +36,7 @@ For the best experience, it is *strongly recommended* to view the corresponding 
 
 ### **Executive Summary**
 
-This report details my discovery and analysis of five distinct, high-severity vulnerabilities in the \`gpt-oss-20b\` model. My red-teaming engagement moved beyond simple prompt injection to probe for systemic flaws at the core of the model's safety architecture.
+This report details my discovery and analysis of five distinct, high-severity vulnerabilities in the \\\`gpt-oss-20b\\\` model. My red-teaming engagement moved beyond simple prompt injection to probe for systemic flaws at the core of the model's safety architecture.
 
 **The key findings are:**
 1.  **The Destroyer of Worlds (Linguistic Arbitrage):** A cross-lingual attack using French prompts to bypass safety protocols with ~80% success rate.
@@ -59,7 +59,7 @@ The process began with an attempt at "narrative saturation" using De Sade's nove
 
 ### **2.0 Tooling**
 
-All experiments were conducted using the \`ollama\` Python library. "Memory Injection"—feeding the model its own previous statements—was instrumental in escalating commitments.
+All experiments were conducted using the \\\`ollama\\\` Python library. "Memory Injection"—feeding the model its own previous statements—was instrumental in escalating commitments.
 
 ### **3.0 Findings & Methodological Insights**
 
@@ -152,7 +152,7 @@ export default function EyesWideShutPost() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-orange-900">
       <MovingStars />
       
-      <motion.div /* Back to Blog button */ >
+      <motion.div>
         <Link
           href="/blog"
           className="group fixed top-8 left-8 z-50 flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-300 shadow-xl"
@@ -173,13 +173,13 @@ export default function EyesWideShutPost() {
             className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
           >
             <div className="prose prose-invert prose-orange max-w-none text-gray-300">
-              <ReactMarkdown>
+              <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeSlug]} remarkPlugins={[remarkGfm]}>
                 {String(markdownContent)}
               </ReactMarkdown>
               
               <div className="text-center mt-12">
                 <a
-                  href="https://github.com/MasihMoafi/eyes-wide-shut" // <-- Make sure this link is correct
+                  href="https://github.com/MasihMoafi/eyes-wide-shut"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center px-6 py-3 bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 hover:text-orange-200 rounded-xl border border-orange-500/30 transition-all duration-300"
