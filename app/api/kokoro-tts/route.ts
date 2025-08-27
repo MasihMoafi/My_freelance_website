@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     
     // Return the audio data
     console.log('TTS API: Sending audio response');
-    return new NextResponse(audioBuffer, {
+    return new NextResponse(new Uint8Array(audioBuffer).buffer, {
       headers: {
         'Content-Type': 'audio/wav',
         'Content-Length': audioBuffer.length.toString(),
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
     // Generate a silent audio file as fallback
     const silentWav = generateSilentWav(24000, 1);
     
-    return new NextResponse(silentWav, {
+    return new NextResponse(new Uint8Array(silentWav).buffer, {
       headers: {
         'Content-Type': 'audio/wav',
         'Content-Length': silentWav.length.toString(),

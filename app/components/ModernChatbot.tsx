@@ -219,7 +219,7 @@ export default function ModernChatbot() {
       y: 20,
       transition: { duration: 0.2 }
     }
-  };
+  } as const;
 
   const messageVariants = {
     hidden: { opacity: 0, y: 20 },

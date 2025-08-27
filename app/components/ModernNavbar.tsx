@@ -34,7 +34,7 @@ export default function ModernNavbar({ onThemeChange, currentTheme }: ModernNavb
       y: 0,
       transition: { duration: 0.3, ease: 'easeOut' }
     }
-  };
+  } as const;
 
   const mobileMenuVariants = {
     hidden: { 
@@ -47,7 +47,7 @@ export default function ModernNavbar({ onThemeChange, currentTheme }: ModernNavb
       x: 0,
       transition: { duration: 0.3, ease: 'easeOut' }
     }
-  };
+  } as const;
 
   const navItems = [
     { name: 'Home', href: '/', icon: Home },
