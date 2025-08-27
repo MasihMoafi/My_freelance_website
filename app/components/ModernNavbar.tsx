@@ -52,6 +52,7 @@ export default function ModernNavbar({ onThemeChange, currentTheme }: ModernNavb
   const navItems = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'About', href: '/about', icon: User },
+    { name: 'Blog', href: '/blog', icon: BookOpen },
     { name: 'Heroes', href: '/heroes', icon: Crown },
   ];
 
