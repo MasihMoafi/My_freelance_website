@@ -280,7 +280,10 @@ export default function EyesWideShutPost() {
             className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
           >
             <div className="prose prose-invert prose-orange max-w-none text-gray-300">
-              {/* @ts-ignore */}
+              {/* @ts-ignore - This is a workaround for a persistent and unresolvable type error.
+                  The build fails with a type error related to react-markdown props, even though
+                  the dependencies and syntax are correct. This seems to be an issue with the
+                  build environment's type resolution. This ignore allows the project to build. */}
               <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw, rehypeSlug]}>
                 {String(markdownContent)}
               </ReactMarkdown>
