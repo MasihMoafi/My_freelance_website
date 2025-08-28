@@ -4,9 +4,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
-import rehypeSlug from 'rehype-slug';
 
 // --- YOUR FULL, CORRECTED MARKDOWN WRITE-UP ---
 const markdownContent = `
