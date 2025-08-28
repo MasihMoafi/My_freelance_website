@@ -35,7 +35,7 @@ export default function Home() {
   };
 
   const getBackgroundStyle = () => {
-    return "url('/background.jpg') no-repeat center center fixed, #0a0a0a"; 
+    return "url('/background.jpg') no-repeat center center fixed"; 
   };
 
   const getTextColor = () => {
@@ -60,7 +60,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{background: getBackgroundStyle(), backgroundSize: 'cover'}}>
+    <div className="min-h-screen relative overflow-hidden" style={{background: getBackgroundStyle(), backgroundSize: 'cover'}} data-theme="dark">
       <ModernNavbar onThemeChange={handleThemeChange} currentTheme={currentTheme} />
       
       <MovingStars key={currentTheme} starColor={currentTheme === 'sunny' ? '#000000' : '#ffffff'} />
