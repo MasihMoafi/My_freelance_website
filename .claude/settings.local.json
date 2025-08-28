@@ -8,7 +8,10 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(npm run build:*)",
-      "Bash(winget install:*)"
+      "Bash(winget install:*)",
+      "Bash(gh auth:*)",
+      "Bash($env:PATH += \";C:\\Program Files\\GitHub CLI\")",
+      "Bash(gh:*)"
     ],
     "deny": [],
     "ask": []
