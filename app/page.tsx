@@ -60,7 +60,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{background: getBackgroundStyle(), backgroundSize: '90%'}} data-theme="dark">
+    <div className="min-h-screen relative overflow-hidden bg-black" style={{background: `black, ${getBackgroundStyle()}`, backgroundSize: '90%'}} data-theme="dark">
       <ModernNavbar />
       
       <MovingStars starColor='#ffffff' />
@@ -92,12 +92,6 @@ export default function Home() {
             transition={{ duration: 1.2, delay: 1.2 }}
             className="space-y-4"
           >
-            <p className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed font-sans font-light ${getTextColor()}`}>
-              Welcome to my website where I showcase my{' '}
-              <span className={`font-semibold ${getAccentColor()}`}>creativity</span>,{' '}
-              <span className={`font-semibold ${getAccentColor()}`}>versatility</span> and{' '}
-              <span className={`font-semibold ${getAccentColor()}`}>technical prowess</span>!
-            </p>
             
             <motion.div
               initial={{ opacity: 0 }}
