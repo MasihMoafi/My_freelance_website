@@ -18,15 +18,26 @@ export default function Home() {
   const { audioRef, isMuted, setIsMuted, toggleMute, playMusic } = useMusicContext();
   const nameRef = useRef<HTMLHeadingElement>(null);
   const animationComplete = useRef(false);
-  const [nameLetters, setNameLetters] = useState<string[]>([]);
+  const [displayedName, setDisplayedName] = useState<string>('');
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
   const name = "Masih Moafi";
 
   useEffect(() => {
     setMounted(true);
+    
+    // Typewriter effect
+    let index = 0;
+    const typewriterInterval = setInterval(() => {
+      if (index < name.length) {
+        setDisplayedName(name.substring(0, index + 1));
+        index++;
+      } else {
+        setIsTypingComplete(true);
+        clearInterval(typewriterInterval);
+      }
+    }, 150); // Adjust speed here
 
-    // Split the name into individual letters with spaces preserved
-    const letters = name.split('').map((letter) => letter);
-    setNameLetters(letters);
+    return () => clearInterval(typewriterInterval);
   }, []);
 
   const handleThemeChange = (theme: 'sunny' | 'gloomy') => {
@@ -47,11 +58,11 @@ export default function Home() {
   };
 
   const getButtonClass = () => {
-    return currentTheme === 'sunny' ? 'btn-primary-inverted' : 'btn-primary';
+    return 'px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-all duration-300 rounded-lg font-semibold';
   };
 
   const getSecondaryButtonClass = () => {
-    return currentTheme === 'sunny' ? 'btn-secondary-inverted' : 'btn-secondary';
+    return 'px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-all duration-300 rounded-lg font-semibold';
   };
 
 
@@ -60,7 +71,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-black" style={{backgroundImage: getBackgroundStyle(), backgroundSize: '90% auto', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat'}} data-theme="dark">
+    <div className="min-h-screen relative overflow-hidden bg-black" style={{backgroundImage: getBackgroundStyle(), backgroundSize: '90%', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat'}} data-theme="dark">
       <ModernNavbar />
       
       <MovingStars starColor='#ffffff' />
@@ -74,16 +85,10 @@ export default function Home() {
         >
           <h1
             ref={nameRef}
-            className={`text-6xl md:text-8xl lg:text-9xl font-bold leading-none mb-6 font-sans ${getTextColor()}`}
+            className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-none mb-6 font-sans ${getTextColor()}`}
           >
-            {nameLetters.map((letter, index) => (
-              <span 
-                key={index} 
-                className={`letter ${letter === ' ' ? 'mr-2' : ''}`}
-              >
-                {letter}
-              </span>
-            ))}
+            {displayedName}
+            <span className={`animate-pulse ${isTypingComplete ? 'opacity-0' : 'opacity-100'}`}>|</span>
           </h1>
 
           <motion.div
@@ -103,7 +108,7 @@ export default function Home() {
                 href="/about"
                 whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(0,128,128,0.3)' }}
                 whileTap={{ scale: 0.95 }}
-                className={getButtonClass()}
+                className={getSecondaryButtonClass()}
               >
                 Learn More About Me
               </motion.a>

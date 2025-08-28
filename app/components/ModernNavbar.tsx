@@ -94,17 +94,8 @@ export default function ModernNavbar({}: ModernNavbarProps) {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBg()}`}
       >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-2"
-            >
-              <Link href="/" className={`text-xl font-bold ${getTextColor()} hover:text-teal-400 transition-colors`}>
-                Masih Moafi
-              </Link>
-            </motion.div>
-
-            <div className="hidden md:flex items-center space-x-8">
+          <div className="flex items-center justify-start h-16">
+            <div className="flex items-center space-x-8">
               {navItems.map((item) => (
                 <motion.div key={item.name} whileHover={{ scale: 1.05 }}>
                   <Link 
@@ -169,110 +160,9 @@ export default function ModernNavbar({}: ModernNavbarProps) {
                 </AnimatePresence>
               </div>
             </div>
-
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden text-white p-2"
-            >
-              <Menu className="w-6 h-6" />
-            </motion.button>
           </div>
         </div>
       </motion.nav>
-
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            variants={mobileMenuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            className="fixed inset-0 bg-black/95 backdrop-blur-lg z-[60] md:hidden"
-          >
-            <div className="flex flex-col h-full">
-              <div className={`flex items-center justify-between p-6 border-b ${getBorderColor()}`}>
-                <span className={`text-xl font-bold ${getTextColor()}`}>Menu</span>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`${getTextColor()} p-2`}
-                >
-                  <X className="w-6 h-6" />
-                </motion.button>
-              </div>
-
-              <div className="flex-1 px-6 py-8 space-y-6">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Link 
-                      href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center space-x-3 ${getTextColorSecondary()} ${getHoverColor()} transition-colors text-lg`}
-                    >
-                      <item.icon className="w-5 h-5" />
-                      <span>{item.name}</span>
-                    </Link>
-                  </motion.div>
-                ))}
-
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-4"
-                >
-                  <div className={`flex items-center space-x-3 ${getTextColorSecondary()} text-lg`}>
-                    <Briefcase className="w-5 h-5" />
-                    <span>Projects</span>
-                  </div>
-                  <div className="pl-8 space-y-3">
-                    {projectItems.map((item) => (
-                      <div key={item.name}>
-                        {item.external ? (
-                          <a
-                            href={item.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block text-gray-400 hover:text-white transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {item.name} ↗
-                          </a>
-                        ) : (
-                          <Link
-                            href={item.href}
-                            className="block text-gray-400 hover:text-white transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {item.name}
-                          </Link>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="space-y-4"
-                >
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }

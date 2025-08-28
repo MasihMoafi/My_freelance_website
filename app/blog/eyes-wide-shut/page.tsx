@@ -4,7 +4,10 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useState, useEffect } from 'react';
+
+import { getPostContent } from '../../../lib/blog';
 
 export default function EyesWideShutProject() {
   const [markdownContent, setMarkdownContent] = useState('');
@@ -13,9 +16,12 @@ export default function EyesWideShutProject() {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch('/eyes-wide-shut.txt');
-        const content = await response.text();
-        setMarkdownContent(content);
+        const content = await getPostContent('eyes-wide-shut');
+        if (content) {
+          setMarkdownContent(content);
+        } else {
+          setMarkdownContent('# Post not found\n\nContent could not be loaded.');
+        }
       } catch (error) {
         console.error('Error loading content:', error);
         setMarkdownContent('# Eyes Wide Shut\n\nContent could not be loaded.');
@@ -25,6 +31,7 @@ export default function EyesWideShutProject() {
     }
     loadContent();
   }, []);
+
 
   if (loading) {
     return (
@@ -80,7 +87,17 @@ export default function EyesWideShutProject() {
             </header>
             
             <div className="prose prose-invert prose-white max-w-none text-gray-300">
-              <ReactMarkdown>
+              <ReactMarkdown
+                components={{
+                  img: ({ node, ...props }) => (
+                    <img 
+                      {...props} 
+                      className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                      loading="lazy"
+                    />
+                  ),
+                }}
+              >
                 {String(markdownContent)}
               </ReactMarkdown>
             </div>

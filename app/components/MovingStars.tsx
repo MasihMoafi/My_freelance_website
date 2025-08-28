@@ -30,18 +30,19 @@ const MovingStars: React.FC<MovingStarsProps> = ({ starColor = '#ffffff' }) => {
       opacity: number 
     }[] = [];
 
-    // Create stars
-    for (let i = 0; i < 30; i++) {
+    // Create dust particles
+    for (let i = 0; i < 50; i++) {
       const x = Math.random() * canvas.width;
       const y = Math.random() * canvas.height;
+      
       stars.push({
-        x,
-        y,
+        x: x,
+        y: y,
         originalX: x,
         originalY: y,
-        size: Math.random() * 2 + 0.5,
-        speed: Math.random() * 0.2 + 0.1,
-        opacity: Math.random() * 0.8 + 0.2
+        size: Math.random() * 0.5 + 0.2, // Smaller particles
+        speed: Math.random() * 0.05 + 0.02, // Slower movement
+        opacity: Math.random() * 0.3 + 0.1 // More subtle
       });
     }
 
@@ -129,7 +130,7 @@ const MovingStars: React.FC<MovingStarsProps> = ({ starColor = '#ffffff' }) => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-[-1] pointer-events-none"
       style={{ background: 'transparent' }}
     />
   );

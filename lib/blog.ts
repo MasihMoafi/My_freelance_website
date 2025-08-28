@@ -83,3 +83,14 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     return null;
   }
 }
+
+export async function getPostContent(slug: string): Promise<string | null> {
+  try {
+    const fullPath = path.join(postsDirectory, `${slug}.md`);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { content } = matter(fileContents);
+    return content;
+  } catch (error) {
+    return null;
+  }
+}
