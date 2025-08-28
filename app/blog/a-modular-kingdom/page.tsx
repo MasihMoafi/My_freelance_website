@@ -7,9 +7,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useState, useEffect } from 'react';
 
-import { getPostContent } from '../../../lib/blog';
-
-// --- THE PAGE COMPONENT ---
 export default function AModularKingdomPost() {
   const [markdownContent, setMarkdownContent] = useState('');
   const [loading, setLoading] = useState(true);
@@ -17,12 +14,9 @@ export default function AModularKingdomPost() {
   useEffect(() => {
     async function loadContent() {
       try {
-        const content = await getPostContent('a-modular-kingdom');
-        if (content) {
-          setMarkdownContent(content);
-        } else {
-          setMarkdownContent('# Post not found\n\nContent could not be loaded.');
-        }
+        const response = await fetch('/a-modular-kingdom.txt');
+        const content = await response.text();
+        setMarkdownContent(content);
       } catch (error) {
         console.error('Error loading content:', error);
         setMarkdownContent('# A-Modular-Kingdom\n\nContent could not be loaded.');
@@ -33,7 +27,6 @@ export default function AModularKingdomPost() {
     loadContent();
   }, []);
 
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-black flex items-center justify-center">
@@ -41,6 +34,7 @@ export default function AModularKingdomPost() {
       </div>
     );
   }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
       <MovingStars />

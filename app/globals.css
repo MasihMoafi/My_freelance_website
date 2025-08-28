@@ -32,8 +32,8 @@ body {
   padding: 0;
   overflow-x: hidden;
   color: var(--foreground);
-  background: url('/background.jpg') no-repeat center center fixed !important;
-  background-size: cover !important;
+  background: url('/background.jpg') no-repeat center center fixed;
+  background-size: 90%;
   font-family: Arial, Helvetica, sans-serif;
 }
 

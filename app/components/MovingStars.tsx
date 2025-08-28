@@ -30,8 +30,8 @@ const MovingStars: React.FC<MovingStarsProps> = ({ starColor = '#ffffff' }) => {
       opacity: number 
     }[] = [];
 
-    // Create dust particles
-    for (let i = 0; i < 50; i++) {
+        // Create dust particles
+    for (let i = 0; i < 25; i++) {
       const x = Math.random() * canvas.width;
       const y = Math.random() * canvas.height;
       

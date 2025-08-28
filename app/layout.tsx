@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-900 text-gray-100`}>
+      <body className={`${roboto.className} bg-gray-900 text-gray-100`}>
         <ThemeProvider>
           <MusicProvider>
             {children}
