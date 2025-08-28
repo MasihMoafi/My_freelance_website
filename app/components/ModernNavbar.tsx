@@ -6,11 +6,9 @@ import { useState, useEffect } from 'react';
 import { ChevronDown, Home, User, Briefcase, Menu, X, BookOpen } from 'lucide-react';
 
 interface ModernNavbarProps {
-  onThemeChange: (theme: 'sunny' | 'gloomy') => void;
-  currentTheme: 'sunny' | 'gloomy';
 }
 
-export default function ModernNavbar({ onThemeChange, currentTheme }: ModernNavbarProps) {
+export default function ModernNavbar({}: ModernNavbarProps) {
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -60,41 +58,31 @@ export default function ModernNavbar({ onThemeChange, currentTheme }: ModernNavb
     { name: 'Machine Learning', href: 'https://github.com/MasihMoafi?tab=repositories&q=&type=&language=&sort=name', external: true },
   ];
 
-  const themeButtons = [
-    { theme: 'sunny' as const, emoji: '☀️', label: 'Day' },
-    { theme: 'gloomy' as const, emoji: '🌙', label: 'Night' },
-  ];
 
   const getNavbarBg = () => {
-    if (currentTheme === 'sunny') {
-      return scrolled 
-        ? 'bg-white/80 backdrop-blur-lg border-b border-black/10' 
-        : 'bg-transparent';
-    } else {
-      return scrolled 
-        ? 'bg-black/80 backdrop-blur-lg border-b border-white/10' 
-        : 'bg-transparent';
-    }
+    return scrolled 
+      ? 'bg-black/80 backdrop-blur-lg border-b border-white/10' 
+      : 'bg-transparent';
   };
 
   const getTextColor = () => {
-    return currentTheme === 'sunny' ? 'text-black' : 'text-white';
+    return 'text-white';
   };
 
   const getTextColorSecondary = () => {
-    return currentTheme === 'sunny' ? 'text-gray-700' : 'text-gray-300';
+    return 'text-gray-300';
   };
 
   const getHoverColor = () => {
-    return currentTheme === 'sunny' ? 'hover:text-black' : 'hover:text-white';
+    return 'hover:text-white';
   };
 
   const getMenuBg = () => {
-    return currentTheme === 'sunny' ? 'bg-white/90' : 'bg-black/90';
+    return 'bg-black/90';
   };
 
   const getBorderColor = () => {
-    return currentTheme === 'sunny' ? 'border-black/10' : 'border-white/10';
+    return 'border-white/10';
   };
 
   return (
@@ -182,20 +170,6 @@ export default function ModernNavbar({ onThemeChange, currentTheme }: ModernNavb
               </div>
             </div>
 
-            <div className="hidden md:flex items-center space-x-3">
-              {themeButtons.map((theme) => (
-                <motion.button
-                  key={theme.theme}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => onThemeChange(theme.theme)}
-                  className="p-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-all duration-200"
-                  title={theme.label}
-                >
-                  <span className="text-lg">{theme.emoji}</span>
-                </motion.button>
-              ))}
-            </div>
 
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -293,22 +267,6 @@ export default function ModernNavbar({ onThemeChange, currentTheme }: ModernNavb
                   transition={{ delay: 0.3 }}
                   className="space-y-4"
                 >
-                  <span className={`${getTextColorSecondary()} text-lg`}>Themes</span>
-                  <div className="flex space-x-4">
-                    {themeButtons.map((theme) => (
-                      <button
-                        key={theme.theme}
-                        onClick={() => {
-                          onThemeChange(theme.theme);
-                          setIsMobileMenuOpen(false);
-                        }}
-                        className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-all duration-200"
-                        title={theme.label}
-                      >
-                        <span className="text-xl">{theme.emoji}</span>
-                      </button>
-                    ))}
-                  </div>
                 </motion.div>
               </div>
             </div>

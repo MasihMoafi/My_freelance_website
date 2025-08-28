@@ -31,7 +31,7 @@ const MovingStars: React.FC<MovingStarsProps> = ({ starColor = '#ffffff' }) => {
     }[] = [];
 
     // Create stars
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 30; i++) {
       const x = Math.random() * canvas.width;
       const y = Math.random() * canvas.height;
       stars.push({

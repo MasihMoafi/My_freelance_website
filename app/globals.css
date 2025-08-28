@@ -2,29 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Dark theme (default) */
+/* Black and white theme (default) */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --bg-primary: #111827;
-  --bg-secondary: #1f2937;
-  --text-primary: #f9fafb;
-  --text-secondary: #d1d5db;
-  --border: #374151;
-  --accent: #f59e0b;
-  --accent-light: #fbbf24;
+  --background: #000000;
+  --foreground: #ffffff;
+  --bg-primary: #000000;
+  --bg-secondary: #111111;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --border: #333333;
+  --accent: #ffffff;
+  --accent-light: #ffffff;
 }
 
-/* Legacy variables for compatibility */
+/* Legacy variables for compatibility - converted to black/white */
 :root {
-  --red: #ff4a4a;
-  --orange: #ff9f4a;
-  --lightorange: #ffcd4a;
-  --primary: #F4C2A1;
-  --primary-light: #F8D7C2;
-  --primary-dark: #E8A67D;
-  --secondary: #D4A574;
-  --teal: #008080;
+  --red: #ffffff;
+  --orange: #ffffff;
+  --lightorange: #ffffff;
+  --primary: #ffffff;
+  --primary-light: #ffffff;
+  --primary-dark: #cccccc;
+  --secondary: #cccccc;
+  --teal: #ffffff;
 }
 
 body {
@@ -55,7 +55,7 @@ html {
 /* Custom gradient utilities */
 @layer utilities {
   .gradient-text {
-    background: linear-gradient(135deg, #F4C2A1, #E8A67D);
+    background: linear-gradient(135deg, #ffffff, #cccccc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

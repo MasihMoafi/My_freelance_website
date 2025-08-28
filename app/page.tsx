@@ -60,12 +60,12 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{background: getBackgroundStyle(), backgroundSize: 'cover'}} data-theme="dark">
-      <ModernNavbar onThemeChange={handleThemeChange} currentTheme={currentTheme} />
+    <div className="min-h-screen relative overflow-hidden" style={{background: getBackgroundStyle(), backgroundSize: '90%'}} data-theme="dark">
+      <ModernNavbar />
       
-      <MovingStars key={currentTheme} starColor={currentTheme === 'sunny' ? '#000000' : '#ffffff'} />
+      <MovingStars starColor='#ffffff' />
 
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+      <div className="relative z-10 flex flex-col items-center justify-start pt-32 min-h-screen px-4">
         <motion.div
           initial={{ opacity: 0, filter: 'blur(10px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
