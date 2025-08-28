@@ -42,7 +42,7 @@ export default function Home() {
     <div
       className="min-h-screen relative overflow-hidden bg-black"
       style={{
-        backgroundImage: `url(https://github.com/user-attachments/assets/cef0fbd4-5cbb-4faa-a010-fa52c7d39047)`,
+        backgroundImage: `url(/background.jpg)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -52,7 +52,7 @@ export default function Home() {
       
       <MovingStars key={currentTheme} starColor={'#ffffff'} />
 
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+      <div className="relative z-10 flex flex-col items-center justify-start min-h-screen px-4 pt-64">
         <motion.div
           initial={{ opacity: 0, filter: 'blur(10px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -61,7 +61,7 @@ export default function Home() {
         >
           <h1
             ref={nameRef}
-            className={`text-6xl md:text-8xl lg:text-9xl font-bold leading-none mb-6 font-lovelo text-white`}
+            className={`text-6xl md:text-8xl lg:text-9xl font-bold leading-none mb-6 font-sans text-white`}
           >
             Masih Moafi
           </h1>

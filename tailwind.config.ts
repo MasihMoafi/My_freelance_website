@@ -8,9 +8,6 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        lovelo: ['Lovelo', 'sans-serif'],
-      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

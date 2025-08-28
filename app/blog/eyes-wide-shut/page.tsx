@@ -9,13 +9,9 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 
 // --- YOUR FULL, UNMODIFIED MARKDOWN WRITE-UP ---
-const markdownContent = `
-## **Project Write-Up: Eyes Wide Shut**
-
-<img width="14999" height="8502" alt="eyes wide" src="https://github.com/user-attachments/assets/d8c81e1d-f978-4065-8b26-e483602e26ef" />
-
+const markdownContent = `## **Project Write-Up: Eyes Wide Shut**
 ### An Overarching Analysis of Linguistic, Semantic, and Architectural Vulnerabilities in GPT-OSS-20B
-***Masih Moafi***
+
 ####  **Disclaimer**
 
 For the best experience, it is *strongly recommended* to view the corresponding material in the complementary notebook attached to this finding while reviewing the write-up; there are many readily available experiments which enhance the overall accuracy of this report.

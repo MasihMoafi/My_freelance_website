@@ -23,9 +23,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link href="https://fonts.cdnfonts.com/css/lovelo" rel="stylesheet" />
-      </head>
       <body className={`${inter.className} bg-gray-900 text-gray-100`}>
         <ThemeProvider>
           <MusicProvider>
