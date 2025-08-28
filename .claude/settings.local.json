@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Remove-Item \"C:\\Users\\Joseph\\Desktop\\Projects\\My_freelance_website\\app\\package.json\")",
+      "Bash(Remove-Item \"C:\\Users\\Joseph\\Desktop\\Projects\\My_freelance_website\\DELETE_HEROES.txt\")",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

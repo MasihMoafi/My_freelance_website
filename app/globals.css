@@ -2,22 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Light theme (default) */
-:root,
-[data-theme="light"] {
-  --background: #ffffff;
-  --foreground: #171717;
-  --bg-primary: #f8fafc;
-  --bg-secondary: #f1f5f9;
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --border: #e5e7eb;
-  --accent: #f59e0b;
-  --accent-light: #fbbf24;
-}
-
-/* Dark theme */
-[data-theme="dark"] {
+/* Dark theme (default) */
+:root {
   --background: #0a0a0a;
   --foreground: #ededed;
   --bg-primary: #111827;
@@ -43,7 +29,8 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: var(--background) url('/background.jpg') no-repeat center center fixed;
+  background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
 }
 
