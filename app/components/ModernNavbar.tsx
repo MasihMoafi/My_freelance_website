@@ -190,7 +190,7 @@ export default function ModernNavbar({}: ModernNavbarProps) {
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className={`fixed inset-0 ${currentTheme === 'sunny' ? 'bg-white/95' : 'bg-black/95'} backdrop-blur-lg z-[60] md:hidden`}
+            className="fixed inset-0 bg-black/95 backdrop-blur-lg z-[60] md:hidden"
           >
             <div className="flex flex-col h-full">
               <div className={`flex items-center justify-between p-6 border-b ${getBorderColor()}`}>
@@ -242,7 +242,7 @@ export default function ModernNavbar({}: ModernNavbarProps) {
                             href={item.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`block ${currentTheme === 'sunny' ? 'text-gray-600 hover:text-black' : 'text-gray-400 hover:text-white'} transition-colors`}
+                            className="block text-gray-400 hover:text-white transition-colors"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {item.name} ↗
@@ -250,7 +250,7 @@ export default function ModernNavbar({}: ModernNavbarProps) {
                         ) : (
                           <Link
                             href={item.href}
-                            className={`block ${currentTheme === 'sunny' ? 'text-gray-600 hover:text-black' : 'text-gray-400 hover:text-white'} transition-colors`}
+                            className="block text-gray-400 hover:text-white transition-colors"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {item.name}
