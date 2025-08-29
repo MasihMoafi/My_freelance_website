@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { useState, useEffect } from 'react';
 
 export default function EyesWideShutProject() {
@@ -88,8 +87,11 @@ export default function EyesWideShutProject() {
                   img: ({ node, ...props }) => (
                     <img 
                       {...props} 
-                      className="rounded-lg shadow-lg max-w-full h-auto my-4"
+                      className="rounded-lg shadow-lg max-w-full h-auto my-4" 
                       loading="lazy"
+                      onError={(e) => {
+                        console.error('Image failed to load:', props.src);
+                      }}
                     />
                   ),
                 }}

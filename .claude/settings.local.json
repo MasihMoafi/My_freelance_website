@@ -11,7 +11,8 @@
       "Bash(winget install:*)",
       "Bash(gh auth:*)",
       "Bash($env:PATH += \";C:\\Program Files\\GitHub CLI\")",
-      "Bash(gh:*)"
+      "Bash(gh:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []
