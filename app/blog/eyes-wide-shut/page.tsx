@@ -62,7 +62,7 @@ export default function EyesWideShutProject() {
           >
             <header className="mb-8 text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                👁️ Eyes Wide Shut
+                🎭 Eyes Wide Shut
               </h1>
               <div className="flex items-center justify-center space-x-4 text-gray-400 text-sm mb-6">
                 <span>August 26, 2025</span>
@@ -84,16 +84,33 @@ export default function EyesWideShutProject() {
             <div className="prose prose-invert prose-white max-w-none text-gray-300">
               <ReactMarkdown
                 components={{
-                  img: ({ node, ...props }) => (
-                    <img 
-                      {...props} 
-                      className="rounded-lg shadow-lg max-w-full h-auto my-4" 
-                      loading="lazy"
-                      onError={(e) => {
-                        console.error('Image failed to load:', props.src);
-                      }}
-                    />
-                  ),
+                  img: ({ node, ...props }) => {
+                    // Handle GitHub assets URLs properly
+                    const src = props.src;
+                    if (src && src.includes('github.com/user-attachments/assets')) {
+                      return (
+                        <img 
+                          {...props} 
+                          src={src}
+                          className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                          loading="lazy"
+                          onError={(e) => {
+                            console.error('Image failed to load:', src);
+                          }}
+                        />
+                      );
+                    }
+                    return (
+                      <img 
+                        {...props} 
+                        className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                        loading="lazy"
+                        onError={(e) => {
+                          console.error('Image failed to load:', props.src);
+                        }}
+                      />
+                    );
+                  },
                 }}
               >
                 {String(markdownContent)}

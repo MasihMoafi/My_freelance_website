@@ -71,7 +71,16 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-black" data-theme="dark">
+    <div 
+      className="min-h-screen relative overflow-hidden bg-black" 
+      style={{
+        backgroundImage: getBackgroundStyle(), 
+        backgroundSize: '81%', 
+        backgroundPosition: 'center center', 
+        backgroundRepeat: 'no-repeat'
+      }} 
+      data-theme="dark"
+    >
       <ModernNavbar />
       
       <MovingStars starColor='#ffffff' />
@@ -85,7 +94,7 @@ export default function Home() {
         >
           <h1
             ref={nameRef}
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-none mb-6 ${getTextColor()}`}
+            className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-none mb-6 font-mono ${getTextColor()}`}
           >
             {displayedName}
             {!isTypingComplete && <span className="animate-pulse">|</span>}

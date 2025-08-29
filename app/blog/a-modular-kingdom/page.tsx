@@ -13,7 +13,7 @@ export default function AModularKingdomPost() {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch('/a-modular-kingdom.txt');
+        const response = await fetch('/a-modular-kingdom.txt?v=' + Date.now()); // Bust cache
         const content = await response.text();
         setMarkdownContent(content);
       } catch (error) {
