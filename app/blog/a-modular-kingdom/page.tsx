@@ -116,6 +116,7 @@ export default function AModularKingdomPost() {
             
             <div className="prose prose-invert prose-white max-w-none text-gray-300">
               <ReactMarkdown
+                {...({ remarkPlugins: [remarkGfm] } as any)}
                 components={{
                   img: ({ node, ...props }) => (
                     <img 
