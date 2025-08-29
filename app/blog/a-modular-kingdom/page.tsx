@@ -130,19 +130,35 @@ export default function AModularKingdomPost() {
               </div>
             </header>
             
-            <div 
-              className="prose prose-invert prose-white max-w-none text-gray-300"
-              dangerouslySetInnerHTML={{ 
-                __html: markdownContent
-                  .replace(/!\[\]\(([^)]+)\)/g, '<img src="$1" class="rounded-lg shadow-lg max-w-full h-auto my-4" loading="lazy" />')
-                  .replace(/^### (.*$)/gim, '<h3 class="text-2xl font-bold text-white mb-4">$1</h3>')
-                  .replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold text-white mb-6">$1</h2>')
-                  .replace(/^# (.*$)/gim, '<h1 class="text-4xl font-bold text-white mb-8">$1</h1>')
-                  .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
-                  .replace(/\n\n/g, '</p><p class="text-gray-300 mb-4">')
-                  .replace(/^(.)/gm, '<p class="text-gray-300 mb-4">$1')
-              }} 
-            />
+            <div className="prose prose-invert prose-white max-w-none text-gray-300">
+              <ReactMarkdown
+                components={{
+                  img: ({ node, ...props }) => (
+                    <img 
+                      {...props} 
+                      className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                      loading="lazy"
+                    />
+                  ),
+                  table: ({ node, ...props }) => (
+                    <div className="overflow-x-auto my-6">
+                      <table {...props} className="min-w-full border-collapse border border-gray-600 bg-gray-800/50" />
+                    </div>
+                  ),
+                  thead: ({ node, ...props }) => (
+                    <thead {...props} className="bg-gray-700" />
+                  ),
+                  th: ({ node, ...props }) => (
+                    <th {...props} className="border border-gray-600 px-4 py-3 text-left font-semibold text-white" />
+                  ),
+                  td: ({ node, ...props }) => (
+                    <td {...props} className="border border-gray-600 px-4 py-2 text-gray-300" />
+                  ),
+                }}
+              >
+                {String(markdownContent)}
+              </ReactMarkdown>
+            </div>
           </motion.article>
         </div>
       </div>
