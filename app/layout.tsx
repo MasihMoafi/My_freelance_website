@@ -1,8 +1,15 @@
+import { Roboto } from 'next/font/google';
 import './globals.css';
 // import ModernChatbot from './components/ModernChatbot';
 import MusicProvider from './components/MusicProvider';
 import { ThemeProvider } from './components/ThemeContext';
 import type { Metadata } from 'next';
+
+const roboto = Roboto({ 
+  subsets: ['latin'], 
+  weight: ['300', '400', '500', '700'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Masih Moafi - AI Engineer & Researcher',
@@ -19,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-900 text-gray-100" style={{fontFamily: 'Lovelo, Arial, sans-serif'}}>
+      <body className={`${roboto.className} bg-gray-900 text-gray-100`}>
         <ThemeProvider>
           <MusicProvider>
             {children}

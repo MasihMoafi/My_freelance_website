@@ -109,7 +109,7 @@ export default function Home() {
           <h1
             ref={nameRef}
             className={`text-4xl md:text-5xl lg:text-6xl font-normal leading-none mb-2 ${getTextColor()}`}
-            style={{fontFamily: 'Impact, Arial, sans-serif', letterSpacing: '2px', fontWeight: '400'}}
+            style={{letterSpacing: '2px', fontWeight: '400'}}
           >
             {displayedName}
             {!isTypingComplete && <span className="animate-pulse">|</span>}
