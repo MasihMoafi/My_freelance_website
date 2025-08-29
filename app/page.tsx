@@ -105,11 +105,16 @@ export default function Home() {
         >
           <h1
             ref={nameRef}
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-none mb-6 font-mono ${getTextColor()}`}
+            className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-none mb-2 ${getTextColor()}`}
+            style={{fontFamily: 'Impact, Arial, sans-serif', letterSpacing: '2px'}}
           >
             {displayedName}
             {!isTypingComplete && <span className="animate-pulse">|</span>}
           </h1>
+          
+          <p className={`text-lg md:text-xl font-light opacity-70 mb-6 ${getTextColor()}`}>
+            AI/ML Engineer
+          </p>
 
           <motion.div
             initial={{ opacity: 0, filter: 'blur(5px)' }}

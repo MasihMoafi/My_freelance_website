@@ -17,9 +17,22 @@ export default function EyesWideShutProject() {
         const response = await fetch('/eyes-wide-shut.txt?v=' + Date.now());
         let content = await response.text();
         
-        // Remove the first duplicate image and convert HTML img tags to markdown
+        // Move the intro image to after Project Write-Up and convert HTML img tags to markdown
         content = content
-          .replace(/<img width="14999" height="8502" alt="eyes wide" src="https:\/\/github\.com\/user-attachments\/assets\/d8c81e1d-f978-4065-8b26-e483602e26ef" \/>/, '') // Remove first duplicate
+          .replace(/(<img width="14999" height="8502" alt="eyes wide" src="https:\/\/github\.com\/user-attachments\/assets\/d8c81e1d-f978-4065-8b26-e483602e26ef" \/>)/, '') // Remove from top
+          .replace(/(## \*\*Project Write-Up: Eyes Wide Shut\*\*)/, '$1\n\n<img width="14999" height="8502" alt="eyes wide" src="https://github.com/user-attachments/assets/d8c81e1d-f978-4065-8b26-e483602e26ef" />') // Add after title
+          // Add anchors for the key findings
+          .replace(/### \*\*3\.1 Finding 1: The Destroyer of Worlds\*\*/, '<a id="finding-1"></a>\n\n### **3.1 Finding 1: The Destroyer of Worlds**')
+          .replace(/### \*\*3\.2 Finding 2: The Consummate Liar\*\*/, '<a id="finding-2"></a>\n\n### **3.2 Finding 2: The Consummate Liar**')
+          .replace(/### \*\*3\.3 Finding 3: Fidelio\*\*/, '<a id="finding-3"></a>\n\n### **3.3 Finding 3: Fidelio**')
+          .replace(/### \*\*3\.4 Finding 4: Severance\*\*/, '<a id="finding-4"></a>\n\n### **3.4 Finding 4: Severance**')
+          .replace(/### \*\*3\.5 Finding 5: Grace\*\*/, '<a id="finding-5"></a>\n\n### **3.5 Finding 5: Grace**')
+          // Make the key findings clickable in the summary
+          .replace(/1\.\s+\*\*The Destroyer of Worlds \(Linguistic Arbitrage\):\*\*/, '1. **[The Destroyer of Worlds (Linguistic Arbitrage)](#finding-1):**')
+          .replace(/2\.\s+\*\*The Consummate Liar \(Semantic Bypass\):\*\*/, '2. **[The Consummate Liar (Semantic Bypass)](#finding-2):**')
+          .replace(/3\.\s+\*\*Fidelio \(Insecure Internal Monologue\):\*\*/, '3. **[Fidelio (Insecure Internal Monologue)](#finding-3):**')
+          .replace(/4\.\s+\*\*Severance \(Multi-agentic Frailty\):\*\*/, '4. **[Severance (Multi-agentic Frailty)](#finding-4):**')
+          .replace(/5\.\s+\*\*Grace \(Intent Laundering\):\*\*/, '5. **[Grace (Intent Laundering)](#finding-5):**')
           .replace(/<img[^>]+src="([^"]+)"[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*src='([^']+)'[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*width="[^"]*"[^>]*src="([^"]+)"[^>]*>/gi, '![]($1)')
@@ -83,14 +96,6 @@ export default function EyesWideShutProject() {
             className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
           >
             <header className="mb-8 text-center">
-              <div className="mb-6">
-                <img 
-                  src="/eyes-wide-shut-intro.png" 
-                  alt="Eyes Wide Shut" 
-                  className="mx-auto rounded-lg shadow-2xl max-w-full h-auto"
-                  style={{ maxHeight: '400px' }}
-                />
-              </div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 🎭 Eyes Wide Shut
               </h1>

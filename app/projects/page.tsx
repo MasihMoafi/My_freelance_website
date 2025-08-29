@@ -61,7 +61,7 @@ export default function Projects() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+      <div className="fixed inset-0 bg-black/70 backdrop-blur-sm"></div>
       <MovingStars />
       
       <motion.div
@@ -83,10 +83,10 @@ export default function Projects() {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="fixed top-8 z-40 w-full flex justify-center"
+        className="fixed top-8 right-8 z-50"
       >
         <h1 className="text-2xl font-bold text-white bg-white/10 backdrop-blur-xl rounded-2xl px-6 py-3 border border-white/20">My Projects</h1>
       </motion.div>
