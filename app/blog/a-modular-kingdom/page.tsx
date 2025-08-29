@@ -16,8 +16,14 @@ export default function AModularKingdomPost() {
         const response = await fetch('/a-modular-kingdom.txt?v=' + Date.now());
         let content = await response.text();
         
-        // Convert HTML img tags to markdown format that ReactMarkdown can handle
-        content = content.replace(/<img[^>]+src="([^"]+)"[^>]*>/g, '![]($1)');
+        // Convert ALL HTML img tag variations to markdown format
+        content = content
+          .replace(/<img[^>]+src="([^"]+)"[^>]*>/gi, '![]($1)')
+          .replace(/<img[^>]*src='([^']+)'[^>]*>/gi, '![]($1)')
+          .replace(/<img[^>]*width="[^"]*"[^>]*src="([^"]+)"[^>]*>/gi, '![]($1)')
+          .replace(/<img[^>]*src="([^"]+)"[^>]*width="[^"]*"[^>]*>/gi, '![]($1)');
+        
+        console.log('Processed content preview:', content.substring(0, 1000));
         
         setMarkdownContent(content);
       } catch (error) {
