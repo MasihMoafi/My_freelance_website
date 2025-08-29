@@ -5,7 +5,7 @@ import Image from 'next/image';
 // Using system fonts to avoid Google Fonts issues
 import { useState, useRef, useEffect } from 'react';
 import ModernNavbar from './components/ModernNavbar';
-import MovingStars from './components/MovingStars';
+import InfectedDust from './components/InfectedDust';
 import { useMusicContext } from './components/MusicProvider';
 // Removed anime.js for now to fix build
 
@@ -58,16 +58,27 @@ export default function Home() {
   };
 
   const getButtonClass = () => {
-    return 'px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-all duration-300 rounded-lg font-semibold';
+    return 'px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white hover:bg-white hover:text-black hover:border-white transition-all duration-500 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform';
   };
 
   const getSecondaryButtonClass = () => {
-    return 'px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-all duration-300 rounded-lg font-semibold';
+    return 'px-8 py-4 bg-transparent border-2 border-white/50 text-white hover:bg-white/10 hover:border-white transition-all duration-500 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform';
   };
 
 
   if (!mounted) {
-    return null;
+    return (
+      <div 
+        className="min-h-screen relative overflow-hidden bg-black" 
+        style={{
+          backgroundImage: getBackgroundStyle(), 
+          backgroundSize: '81%', 
+          backgroundPosition: 'center center', 
+          backgroundRepeat: 'no-repeat'
+        }} 
+        data-theme="dark"
+      />
+    );
   }
 
   return (
@@ -83,7 +94,7 @@ export default function Home() {
     >
       <ModernNavbar />
       
-      <MovingStars starColor='#ffffff' />
+      <InfectedDust dustColor='#ffffff' />
 
       <div className="relative z-10 flex flex-col items-center justify-start pt-32 min-h-screen px-4">
         <motion.div

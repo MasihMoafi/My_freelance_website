@@ -96,16 +96,33 @@ export default function AModularKingdomPost() {
             <div className="prose prose-invert prose-white max-w-none text-gray-300">
               <ReactMarkdown
                 components={{
-                  img: ({ node, ...props }) => (
-                    <img 
-                      {...props} 
-                      className="rounded-lg shadow-lg max-w-full h-auto my-4" 
-                      loading="lazy"
-                      onError={(e) => {
-                        console.error('Image failed to load:', props.src);
-                      }}
-                    />
-                  ),
+                  img: ({ node, ...props }) => {
+                    // Handle GitHub assets URLs properly
+                    const src = props.src;
+                    if (src && src.includes('github.com/user-attachments/assets')) {
+                      return (
+                        <img 
+                          {...props} 
+                          src={src}
+                          className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                          loading="lazy"
+                          onError={(e) => {
+                            console.error('Image failed to load:', src);
+                          }}
+                        />
+                      );
+                    }
+                    return (
+                      <img 
+                        {...props} 
+                        className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                        loading="lazy"
+                        onError={(e) => {
+                          console.error('Image failed to load:', props.src);
+                        }}
+                      />
+                    );
+                  },
                 }}
               >
                 {String(markdownContent)}
