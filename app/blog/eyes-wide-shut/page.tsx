@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 import { useState, useEffect } from 'react';
 
 export default function EyesWideShutProject() {
@@ -17,7 +17,7 @@ export default function EyesWideShutProject() {
         const response = await fetch('/eyes-wide-shut.txt?v=' + Date.now());
         let content = await response.text();
         
-        // Just convert HTML img tags to markdown - keep everything else simple
+        // Convert HTML img tags to markdown
         content = content
           .replace(/<img[^>]+src="([^"]+)"[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*src='([^']+)'[^>]*>/gi, '![]($1)')
@@ -103,19 +103,48 @@ export default function EyesWideShutProject() {
               </div>
             </header>
             
-            <div 
-              className="prose prose-invert prose-white max-w-none text-gray-300"
-              dangerouslySetInnerHTML={{ 
-                __html: markdownContent
-                  .replace(/!\[\]\(([^)]+)\)/g, '<img src="$1" class="rounded-lg shadow-lg max-w-full h-auto my-4" loading="lazy" />')
-                  .replace(/^### (.*$)/gm, '<h3 class="text-2xl font-bold text-white mb-4">$1</h3>')
-                  .replace(/^## (.*$)/gm, '<h2 class="text-3xl font-bold text-white mb-6">$1</h2>')
-                  .replace(/^# (.*$)/gm, '<h1 class="text-4xl font-bold text-white mb-8">$1</h1>')
-                  .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-white">$1</strong>')
-                  .replace(/\n\n/g, '<br><br>')
-                  .replace(/\n/g, '<br>')
-              }} 
-            />
+            <div className="prose prose-invert prose-white max-w-none text-gray-300">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  img: ({ node, ...props }) => (
+                    <img 
+                      {...props} 
+                      className="rounded-lg shadow-lg max-w-full h-auto my-4" 
+                      loading="lazy"
+                    />
+                  ),
+                  table: ({ node, ...props }) => (
+                    <div className="overflow-x-auto my-6">
+                      <table {...props} className="min-w-full border-collapse border border-gray-600 bg-gray-800/50" />
+                    </div>
+                  ),
+                  thead: ({ node, ...props }) => (
+                    <thead {...props} className="bg-gray-700" />
+                  ),
+                  th: ({ node, ...props }) => (
+                    <th {...props} className="border border-gray-600 px-4 py-3 text-left font-semibold text-white" />
+                  ),
+                  td: ({ node, ...props }) => (
+                    <td {...props} className="border border-gray-600 px-4 py-2 text-gray-300" />
+                  ),
+                  h1: ({ node, ...props }) => (
+                    <h1 {...props} className="text-4xl font-bold text-white mb-8" />
+                  ),
+                  h2: ({ node, ...props }) => (
+                    <h2 {...props} className="text-3xl font-bold text-white mb-6" />
+                  ),
+                  h3: ({ node, ...props }) => (
+                    <h3 {...props} className="text-2xl font-bold text-white mb-4" />
+                  ),
+                  strong: ({ node, ...props }) => (
+                    <strong {...props} className="font-bold text-white" />
+                  ),
+                }}
+              >
+                {String(markdownContent)}
+              </ReactMarkdown>
+            </div>
           </motion.article>
         </div>
       </div>

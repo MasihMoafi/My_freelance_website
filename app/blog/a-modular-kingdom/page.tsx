@@ -17,28 +17,12 @@ export default function AModularKingdomPost() {
         const response = await fetch('/a-modular-kingdom.txt?v=' + Date.now());
         let content = await response.text();
         
-        // Convert HTML img tags to markdown and fix tables
+        // Convert HTML img tags to markdown
         content = content
           .replace(/<img[^>]+src="([^"]+)"[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*src='([^']+)'[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*width="[^"]*"[^>]*src="([^"]+)"[^>]*>/gi, '![]($1)')
-          .replace(/<img[^>]*src="([^"]+)"[^>]*width="[^"]*"[^>]*>/gi, '![]($1)')
-          // Convert the main tools table to HTML
-          .replace(
-            /\|\s*Tool\s*\|\s*Description\s*\|\s*Note\s*\|\s*\n\s*\|------\|-------------|--------\|\s*((?:\n\s*\|[^|]*\|[^|]*\|[^|]*\|)*)/gi,
-            (match) => {
-              const rows = match.split('\n').filter(line => line.includes('|') && !line.includes('---')).slice(1);
-              const htmlRows = rows.map(row => {
-                const cells = row.split('|').map(cell => cell.trim()).filter(cell => cell);
-                if (cells.length >= 3) {
-                  return `<tr><td class="border border-gray-600 px-4 py-2 text-gray-300">${cells[0]}</td><td class="border border-gray-600 px-4 py-2 text-gray-300">${cells[1]}</td><td class="border border-gray-600 px-4 py-2 text-gray-300">${cells[2]}</td></tr>`;
-                }
-                return '';
-              }).join('');
-              
-              return `<div class="overflow-x-auto my-6"><table class="min-w-full border-collapse border border-gray-600 bg-gray-800/50"><thead class="bg-gray-700"><tr><th class="border border-gray-600 px-4 py-3 text-left font-semibold text-white">Tool</th><th class="border border-gray-600 px-4 py-3 text-left font-semibold text-white">Description</th><th class="border border-gray-600 px-4 py-3 text-left font-semibold text-white">Note</th></tr></thead><tbody>${htmlRows}</tbody></table></div>`;
-            }
-          );
+          .replace(/<img[^>]*src="([^"]+)"[^>]*width="[^"]*"[^>]*>/gi, '![]($1)');
         
         console.log('Processed content preview:', content.substring(0, 1000));
         
@@ -132,6 +116,7 @@ export default function AModularKingdomPost() {
             
             <div className="prose prose-invert prose-white max-w-none text-gray-300">
               <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
                 components={{
                   img: ({ node, ...props }) => (
                     <img 
@@ -153,6 +138,18 @@ export default function AModularKingdomPost() {
                   ),
                   td: ({ node, ...props }) => (
                     <td {...props} className="border border-gray-600 px-4 py-2 text-gray-300" />
+                  ),
+                  h1: ({ node, ...props }) => (
+                    <h1 {...props} className="text-4xl font-bold text-white mb-8" />
+                  ),
+                  h2: ({ node, ...props }) => (
+                    <h2 {...props} className="text-3xl font-bold text-white mb-6" />
+                  ),
+                  h3: ({ node, ...props }) => (
+                    <h3 {...props} className="text-2xl font-bold text-white mb-4" />
+                  ),
+                  strong: ({ node, ...props }) => (
+                    <strong {...props} className="font-bold text-white" />
                   ),
                 }}
               >
