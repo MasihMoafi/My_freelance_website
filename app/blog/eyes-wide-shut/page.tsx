@@ -110,17 +110,14 @@ export default function EyesWideShutProject() {
               <ReactMarkdown
                 {...({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeRaw] } as any)}
                 components={{
-                  img: ({ node, ...props }) => {
-                    const isSecondImage = props.src?.includes('4be1c40ffd78fa20c57e46692dd92cac');
-                    return (
-                      <img 
-                        {...props} 
-                        className={`rounded-lg shadow-lg max-w-full h-auto my-4 ${isSecondImage ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
-                        loading="lazy"
-                        onClick={isSecondImage ? () => setZoomedImage(props.src || '') : undefined}
-                      />
-                    );
-                  },
+                  img: ({ node, ...props }) => (
+                    <img 
+                      {...props} 
+                      className="rounded-lg shadow-lg max-w-full h-auto my-4 cursor-pointer hover:opacity-80 transition-opacity"
+                      loading="lazy"
+                      onClick={() => setZoomedImage(props.src || '')}
+                    />
+                  ),
                   table: ({ node, ...props }) => (
                     <div className="overflow-x-auto my-6">
                       <table {...props} className="min-w-full border-collapse border border-gray-600 bg-gray-800/50" />

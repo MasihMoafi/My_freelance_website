@@ -81,7 +81,7 @@ export default function Blog() {
             className="text-center mb-12"
           >
             <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">Blog</h1>
-            <p className="text-xl text-gray-300">Technical insights and project deep-dives</p>
+            <p className="text-xl text-white drop-shadow-lg">Technical insights and project deep-dives</p>
           </motion.div>
 
           <div className="space-y-8">
