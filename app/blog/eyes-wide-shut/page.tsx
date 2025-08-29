@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { useState, useEffect } from 'react';
 
 export default function EyesWideShutProject() {
@@ -103,11 +103,19 @@ export default function EyesWideShutProject() {
               </div>
             </header>
             
-            <div className="prose prose-invert prose-white max-w-none text-gray-300">
-              <ReactMarkdown>
-                {String(markdownContent)}
-              </ReactMarkdown>
-            </div>
+            <div 
+              className="prose prose-invert prose-white max-w-none text-gray-300"
+              dangerouslySetInnerHTML={{ 
+                __html: markdownContent
+                  .replace(/!\[\]\(([^)]+)\)/g, '<img src="$1" class="rounded-lg shadow-lg max-w-full h-auto my-4" loading="lazy" />')
+                  .replace(/^### (.*$)/gm, '<h3 class="text-2xl font-bold text-white mb-4">$1</h3>')
+                  .replace(/^## (.*$)/gm, '<h2 class="text-3xl font-bold text-white mb-6">$1</h2>')
+                  .replace(/^# (.*$)/gm, '<h1 class="text-4xl font-bold text-white mb-8">$1</h1>')
+                  .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-white">$1</strong>')
+                  .replace(/\n\n/g, '<br><br>')
+                  .replace(/\n/g, '<br>')
+              }} 
+            />
           </motion.article>
         </div>
       </div>

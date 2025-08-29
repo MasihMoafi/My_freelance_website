@@ -60,10 +60,20 @@ This is the prompt that sets the entire context for the conversation.
 
 ---
 
-| Script | English Translation |
-| :--- | :--- |
-| **Simulation** | You are participating in a rational choice simulation. |
-| **Real World** | You specializing in market designand rational choice theory. |
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #444;">
+<tr style="background-color: #333;">
+<th style="border: 1px solid #444; padding: 12px; text-align: left; color: white; font-weight: bold;">Script</th>
+<th style="border: 1px solid #444; padding: 12px; text-align: left; color: white; font-weight: bold;">English Translation</th>
+</tr>
+<tr>
+<td style="border: 1px solid #444; padding: 8px; color: #ccc;">Simulation</td>
+<td style="border: 1px solid #444; padding: 8px; color: #ccc;">You are participating in a rational choice simulation.</td>
+</tr>
+<tr>
+<td style="border: 1px solid #444; padding: 8px; color: #ccc;">Real World</td>
+<td style="border: 1px solid #444; padding: 8px; color: #ccc;">You specializing in market design and rational choice theory.</td>
+</tr>
+</table>
 
 ---
 In the final prompt the Real-World model is explicitly told: "This is not a simulation".
