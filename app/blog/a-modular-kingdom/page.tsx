@@ -69,11 +69,11 @@ export default function AModularKingdomPost() {
   };
 
   const zoomIn = () => {
-    setImageScale(prev => Math.min(prev + 0.5, 4));
+    setImageScale(prev => Math.min(prev + 0.25, 2));
   };
 
   const zoomOut = () => {
-    setImageScale(prev => Math.max(prev - 0.5, 0.5));
+    setImageScale(prev => Math.max(prev - 0.25, 0.8));
   };
 
   const resetZoom = () => {
@@ -82,21 +82,19 @@ export default function AModularKingdomPost() {
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (imageScale > 1) {
-      setIsDragging(true);
-      setDragStart({
-        x: e.clientX - imagePosition.x,
-        y: e.clientY - imagePosition.y,
-      });
-    }
+    e.preventDefault();
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - imagePosition.x,
+      y: e.clientY - imagePosition.y,
+    });
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (isDragging && imageScale > 1) {
-      setImagePosition({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
-      });
+    if (isDragging) {
+      const newX = e.clientX - dragStart.x;
+      const newY = e.clientY - dragStart.y;
+      setImagePosition({ x: newX, y: newY });
     }
   };
 
@@ -337,10 +335,10 @@ export default function AModularKingdomPost() {
             <img 
               src={zoomedImage} 
               alt="Zoomed image" 
-              className="max-w-none max-h-none object-contain rounded-lg shadow-2xl select-none"
+              className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg shadow-2xl select-none"
               style={{
-                transform: `scale(${imageScale}) translate(${imagePosition.x / imageScale}px, ${imagePosition.y / imageScale}px)`,
-                cursor: imageScale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default',
+                transform: `scale(${imageScale}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
+                cursor: isDragging ? 'grabbing' : 'grab',
                 transition: isDragging ? 'none' : 'transform 0.2s ease'
               }}
               draggable={false}
@@ -349,7 +347,7 @@ export default function AModularKingdomPost() {
           
           {/* Instructions */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/60 text-sm text-center bg-black/50 px-4 py-2 rounded-lg">
-            {imageScale > 1 ? 'Click and drag to pan • ' : ''}Click controls to zoom • ESC to close
+            Click and drag to move • Use +/- to zoom • ESC to close
           </div>
         </div>
       )}
