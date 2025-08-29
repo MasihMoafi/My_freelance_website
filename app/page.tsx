@@ -138,7 +138,7 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 className={getSecondaryButtonClass()}
               >
-                Learn More About Me
+                About Me
               </motion.a>
               
               <motion.a
@@ -147,7 +147,7 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 className={getSecondaryButtonClass()}
               >
-                View My Work
+                Portfolio
               </motion.a>
             </motion.div>
             

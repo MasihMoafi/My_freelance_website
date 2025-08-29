@@ -83,7 +83,7 @@ export default function EyesWideShutProject() {
           >
             <header className="mb-8 text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-                <img src="/logo.jpeg" alt="Eyes Wide Shut" className="w-12 h-12 rounded-lg" />
+                <img src="/logo.png" alt="Eyes Wide Shut" className="w-12 h-12 rounded-lg" />
                 Eyes Wide Shut
               </h1>
               <div className="flex items-center justify-center space-x-4 text-gray-400 text-sm mb-6">
