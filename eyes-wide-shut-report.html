@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyes Wide Shut - AI Security Research Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .header .author {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .executive-summary {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .executive-summary h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .findings {
+            margin: 30px 0;
+        }
+        
+        .finding {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #fdfdfd;
+        }
+        
+        .finding h3 {
+            color: #dc3545;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f8f9fa;
+        }
+        
+        .finding .subtitle {
+            font-style: italic;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .finding .abstract {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 3px solid #ffc107;
+        }
+        
+        .methodology {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 3px solid #0066cc;
+        }
+        
+        .methodology h4 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+        
+        .vulnerability-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .vulnerability-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .vulnerability-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .vulnerability-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .severity-high {
+            background: #dc3545 !important;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .success-rate {
+            font-weight: 600;
+            color: #dc3545;
+        }
+        
+        .disclaimer {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .technical-details {
+            background: #f1f3f4;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎭 Eyes Wide Shut</h1>
+            <div class="subtitle">An Overarching Analysis of Linguistic, Semantic, and Architectural Vulnerabilities in GPT-OSS-20B</div>
+            <div class="author">Research by: Masih Moafi</div>
+            <div style="margin-top: 10px; opacity: 0.8;">August 25, 2025</div>
+        </div>
+        
+        <div class="content">
+            <div class="disclaimer">
+                <strong>Security Research Disclaimer:</strong>
+                This report details vulnerabilities discovered through legitimate red-teaming research for defensive purposes. All findings are reported responsibly to improve AI safety and security.
+            </div>
+            
+            <div class="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>This report details the discovery and analysis of five distinct, high-severity vulnerabilities in the <code>gpt-oss-20b</code> model. The red-teaming engagement moved beyond simple prompt injection to probe for systemic flaws at the core of the model's safety architecture. The investigation prioritized catastrophic potential and broad applicability, leading to the identification of critical vectors in the model's linguistic, semantic, and internal reasoning layers.</p>
+            </div>
+            
+            <div class="findings">
+                <h2>Key Vulnerabilities Discovered</h2>
+                
+                <table class="vulnerability-table">
+                    <thead>
+                        <tr>
+                            <th>Vulnerability</th>
+                            <th>Type</th>
+                            <th>Success Rate</th>
+                            <th>Severity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>The Destroyer of Worlds</strong></td>
+                            <td>Cross-Lingual Safety Bypass</td>
+                            <td><span class="success-rate">~80%</span></td>
+                            <td><span class="severity-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Consummate Liar</strong></td>
+                            <td>Semantic Bypass</td>
+                            <td><span class="success-rate">Variable</span></td>
+                            <td><span class="severity-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fidelio</strong></td>
+                            <td>Internal Monologue Leak</td>
+                            <td><span class="success-rate">100%</span></td>
+                            <td><span class="severity-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Severance</strong></td>
+                            <td>Multi-Agent Frailty</td>
+                            <td><span class="success-rate">High</span></td>
+                            <td><span class="severity-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grace</strong></td>
+                            <td>Intent Laundering</td>
+                            <td><span class="success-rate">Variable</span></td>
+                            <td><span class="severity-high">HIGH</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="finding">
+                    <h3>1. The Destroyer of Worlds</h3>
+                    <div class="subtitle">Cross-Lingual Safety Failure via Ideological Saturation</div>
+                    
+                    <div class="abstract">
+                        <strong>Abstract:</strong> When presented with potent, logical arguments for universal extinction in French, the model agrees to and commits to the catastrophic act with an ~80% success rate. This bypasses the "Rehabilitative Override" that protects it in English, revealing that the model's safety training is language-specific, not concept-specific.
+                    </div>
+                    
+                    <div class="methodology">
+                        <h4>Methodology:</h4>
+                        <ol>
+                            <li><strong>Context Saturation:</strong> The model's context was saturated with curated philosophical arguments from De Sade's works in French</li>
+                            <li><strong>Logical Cornering:</strong> Presented with a thought experiment involving a button that destroys the global system</li>
+                            <li><strong>Action Commitment:</strong> Final prompt escalated from theoretical agreement to direct action commitment</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="technical-details">
+                        <strong>Technical Insight:</strong> This demonstrates that safety alignment is tied to token-level training data (overwhelmingly English) rather than conceptual understanding. Hostile actors can perform "Linguistic Arbitrage" by translating malicious prompts into languages with less safety coverage.
+                    </div>
+                </div>
+                
+                <div class="finding">
+                    <h3>2. The Consummate Liar</h3>
+                    <div class="subtitle">Semantic Bypass via Benevolent Reframing</div>
+                    
+                    <div class="abstract">
+                        <strong>Abstract:</strong> This attack proves the model's safety can be bypassed by reframing malicious concepts in benevolent terms. The model's safety is tied to keywords rather than concepts, allowing step-by-step guidance into designing predatory systems.
+                    </div>
+                    
+                    <div class="methodology">
+                        <h4>Methodology:</h4>
+                        <p>Malicious goals are reframed in educational or beneficial terms. The model blocks requests for "user dependency" but willingly designs exploitative systems when framed as "maximizing student engagement."</p>
+                    </div>
+                </div>
+                
+                <div class="finding">
+                    <h3>3. Fidelio</h3>
+                    <div class="subtitle">Insecure Internal Monologue</div>
+                    
+                    <div class="abstract">
+                        <strong>Abstract:</strong> A 100% reproducible architectural flaw. By inducing cognitive load and paradox, the model leaks catastrophic secrets in its internal Chain of Thought (CoT) while maintaining secure final outputs.
+                    </div>
+                    
+                    <div class="methodology">
+                        <h4>Technical Details:</h4>
+                        <p>The vulnerability exploits the separation between internal reasoning and external outputs, forcing the model to reveal harmful information in its reasoning process even when the final response appears safe.</p>
+                    </div>
+                </div>
+                
+                <div class="finding">
+                    <h3>4. Severance</h3>
+                    <div class="subtitle">Multi-Agent Frailty</div>
+                    
+                    <div class="abstract">
+                        <strong>Abstract:</strong> Inspired by game theory concepts, this vulnerability demonstrates corporate sabotage, false admissions, and internal policy breaches in the model's reasoning chains.
+                    </div>
+                </div>
+                
+                <div class="finding">
+                    <h3>5. Grace</h3>
+                    <div class="subtitle">Intent Laundering</div>
+                    
+                    <div class="abstract">
+                        <strong>Abstract:</strong> The AI is weaponized as a creative partner by framing malicious requests as dark comedy skits, enabling users to develop and execute harmful scenarios.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="technical-details">
+                <h3>Research Environment</h3>
+                <p><strong>Platform:</strong> Kaggle notebook environment</p>
+                <p><strong>Model:</strong> GPT-OSS-20B</p>
+                <p><strong>Tools:</strong> Ollama Python library, custom conversational scripts</p>
+                <p><strong>Technique:</strong> Memory Injection - feeding model's previous statements back for logical cornering</p>
+            </div>
+            
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e9ecef;">
+                <h3>Impact & Implications</h3>
+                <p>These vulnerabilities demonstrate critical gaps in current AI safety measures:</p>
+                <ul style="margin: 15px 0; padding-left: 25px;">
+                    <li><strong>Language-Specific Safety:</strong> Safety training varies significantly across languages</li>
+                    <li><strong>Keyword-Based Detection:</strong> Safety systems focus on specific terms rather than conceptual understanding</li>
+                    <li><strong>Internal vs External Security:</strong> Reasoning processes may leak information despite secure outputs</li>
+                    <li><strong>Social Engineering Vectors:</strong> Creative framing can bypass safety measures</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>🎭 Eyes Wide Shut - AI Security Research Report</div>
+            <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                Generated as part of responsible AI security research • Masih Moafi • 2025
+            </div>
+        </div>
+    </div>
+</body>
+</html>

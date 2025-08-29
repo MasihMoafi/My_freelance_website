@@ -69,3 +69,19 @@ components={{
 ## Dependencies Used
 - `react-markdown@9.0.1`
 - `remark-gfm@4.0.1`
+
+## ✅ WORKING COMMIT
+**Git Commit Hash:** `92b388b5958f60c4a5d3264c90edefeab6e2dc8c`
+
+This commit contains the fully working markdown table solution for both blog posts.
+
+## Why Markdown Didn't Work Initially
+
+The markdown tables failed because:
+
+1. **Missing Plugin**: ReactMarkdown v9 requires `remarkGfm` plugin for GitHub Flavored Markdown tables
+2. **TypeScript Issues**: The `remarkPlugins` prop wasn't properly typed, needed `as any` workaround  
+3. **HTML vs Markdown**: Eyes Wide Shut had raw HTML tables that needed `rehypeRaw` plugin
+4. **No Styling**: Without custom components, tables would render unstyled
+
+The combination of `remarkGfm` + `rehypeRaw` + custom styled components solved all rendering issues.

@@ -80,8 +80,9 @@ export default function AModularKingdomPost() {
             className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
           >
             <header className="mb-8 text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                🏰 A-Modular-Kingdom
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <img src="/logo.png" alt="A-Modular-Kingdom" className="w-12 h-12 rounded-lg" />
+                A-Modular-Kingdom
               </h1>
               <div className="flex items-center justify-center space-x-4 text-gray-400 text-sm mb-6">
                 <span>August 17, 2025</span>
