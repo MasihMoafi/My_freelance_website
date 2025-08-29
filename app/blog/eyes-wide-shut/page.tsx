@@ -5,6 +5,7 @@ import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { useState, useEffect } from 'react';
 
 export default function EyesWideShutProject() {
@@ -103,9 +104,9 @@ export default function EyesWideShutProject() {
               </div>
             </header>
             
-            <div className="prose prose-invert prose-white max-w-none text-gray-300">
+            <div className="prose prose-invert prose-white max-w-none text-gray-300 [&_table]:border-collapse [&_table]:border [&_table]:border-gray-600 [&_table]:bg-gray-800/50 [&_table]:my-6 [&_th]:border [&_th]:border-gray-600 [&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_th]:font-semibold [&_th]:text-white [&_th]:bg-gray-700 [&_td]:border [&_td]:border-gray-600 [&_td]:px-4 [&_td]:py-2 [&_td]:text-gray-300">
               <ReactMarkdown
-                {...({ remarkPlugins: [remarkGfm] } as any)}
+                {...({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeRaw] } as any)}
                 components={{
                   img: ({ node, ...props }) => (
                     <img 
