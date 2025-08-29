@@ -20,7 +20,7 @@ export default function Home() {
   const animationComplete = useRef(false);
   const [displayedName, setDisplayedName] = useState<string>('');
   const [isTypingComplete, setIsTypingComplete] = useState(false);
-  const name = "Masih Moafi";
+  const name = "MASIH MOAFI";
 
   useEffect(() => {
     setMounted(true);

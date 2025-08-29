@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useState, useEffect } from 'react';
 
 export default function AModularKingdomPost() {
@@ -45,7 +46,17 @@ export default function AModularKingdomPost() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
+    <div 
+      className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black"
+      style={{
+        backgroundImage: "url('/background.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
       <MovingStars />
       
       <motion.div /* Back to Blog button */ >
@@ -115,6 +126,20 @@ export default function AModularKingdomPost() {
                         console.error('Image failed to load:', props.src);
                       }}
                     />
+                  ),
+                  table: ({ node, ...props }) => (
+                    <div className="overflow-x-auto my-6">
+                      <table {...props} className="min-w-full border-collapse border border-gray-600 bg-gray-800/50" />
+                    </div>
+                  ),
+                  thead: ({ node, ...props }) => (
+                    <thead {...props} className="bg-gray-700" />
+                  ),
+                  th: ({ node, ...props }) => (
+                    <th {...props} className="border border-gray-600 px-4 py-3 text-left font-semibold text-white" />
+                  ),
+                  td: ({ node, ...props }) => (
+                    <td {...props} className="border border-gray-600 px-4 py-2 text-gray-300" />
                   ),
                 }}
               >

@@ -10,7 +10,17 @@ interface AboutClientProps {
 
 export default function AboutClient({ cvContent }: AboutClientProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-orange-900 flex flex-col items-center relative overflow-hidden">
+    <div 
+      className="min-h-screen flex flex-col items-center relative overflow-hidden bg-black"
+      style={{
+        backgroundImage: "url('/background.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
       <MovingStars />
 
       <motion.div

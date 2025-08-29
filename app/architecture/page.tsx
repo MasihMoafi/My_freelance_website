@@ -137,7 +137,17 @@ export default function Architecture() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden bg-gray-900">
+    <div 
+      className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden bg-black"
+      style={{
+        backgroundImage: "url('/background.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
       {/* Table of Contents Sidebar */}
       <div
         className={`absolute top-0 left-0 h-full ${isFullScreen ? 'w-0' : isSidebarMinimized ? 'w-12' : 'w-64'} bg-gray-800 p-4 z-30 overflow-y-auto transition-all duration-300 ease-in-out`}

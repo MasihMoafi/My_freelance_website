@@ -57,14 +57,14 @@ const InfectedDust: React.FC<InfectedDustProps> = ({ dustColor = '#ffffff' }) =>
         y: y,
         vx: (Math.random() - 0.5) * 0.3, // Slow horizontal drift
         vy: -Math.random() * 0.4 - 0.1, // Slight upward movement
-        size: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.4 + 0.1,
+        size: Math.random() * 2 + 1, // Larger particles
+        opacity: Math.random() * 0.8 + 0.4, // Much more visible
         life: maxLife,
         maxLife: maxLife
       };
     };
 
-    // Initialize particles
+    // Initialize particles - more visible effect
     for (let i = 0; i < 35; i++) {
       particles.push(createParticle());
     }
@@ -108,18 +108,20 @@ const InfectedDust: React.FC<InfectedDustProps> = ({ dustColor = '#ffffff' }) =>
         // Draw particle with glow effect
         ctx.beginPath();
         
-        // Add subtle glow
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = `rgba(255, 255, 255, ${currentOpacity * 0.3})`;
+        // Add fungal spore glow - Last of Us infected spore color
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = `rgba(200, 160, 60, ${currentOpacity * 0.9})`;
         
-        // Create gradient for more organic look
+        // Create gradient for yellowish fungal spore effect (Last of Us style)
         const gradient = ctx.createRadialGradient(
           particle.x, particle.y, 0,
-          particle.x, particle.y, particle.size * 2
+          particle.x, particle.y, particle.size * 5
         );
-        gradient.addColorStop(0, `rgba(255, 255, 255, ${currentOpacity})`);
-        gradient.addColorStop(0.5, `rgba(255, 255, 255, ${currentOpacity * 0.5})`);
-        gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+        gradient.addColorStop(0, `rgba(255, 235, 150, ${currentOpacity})`); // Bright yellowish center
+        gradient.addColorStop(0.3, `rgba(220, 180, 80, ${currentOpacity * 0.9})`); // Golden yellow
+        gradient.addColorStop(0.6, `rgba(180, 140, 60, ${currentOpacity * 0.7})`); // Deeper gold
+        gradient.addColorStop(0.9, `rgba(140, 100, 40, ${currentOpacity * 0.3})`); // Brown edge
+        gradient.addColorStop(1, `rgba(100, 80, 20, 0)`); // Fade to transparent brown
         
         ctx.fillStyle = gradient;
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);

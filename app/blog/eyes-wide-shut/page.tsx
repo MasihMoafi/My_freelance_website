@@ -47,7 +47,17 @@ export default function EyesWideShutProject() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div 
+      className="min-h-screen bg-black text-white relative overflow-hidden"
+      style={{
+        backgroundImage: "url('/background.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
       <MovingStars starColor="#ffffff" />
       
       <motion.div /* Back to Blog button */ >
@@ -71,6 +81,14 @@ export default function EyesWideShutProject() {
             className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
           >
             <header className="mb-8 text-center">
+              <div className="mb-6">
+                <img 
+                  src="/eyes-wide-shut-intro.png" 
+                  alt="Eyes Wide Shut" 
+                  className="mx-auto rounded-lg shadow-2xl max-w-full h-auto"
+                  style={{ maxHeight: '400px' }}
+                />
+              </div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                 🎭 Eyes Wide Shut
               </h1>
