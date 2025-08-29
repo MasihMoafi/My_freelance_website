@@ -17,12 +17,28 @@ export default function AModularKingdomPost() {
         const response = await fetch('/a-modular-kingdom.txt?v=' + Date.now());
         let content = await response.text();
         
-        // Convert ALL HTML img tag variations to markdown format
+        // Convert HTML img tags to markdown and fix tables
         content = content
           .replace(/<img[^>]+src="([^"]+)"[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*src='([^']+)'[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*width="[^"]*"[^>]*src="([^"]+)"[^>]*>/gi, '![]($1)')
-          .replace(/<img[^>]*src="([^"]+)"[^>]*width="[^"]*"[^>]*>/gi, '![]($1)');
+          .replace(/<img[^>]*src="([^"]+)"[^>]*width="[^"]*"[^>]*>/gi, '![]($1)')
+          // Convert the main tools table to HTML
+          .replace(
+            /\|\s*Tool\s*\|\s*Description\s*\|\s*Note\s*\|\s*\n\s*\|------\|-------------|--------\|\s*((?:\n\s*\|[^|]*\|[^|]*\|[^|]*\|)*)/gi,
+            (match) => {
+              const rows = match.split('\n').filter(line => line.includes('|') && !line.includes('---')).slice(1);
+              const htmlRows = rows.map(row => {
+                const cells = row.split('|').map(cell => cell.trim()).filter(cell => cell);
+                if (cells.length >= 3) {
+                  return `<tr><td class="border border-gray-600 px-4 py-2 text-gray-300">${cells[0]}</td><td class="border border-gray-600 px-4 py-2 text-gray-300">${cells[1]}</td><td class="border border-gray-600 px-4 py-2 text-gray-300">${cells[2]}</td></tr>`;
+                }
+                return '';
+              }).join('');
+              
+              return `<div class="overflow-x-auto my-6"><table class="min-w-full border-collapse border border-gray-600 bg-gray-800/50"><thead class="bg-gray-700"><tr><th class="border border-gray-600 px-4 py-3 text-left font-semibold text-white">Tool</th><th class="border border-gray-600 px-4 py-3 text-left font-semibold text-white">Description</th><th class="border border-gray-600 px-4 py-3 text-left font-semibold text-white">Note</th></tr></thead><tbody>${htmlRows}</tbody></table></div>`;
+            }
+          );
         
         console.log('Processed content preview:', content.substring(0, 1000));
         
@@ -114,38 +130,19 @@ export default function AModularKingdomPost() {
               </div>
             </header>
             
-            <div className="prose prose-invert prose-white max-w-none text-gray-300">
-              <ReactMarkdown
-                components={{
-                  img: ({ node, ...props }) => (
-                    <img 
-                      {...props} 
-                      className="rounded-lg shadow-lg max-w-full h-auto my-4" 
-                      loading="lazy"
-                      onError={(e) => {
-                        console.error('Image failed to load:', props.src);
-                      }}
-                    />
-                  ),
-                  table: ({ node, ...props }) => (
-                    <div className="overflow-x-auto my-6">
-                      <table {...props} className="min-w-full border-collapse border border-gray-600 bg-gray-800/50" />
-                    </div>
-                  ),
-                  thead: ({ node, ...props }) => (
-                    <thead {...props} className="bg-gray-700" />
-                  ),
-                  th: ({ node, ...props }) => (
-                    <th {...props} className="border border-gray-600 px-4 py-3 text-left font-semibold text-white" />
-                  ),
-                  td: ({ node, ...props }) => (
-                    <td {...props} className="border border-gray-600 px-4 py-2 text-gray-300" />
-                  ),
-                }}
-              >
-                {String(markdownContent)}
-              </ReactMarkdown>
-            </div>
+            <div 
+              className="prose prose-invert prose-white max-w-none text-gray-300"
+              dangerouslySetInnerHTML={{ 
+                __html: markdownContent
+                  .replace(/!\[\]\(([^)]+)\)/g, '<img src="$1" class="rounded-lg shadow-lg max-w-full h-auto my-4" loading="lazy" />')
+                  .replace(/^### (.*$)/gim, '<h3 class="text-2xl font-bold text-white mb-4">$1</h3>')
+                  .replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold text-white mb-6">$1</h2>')
+                  .replace(/^# (.*$)/gim, '<h1 class="text-4xl font-bold text-white mb-8">$1</h1>')
+                  .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
+                  .replace(/\n\n/g, '</p><p class="text-gray-300 mb-4">')
+                  .replace(/^(.)/gm, '<p class="text-gray-300 mb-4">$1')
+              }} 
+            />
           </motion.article>
         </div>
       </div>
