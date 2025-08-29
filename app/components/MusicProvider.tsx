@@ -63,7 +63,7 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
   return (
     <MusicContext.Provider value={contextValue}>
       {children}
-      <audio ref={audioRef} src="/2.mp4" loop muted autoPlay />
+      <audio ref={audioRef} src="/music.mp3" loop muted autoPlay />
     </MusicContext.Provider>
   );
 }

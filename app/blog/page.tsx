@@ -50,7 +50,7 @@ export default function Blog() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
       <MovingStars />
       
       <motion.div
@@ -95,7 +95,7 @@ export default function Blog() {
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-300 relative z-10"
                 >
                   <Link href={`/blog/${post.slug}`}>
                     <h2 className="text-2xl font-bold text-white mb-4 hover:text-orange-300 transition-colors">

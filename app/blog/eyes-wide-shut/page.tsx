@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useState, useEffect } from 'react';
 
 export default function EyesWideShutProject() {
@@ -16,8 +17,9 @@ export default function EyesWideShutProject() {
         const response = await fetch('/eyes-wide-shut.txt?v=' + Date.now());
         let content = await response.text();
         
-        // Convert ALL HTML img tag variations to markdown format
+        // Remove the first duplicate image and convert HTML img tags to markdown
         content = content
+          .replace(/<img width="14999" height="8502" alt="eyes wide" src="https:\/\/github\.com\/user-attachments\/assets\/d8c81e1d-f978-4065-8b26-e483602e26ef" \/>/, '') // Remove first duplicate
           .replace(/<img[^>]+src="([^"]+)"[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*src='([^']+)'[^>]*>/gi, '![]($1)')
           .replace(/<img[^>]*width="[^"]*"[^>]*src="([^"]+)"[^>]*>/gi, '![]($1)')
@@ -121,6 +123,20 @@ export default function EyesWideShutProject() {
                         console.error('Image failed to load:', props.src);
                       }}
                     />
+                  ),
+                  table: ({ node, ...props }) => (
+                    <div className="overflow-x-auto my-6">
+                      <table {...props} className="min-w-full border-collapse border border-gray-600 bg-gray-800/50" />
+                    </div>
+                  ),
+                  thead: ({ node, ...props }) => (
+                    <thead {...props} className="bg-gray-700" />
+                  ),
+                  th: ({ node, ...props }) => (
+                    <th {...props} className="border border-gray-600 px-4 py-3 text-left font-semibold text-white" />
+                  ),
+                  td: ({ node, ...props }) => (
+                    <td {...props} className="border border-gray-600 px-4 py-2 text-gray-300" />
                   ),
                 }}
               >

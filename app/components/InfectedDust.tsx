@@ -57,15 +57,15 @@ const InfectedDust: React.FC<InfectedDustProps> = ({ dustColor = '#ffffff' }) =>
         y: y,
         vx: (Math.random() - 0.5) * 0.3, // Slow horizontal drift
         vy: -Math.random() * 0.4 - 0.1, // Slight upward movement
-        size: Math.random() * 2 + 1, // Larger particles
+        size: Math.random() * 1.2 + 0.4, // Smaller particles
         opacity: Math.random() * 0.8 + 0.4, // Much more visible
         life: maxLife,
         maxLife: maxLife
       };
     };
 
-    // Initialize particles - more visible effect
-    for (let i = 0; i < 35; i++) {
+    // Initialize particles - balanced amount
+    for (let i = 0; i < 25; i++) {
       particles.push(createParticle());
     }
 
