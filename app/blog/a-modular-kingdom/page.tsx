@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
+import MuteButton from '../../components/MuteButton';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useState, useEffect } from 'react';
@@ -116,6 +117,17 @@ export default function AModularKingdomPost() {
               </div>
             </header>
             
+            {/* Header Image */}
+            <div className="mb-8 text-center">
+              <img 
+                src="/a-modular-kingdom.jpg" 
+                alt="A-Modular-Kingdom Architecture" 
+                className="rounded-lg shadow-lg max-w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={() => setZoomedImage('/a-modular-kingdom.jpg')}
+                loading="lazy"
+              />
+            </div>
+            
             <div className="prose prose-invert prose-white max-w-none text-gray-300">
               <ReactMarkdown
                 {...({ remarkPlugins: [remarkGfm] } as any)}
@@ -145,18 +157,41 @@ export default function AModularKingdomPost() {
                   td: ({ node, ...props }) => (
                     <td {...props} className="border border-gray-600 px-4 py-2 text-gray-300" />
                   ),
-                  h1: ({ node, ...props }) => (
-                    <h1 {...props} className="text-4xl font-bold text-white mb-8" />
-                  ),
-                  h2: ({ node, ...props }) => (
-                    <h2 {...props} className="text-3xl font-bold text-white mb-6" />
-                  ),
-                  h3: ({ node, ...props }) => (
-                    <h3 {...props} className="text-2xl font-bold text-white mb-4" />
-                  ),
+                  h1: ({ node, ...props }) => {
+                    const text = props.children?.toString() || '';
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                    return <h1 {...props} id={id} className="text-4xl font-bold text-white mb-8" />;
+                  },
+                  h2: ({ node, ...props }) => {
+                    const text = props.children?.toString() || '';
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                    return <h2 {...props} id={id} className="text-3xl font-bold text-white mb-6" />;
+                  },
+                  h3: ({ node, ...props }) => {
+                    const text = props.children?.toString() || '';
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                    return <h3 {...props} id={id} className="text-2xl font-bold text-white mb-4" />;
+                  },
                   strong: ({ node, ...props }) => (
                     <strong {...props} className="font-bold text-white" />
                   ),
+                  a: ({ node, ...props }) => {
+                    if (props.href?.startsWith('#')) {
+                      return (
+                        <a 
+                          {...props} 
+                          className="text-orange-300 hover:text-orange-200 underline cursor-pointer"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            const targetId = props.href?.substring(1);
+                            const element = document.getElementById(targetId || '');
+                            element?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                        />
+                      );
+                    }
+                    return <a {...props} className="text-orange-300 hover:text-orange-200 underline" />;
+                  },
                 }}
               >
                 {String(markdownContent)}
@@ -189,6 +224,8 @@ export default function AModularKingdomPost() {
           </div>
         </div>
       )}
+      
+      <MuteButton className="fixed bottom-8 left-8 z-50" />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
+import MuteButton from '../../components/MuteButton';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -110,13 +111,13 @@ export default function EyesWideShutProject() {
                 {...({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeRaw] } as any)}
                 components={{
                   img: ({ node, ...props }) => {
-                    const isFirstImage = props.src?.includes('d8c81e1d-f978-4065-8b26-e483602e26ef');
+                    const isSecondImage = props.src?.includes('4be1c40ffd78fa20c57e46692dd92cac');
                     return (
                       <img 
                         {...props} 
-                        className={`rounded-lg shadow-lg max-w-full h-auto my-4 ${isFirstImage ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
+                        className={`rounded-lg shadow-lg max-w-full h-auto my-4 ${isSecondImage ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
                         loading="lazy"
-                        onClick={isFirstImage ? () => setZoomedImage(props.src || '') : undefined}
+                        onClick={isSecondImage ? () => setZoomedImage(props.src || '') : undefined}
                       />
                     );
                   },
@@ -134,18 +135,41 @@ export default function EyesWideShutProject() {
                   td: ({ node, ...props }) => (
                     <td {...props} className="border border-gray-600 px-4 py-2 text-gray-300" />
                   ),
-                  h1: ({ node, ...props }) => (
-                    <h1 {...props} className="text-4xl font-bold text-white mb-8" />
-                  ),
-                  h2: ({ node, ...props }) => (
-                    <h2 {...props} className="text-3xl font-bold text-white mb-6" />
-                  ),
-                  h3: ({ node, ...props }) => (
-                    <h3 {...props} className="text-2xl font-bold text-white mb-4" />
-                  ),
+                  h1: ({ node, ...props }) => {
+                    const text = props.children?.toString() || '';
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                    return <h1 {...props} id={id} className="text-4xl font-bold text-white mb-8" />;
+                  },
+                  h2: ({ node, ...props }) => {
+                    const text = props.children?.toString() || '';
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                    return <h2 {...props} id={id} className="text-3xl font-bold text-white mb-6" />;
+                  },
+                  h3: ({ node, ...props }) => {
+                    const text = props.children?.toString() || '';
+                    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+                    return <h3 {...props} id={id} className="text-2xl font-bold text-white mb-4" />;
+                  },
                   strong: ({ node, ...props }) => (
                     <strong {...props} className="font-bold text-white" />
                   ),
+                  a: ({ node, ...props }) => {
+                    if (props.href?.startsWith('#')) {
+                      return (
+                        <a 
+                          {...props} 
+                          className="text-orange-300 hover:text-orange-200 underline cursor-pointer"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            const targetId = props.href?.substring(1);
+                            const element = document.getElementById(targetId || '');
+                            element?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                        />
+                      );
+                    }
+                    return <a {...props} className="text-orange-300 hover:text-orange-200 underline" />;
+                  },
                 }}
               >
                 {String(markdownContent)}
@@ -178,6 +202,8 @@ export default function EyesWideShutProject() {
           </div>
         </div>
       )}
+      
+      <MuteButton className="fixed bottom-8 left-8 z-50" />
     </div>
   );
 }
