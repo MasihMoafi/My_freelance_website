@@ -96,7 +96,7 @@ export default function Home() {
       
       <InfectedDust dustColor='#ffffff' />
 
-      <div className="relative z-10 flex flex-col items-center justify-start pt-32 min-h-screen px-4">
+      <div className="relative z-20 flex flex-col items-center justify-start pt-32 min-h-screen px-4">
         <motion.div
           initial={{ opacity: 0, filter: 'blur(10px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}

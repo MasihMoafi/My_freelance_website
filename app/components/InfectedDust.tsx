@@ -161,7 +161,7 @@ const InfectedDust: React.FC<InfectedDustProps> = ({ dustColor = '#ffffff' }) =>
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-10 pointer-events-none"
       style={{ background: 'transparent' }}
     />
   );
