@@ -12,6 +12,10 @@ export default function AModularKingdomPost() {
   const [markdownContent, setMarkdownContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+  const [imageScale, setImageScale] = useState(1);
+  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     async function loadContent() {
@@ -38,6 +42,67 @@ export default function AModularKingdomPost() {
     }
     loadContent();
   }, []);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && zoomedImage) {
+        closeImageViewer();
+      }
+    };
+    
+    if (zoomedImage) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [zoomedImage]);
+
+  const openImageViewer = (src: string) => {
+    setZoomedImage(src);
+    setImageScale(1);
+    setImagePosition({ x: 0, y: 0 });
+  };
+
+  const closeImageViewer = () => {
+    setZoomedImage(null);
+    setImageScale(1);
+    setImagePosition({ x: 0, y: 0 });
+  };
+
+  const zoomIn = () => {
+    setImageScale(prev => Math.min(prev + 0.5, 4));
+  };
+
+  const zoomOut = () => {
+    setImageScale(prev => Math.max(prev - 0.5, 0.5));
+  };
+
+  const resetZoom = () => {
+    setImageScale(1);
+    setImagePosition({ x: 0, y: 0 });
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (imageScale > 1) {
+      setIsDragging(true);
+      setDragStart({
+        x: e.clientX - imagePosition.x,
+        y: e.clientY - imagePosition.y,
+      });
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isDragging && imageScale > 1) {
+      setImagePosition({
+        x: e.clientX - dragStart.x,
+        y: e.clientY - dragStart.y,
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   if (loading) {
     return (
@@ -123,7 +188,7 @@ export default function AModularKingdomPost() {
                 src="/a-modular-kingdom.jpg" 
                 alt="A-Modular-Kingdom Architecture" 
                 className="rounded-lg shadow-lg max-w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
-                onClick={() => setZoomedImage('/a-modular-kingdom.jpg')}
+                onClick={() => openImageViewer('/a-modular-kingdom.jpg')}
                 loading="lazy"
               />
             </div>
@@ -132,17 +197,14 @@ export default function AModularKingdomPost() {
               <ReactMarkdown
                 {...({ remarkPlugins: [remarkGfm] } as any)}
                 components={{
-                  img: ({ node, ...props }) => {
-                    const isFirstImage = props.src?.includes('6e4eaca7-0cae-43b8-a60d-fc8bdfe8c77e');
-                    return (
-                      <img 
-                        {...props} 
-                        className={`rounded-lg shadow-lg max-w-full h-auto my-4 ${isFirstImage ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
-                        loading="lazy"
-                        onClick={isFirstImage ? () => setZoomedImage(props.src || '') : undefined}
-                      />
-                    );
-                  },
+                  img: ({ node, ...props }) => (
+                    <img 
+                      {...props} 
+                      className="rounded-lg shadow-lg max-w-full h-auto my-4 cursor-pointer hover:opacity-80 transition-opacity"
+                      loading="lazy"
+                      onClick={() => openImageViewer(props.src || '')}
+                    />
+                  ),
                   table: ({ node, ...props }) => (
                     <div className="overflow-x-auto my-6">
                       <table {...props} className="min-w-full border-collapse border border-gray-600 bg-gray-800/50" />
@@ -201,26 +263,93 @@ export default function AModularKingdomPost() {
         </div>
       </div>
       
-      {/* Image Zoom Modal */}
+      {/* Professional Image Viewer */}
       {zoomedImage && (
         <div 
-          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setZoomedImage(null)}
+          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
+          onClick={closeImageViewer}
         >
-          <div className="relative max-w-full max-h-full">
+          {/* Controls */}
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-black/80 rounded-full px-4 py-2 z-10">
+            <button 
+              onClick={(e) => { e.stopPropagation(); zoomOut(); }}
+              className="text-white hover:text-orange-300 p-2 rounded-full hover:bg-white/10 transition-colors"
+              title="Zoom Out"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </button>
+            
+            <span className="text-white text-sm font-medium min-w-[60px] text-center">
+              {Math.round(imageScale * 100)}%
+            </span>
+            
+            <button 
+              onClick={(e) => { e.stopPropagation(); zoomIn(); }}
+              className="text-white hover:text-orange-300 p-2 rounded-full hover:bg-white/10 transition-colors"
+              title="Zoom In"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+                <line x1="11" y1="8" x2="11" y2="14"/>
+              </svg>
+            </button>
+            
+            <button 
+              onClick={(e) => { e.stopPropagation(); resetZoom(); }}
+              className="text-white hover:text-orange-300 p-2 rounded-full hover:bg-white/10 transition-colors"
+              title="Reset"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                <path d="M21 3v5h-5"/>
+                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                <path d="M3 21v-5h5"/>
+              </svg>
+            </button>
+          </div>
+
+          {/* Close Button */}
+          <button 
+            onClick={closeImageViewer}
+            className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full p-3 transition-colors z-10"
+            title="Close"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Image Container */}
+          <div 
+            className="w-full h-full flex items-center justify-center overflow-hidden"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onClick={(e) => e.stopPropagation()}
+          >
             <img 
               src={zoomedImage} 
               alt="Zoomed image" 
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              className="max-w-none max-h-none object-contain rounded-lg shadow-2xl select-none"
+              style={{
+                transform: `scale(${imageScale}) translate(${imagePosition.x / imageScale}px, ${imagePosition.y / imageScale}px)`,
+                cursor: imageScale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default',
+                transition: isDragging ? 'none' : 'transform 0.2s ease'
+              }}
+              draggable={false}
             />
-            <button 
-              onClick={() => setZoomedImage(null)}
-              className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full p-2 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+          </div>
+          
+          {/* Instructions */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/60 text-sm text-center bg-black/50 px-4 py-2 rounded-lg">
+            {imageScale > 1 ? 'Click and drag to pan • ' : ''}Click controls to zoom • ESC to close
           </div>
         </div>
       )}
