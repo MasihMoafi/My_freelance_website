@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import ModernNavbar from './components/ModernNavbar';
 import InfectedDust from './components/InfectedDust';
+import SocialLinks from './components/SocialLinks';
+import MuteButton from './components/MuteButton';
 import { useMusicContext } from './components/MusicProvider';
 // Removed anime.js for now to fix build
 
@@ -28,12 +30,13 @@ export default function Home() {
     // Typewriter effect
     let index = 0;
     const typewriterInterval = setInterval(() => {
-      if (index < name.length) {
-        setDisplayedName(name.substring(0, index + 1));
+      if (index <= name.length) {
+        setDisplayedName(name.substring(0, index));
         index++;
-      } else {
-        setIsTypingComplete(true);
-        clearInterval(typewriterInterval);
+        if (index > name.length) {
+          setIsTypingComplete(true);
+          clearInterval(typewriterInterval);
+        }
       }
     }, 150); // Adjust speed here
 
@@ -105,8 +108,8 @@ export default function Home() {
         >
           <h1
             ref={nameRef}
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold leading-none mb-2 ${getTextColor()}`}
-            style={{fontFamily: 'Impact, Arial, sans-serif', letterSpacing: '2px'}}
+            className={`text-4xl md:text-5xl lg:text-6xl font-normal leading-none mb-2 ${getTextColor()}`}
+            style={{fontFamily: 'Impact, Arial, sans-serif', letterSpacing: '2px', fontWeight: '400'}}
           >
             {displayedName}
             {!isTypingComplete && <span className="animate-pulse">|</span>}
@@ -147,53 +150,21 @@ export default function Home() {
                 View My Work
               </motion.a>
             </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 2.2 }}
+              className="mt-8"
+            >
+              <SocialLinks className="justify-center" />
+            </motion.div>
           </motion.div>
         </motion.div>
 
       </div>
 
-      <button
-        onClick={toggleMute}
-        className={`absolute bottom-8 left-8 z-20 p-2 rounded-full transition-colors ${
-          currentTheme === 'sunny' 
-            ? 'text-black bg-gray-200 hover:bg-gray-300' 
-            : 'text-white bg-gray-700 hover:bg-gray-600'
-        }`}
-        title={isMuted ? 'Unmute' : 'Mute'}
-      >
-        {isMuted ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M11 5L6 9H2v6h4l5 4V5z" />
-            <line x1="23" y1="9" x2="17" y2="15" />
-            <line x1="17" y1="9" x2="23" y2="15" />
-          </svg>
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M11 5L6 9H2v6h4l5 4V5z" />
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
-          </svg>
-        )}
-      </button>
+      <MuteButton className="absolute bottom-8 left-8 z-20" />
 
     </div>
   );

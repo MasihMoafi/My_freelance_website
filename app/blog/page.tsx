@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../components/MovingStars';
+import MuteButton from '../components/MuteButton';
 import { useState, useEffect } from 'react';
 
 interface BlogPost {
@@ -135,6 +136,8 @@ export default function Blog() {
           </div>
         </div>
       </div>
+      
+      <MuteButton className="fixed bottom-8 left-8 z-50" />
     </div>
   );
 }

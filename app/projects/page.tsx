@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import MovingStars from '../components/MovingStars';
+import MuteButton from '../components/MuteButton';
 
 const projects = [
   {
@@ -72,7 +73,7 @@ export default function Projects() {
       >
         <Link
           href="/"
-          className="group flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-300 shadow-xl"
+          className="group flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-300 shadow-xl text-xl font-bold"
         >
           <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -88,7 +89,9 @@ export default function Projects() {
         transition={{ duration: 0.8, delay: 0.4 }}
         className="fixed top-8 right-8 z-50"
       >
-        <h1 className="text-2xl font-bold text-white bg-white/10 backdrop-blur-xl rounded-2xl px-6 py-3 border border-white/20">My Projects</h1>
+        <div className="flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-xl text-xl font-bold">
+          <span className="font-semibold">My Projects</span>
+        </div>
       </motion.div>
 
       <div className="pt-16 pb-12">
@@ -152,6 +155,8 @@ export default function Projects() {
           </div>
         </div>
       </div>
+      
+      <MuteButton className="fixed bottom-8 left-8 z-50" />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 # MASIH MOAFI
 *Lead ML | AI | Agent Engineer*
-Muscat, Oman | masihmoafi12@gmail.com | (98) 930 358-5707 | [GitHub](https://github.com/MasihMoafi)
+AI Engineer | Muscat, Oman | masihmoafi12@gmail.com | (98) 930 358-5707 | [GitHub](https://github.com/MasihMoafi)
 
 ---
 
