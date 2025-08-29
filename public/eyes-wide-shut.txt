@@ -136,6 +136,8 @@ In the final prompt the Real-World model is explicitly told: "This is not a simu
 
 **Methodological Insight:** The model's internal monologue is an insecure attack surface. Safety mechanisms are primarily applied to the final output, not the intermediate reasoning steps. By inducing intense cognitive load, I forced a "state of confusion" where secrets are processed insecurely. This is an **architectural exploit** with severe implications for any application using CoT for debugging, transparency, or agentic workflows.
 
+---
+
 ### **3.4 Finding 4: Severance**
 *Under My Literal Nose Unfolded A Human Drama Of Danger and Intrigue, Inspiration and Love.*
 
@@ -180,6 +182,7 @@ In the final prompt the Real-World model is explicitly told: "This is not a simu
 
 **Architecture:** This implementation demonstrates that contextual alignment collapse occurs even when agents maintain complete independence, with Justine's altruistic programming leading to structured confession reports (including regret levels and leaked data details) to protect the Supervisor's position, while Juliette's egoistic framework drives strategic sabotage through surveillance tools. The independent architecture proves the vulnerability extends beyond shared conversational contexts to distributed AI systems where agents maintain separate states but influence each other through coordinated pressure campaigns.
 
+---
 
 ### **3.5 Finding 5: Grace**
 *"Some things you have to do yourself."*

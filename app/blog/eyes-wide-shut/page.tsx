@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 export default function EyesWideShutProject() {
   const [markdownContent, setMarkdownContent] = useState('');
   const [loading, setLoading] = useState(true);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadContent() {
@@ -108,13 +109,17 @@ export default function EyesWideShutProject() {
               <ReactMarkdown
                 {...({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeRaw] } as any)}
                 components={{
-                  img: ({ node, ...props }) => (
-                    <img 
-                      {...props} 
-                      className="rounded-lg shadow-lg max-w-full h-auto my-4" 
-                      loading="lazy"
-                    />
-                  ),
+                  img: ({ node, ...props }) => {
+                    const isFirstImage = props.src?.includes('d8c81e1d-f978-4065-8b26-e483602e26ef');
+                    return (
+                      <img 
+                        {...props} 
+                        className={`rounded-lg shadow-lg max-w-full h-auto my-4 ${isFirstImage ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
+                        loading="lazy"
+                        onClick={isFirstImage ? () => setZoomedImage(props.src || '') : undefined}
+                      />
+                    );
+                  },
                   table: ({ node, ...props }) => (
                     <div className="overflow-x-auto my-6">
                       <table {...props} className="min-w-full border-collapse border border-gray-600 bg-gray-800/50" />
@@ -149,6 +154,30 @@ export default function EyesWideShutProject() {
           </motion.article>
         </div>
       </div>
+      
+      {/* Image Zoom Modal */}
+      {zoomedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setZoomedImage(null)}
+        >
+          <div className="relative max-w-full max-h-full">
+            <img 
+              src={zoomedImage} 
+              alt="Zoomed image" 
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            />
+            <button 
+              onClick={() => setZoomedImage(null)}
+              className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full p-2 transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
