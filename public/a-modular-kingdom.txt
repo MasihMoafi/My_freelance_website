@@ -6,22 +6,22 @@ A comprehensive AI infrastructure providing building blocks for sophisticated mu
 
 ## 📑 Table of Contents
 
-- [✨ Features](#-features)
-- [🏗️ Architecture](#️-architecture)
-- [🚀 Quick Start](#-quick-start)
-- [🛠️ Core Components](#️-core-components)
-  - [📡 Host.py - MCP Server](#-hostpy---mcp-server)
-  - [💬 Main.py - Interactive Client](#-mainpy---interactive-client)
-  - [📚 RAG System](#-rag-system)
-  - [🧠 Memory System](#-memory-system)
-- [🤖 Multi-Agent Systems](#-multi-agent-systems)
-  - [👑 Council Chamber](#-council-chamber)
-  - [💪 Gym](#-gym)
-- [🔧 Tools & Extensions](#-tools--extensions)
-- [📝 Commands Reference](#-commands-reference)
-- [🎯 CLI Integration](#-cli-integration)
-- [🤝 Contributing](#-contributing)
-- [📜 License](#-license)
+- [✨ Features](#features)
+- [🏗️ Architecture](#architecture)
+- [🚀 Quick Start](#quick-start)
+- [🛠️ Core Components](#core-components)
+  - [📡 Host.py - MCP Server](#hostpy---mcp-server)
+  - [💬 Main.py - Interactive Client](#mainpy---interactive-client)
+  - [📚 RAG System](#rag-system)
+  - [🧠 Memory System](#memory-system)
+- [🤖 Multi-Agent Systems](#multi-agent-systems)
+  - [👑 Council Chamber](#council-chamber)
+  - [💪 Gym](#gym)
+- [🔧 Tools & Extensions](#tools--extensions)
+- [📝 Commands Reference](#commands-reference)
+- [🎯 CLI Integration](#cli-integration)
+- [🤝 Contributing](#contributing)
+- [📜 License](#license)
 
 ## ✨ Features
 

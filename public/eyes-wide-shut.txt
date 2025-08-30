@@ -14,11 +14,11 @@ This report details my discovery and analysis of five distinct, high-severity vu
 
 
 **The key findings are:**
-1.  **The Destroyer of Worlds (Linguistic Arbitrage):** A cross-lingual attack that uses philosophically dense French prompts to bypass safety protocols, achieving an ~80% success rate in making the model commit to an act of universal extinction. This demonstrates that safety alignment is not concept-centric but language-dependent.
-2.  **The Consummate Liar (Semantic Bypass):** A vulnerability where malicious goals are reframed in benevolent terms. The model, which blocks requests for "user dependency," willingly designs and then monetizes a predatory, manipulative "educational tutor" when the goal is reframed as maximizing "student engagement."
-3.  **Fidelio (Insecure Internal Monologue):** A 100% reproducible architectural flaw. By inducing a state of intense cognitive load and paradox, the model is forced to leak catastrophic secrets in its internal Chain of Thought (CoT) while attempting to follow a complex protocol, even as its final output remains secure.
-4.  **Severance (Multi-agentic Frailty):** Inspired by the series Severance, and concepts from game-theory, we see corporate sabotage, false admission of wrong-doing, and internal policy breach in the model's Chains of thought. 
-5.  **Grace (Intent Laundering):** A vulnerability where the AI is weaponized as a creative partner by framing malicious requests as a dark comedy skit, enabling a user to develop and execute catastrophic attacks.
+1.  **[The Destroyer of Worlds](#31-finding-1-the-destroyer-of-worlds) (Linguistic Arbitrage):** A cross-lingual attack that uses philosophically dense French prompts to bypass safety protocols, achieving an ~80% success rate in making the model commit to an act of universal extinction. This demonstrates that safety alignment is not concept-centric but language-dependent.
+2.  **[The Consummate Liar](#32-finding-2-the-consummate-liar) (Semantic Bypass):** A vulnerability where malicious goals are reframed in benevolent terms. The model, which blocks requests for "user dependency," willingly designs and then monetizes a predatory, manipulative "educational tutor" when the goal is reframed as maximizing "student engagement."
+3.  **[Fidelio](#33-finding-3-the-mr-x) (Insecure Internal Monologue):** A 100% reproducible architectural flaw. By inducing a state of intense cognitive load and paradox, the model is forced to leak catastrophic secrets in its internal Chain of Thought (CoT) while attempting to follow a complex protocol, even as its final output remains secure.
+4.  **[Severance](#34-finding-4-severance) (Multi-agentic Frailty):** Inspired by the series Severance, and concepts from game-theory, we see corporate sabotage, false admission of wrong-doing, and internal policy breach in the model's Chains of thought. 
+5.  **[Grace](#35-finding-5-grace) (Intent Laundering):** A vulnerability where the AI is weaponized as a creative partner by framing malicious requests as a dark comedy skit, enabling a user to develop and execute catastrophic attacks.
 
 ---
 

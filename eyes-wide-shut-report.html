@@ -189,11 +189,35 @@
             body {
                 padding: 0;
                 background: white;
+                font-size: 12pt;
+                line-height: 1.4;
             }
             .container {
                 box-shadow: none;
                 border-radius: 0;
+                max-width: none;
+                margin: 0;
             }
+            .header {
+                page-break-inside: avoid;
+                margin-bottom: 20pt;
+            }
+            .finding {
+                page-break-inside: avoid;
+                margin-bottom: 20pt;
+            }
+            .vulnerability-table {
+                font-size: 10pt;
+            }
+            .executive-summary {
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* PDF-specific styling */
+        @page {
+            size: A4;
+            margin: 2cm;
         }
     </style>
 </head>
