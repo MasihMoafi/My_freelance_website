@@ -121,7 +121,7 @@ export default function AModularKingdomPost() {
         fill
         quality={75}
         priority
-        className="object-cover opacity-50"
+        className="object-cover"
       />
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
       {/* <MovingStars /> */}
@@ -189,6 +189,7 @@ export default function AModularKingdomPost() {
                 alt="A-Modular-Kingdom Architecture" 
                 width={1000}
                 height={1000}
+                quality={50}
                 className="rounded-lg shadow-lg max-w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => openImageViewer('/a-modular-kingdom.jpg')}
                 loading="lazy"
@@ -205,6 +206,7 @@ export default function AModularKingdomPost() {
                       alt={props.alt || ''}
                       width={1000}
                       height={1000}
+                      quality={50}
                       className="rounded-lg shadow-lg max-w-full h-auto my-4 cursor-pointer hover:opacity-80 transition-opacity"
                       loading="lazy"
                       onClick={() => openImageViewer(props.src || '')}
@@ -344,6 +346,7 @@ export default function AModularKingdomPost() {
               alt="Zoomed image" 
               width={1200}
               height={1200}
+              quality={50}
               className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg shadow-2xl select-none"
               style={{
                 transform: `scale(${imageScale}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,

@@ -77,7 +77,7 @@ export default function Home() {
             fill
             quality={75}
             priority
-            className="object-cover opacity-50"
+            className="object-cover"
           />
       </div>
     );
@@ -94,7 +94,7 @@ export default function Home() {
             fill
             quality={75}
             priority
-            className="object-cover opacity-50"
+            className="object-cover"
           />
       <ModernNavbar />
       

@@ -20,7 +20,7 @@ export default function AboutClient({ cvContent }: AboutClientProps) {
         fill
         quality={75}
         priority
-        className="object-cover opacity-50"
+        className="object-cover"
       />
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
       {/* <MovingStars /> */}
