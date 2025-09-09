@@ -2,7 +2,16 @@
 const nextConfig = {
   // Removed output: 'export' for Vercel deployment
   images: {
-    unoptimized: true
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.googleapis.com',
+      },
+    ],
   },
 }
 

@@ -6,6 +6,7 @@ import MovingStars from '../../components/MovingStars';
 import MuteButton from '../../components/MuteButton';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import Image from 'next/image';
 import rehypeRaw from 'rehype-raw';
 import { useState, useEffect } from 'react';
 
@@ -116,16 +117,17 @@ export default function EyesWideShutProject() {
   return (
     <div 
       className="min-h-screen bg-black text-white relative overflow-hidden"
-      style={{
-        backgroundImage: "url('/background.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
     >
+      <Image
+        src="/background.jpg"
+        alt="Background"
+        fill
+        quality={75}
+        priority
+        className="object-cover opacity-50"
+      />
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-      <MovingStars starColor="#ffffff" />
+      {/* <MovingStars starColor="#ffffff" /> */}
       
       <motion.div /* Back to Blog button */ >
         <Link
@@ -149,7 +151,7 @@ export default function EyesWideShutProject() {
           >
             <header className="mb-8 text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-                <img src="/logo.png" alt="Eyes Wide Shut" className="w-12 h-12 rounded-lg" />
+                <Image src="/logo.png" alt="Eyes Wide Shut" width={48} height={48} className="w-12 h-12 rounded-lg" />
                 Eyes Wide Shut
               </h1>
               <div className="flex items-center justify-center space-x-4 text-gray-400 text-sm mb-6">
@@ -174,8 +176,11 @@ export default function EyesWideShutProject() {
                 {...({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeRaw] } as any)}
                 components={{
                   img: ({ node, ...props }) => (
-                    <img 
-                      {...props} 
+                    <Image
+                      src={props.src || ''}
+                      alt={props.alt || ''}
+                      width={1000}
+                      height={1000}
                       className="rounded-lg shadow-lg max-w-full h-auto my-4 cursor-pointer hover:opacity-80 transition-opacity"
                       loading="lazy"
                       onClick={() => openImageViewer(props.src || '')}
@@ -310,9 +315,11 @@ export default function EyesWideShutProject() {
             onMouseLeave={handleMouseUp}
             onClick={(e) => e.stopPropagation()}
           >
-            <img 
+            <Image
               src={zoomedImage} 
               alt="Zoomed image" 
+              width={1200}
+              height={1200}
               className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg shadow-2xl select-none"
               style={{
                 transform: `scale(${imageScale}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,

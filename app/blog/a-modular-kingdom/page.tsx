@@ -6,6 +6,7 @@ import MovingStars from '../../components/MovingStars';
 import MuteButton from '../../components/MuteButton';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 export default function AModularKingdomPost() {
@@ -113,16 +114,17 @@ export default function AModularKingdomPost() {
   return (
     <div 
       className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black"
-      style={{
-        backgroundImage: "url('/background.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
     >
+      <Image
+        src="/background.jpg"
+        alt="Background"
+        fill
+        quality={75}
+        priority
+        className="object-cover opacity-50"
+      />
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-      <MovingStars />
+      {/* <MovingStars /> */}
       
       <motion.div /* Back to Blog button */ >
         <Link
@@ -146,7 +148,7 @@ export default function AModularKingdomPost() {
           >
             <header className="mb-8 text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-                <img src="/a-modular-kingdom.jpg" alt="A-Modular-Kingdom" className="w-12 h-12 rounded-lg object-cover" />
+                <Image src="/a-modular-kingdom.jpg" alt="A-Modular-Kingdom" width={48} height={48} className="w-12 h-12 rounded-lg object-cover" />
                 A-Modular-Kingdom
               </h1>
               <div className="flex items-center justify-center space-x-4 text-gray-400 text-sm mb-6">
@@ -182,9 +184,11 @@ export default function AModularKingdomPost() {
             
             {/* Header Image */}
             <div className="mb-8 text-center">
-              <img 
+              <Image
                 src="/a-modular-kingdom.jpg" 
                 alt="A-Modular-Kingdom Architecture" 
+                width={1000}
+                height={1000}
                 className="rounded-lg shadow-lg max-w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
                 onClick={() => openImageViewer('/a-modular-kingdom.jpg')}
                 loading="lazy"
@@ -196,8 +200,11 @@ export default function AModularKingdomPost() {
                 {...({ remarkPlugins: [remarkGfm] } as any)}
                 components={{
                   img: ({ node, ...props }) => (
-                    <img 
-                      {...props} 
+                    <Image
+                      src={props.src || ''}
+                      alt={props.alt || ''}
+                      width={1000}
+                      height={1000}
                       className="rounded-lg shadow-lg max-w-full h-auto my-4 cursor-pointer hover:opacity-80 transition-opacity"
                       loading="lazy"
                       onClick={() => openImageViewer(props.src || '')}
@@ -332,9 +339,11 @@ export default function AModularKingdomPost() {
             onMouseLeave={handleMouseUp}
             onClick={(e) => e.stopPropagation()}
           >
-            <img 
+            <Image
               src={zoomedImage} 
               alt="Zoomed image" 
+              width={1200}
+              height={1200}
               className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg shadow-2xl select-none"
               style={{
                 transform: `scale(${imageScale}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,

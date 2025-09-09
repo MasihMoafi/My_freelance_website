@@ -24,20 +24,6 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isMuted, setIsMuted] = useState(true);
 
-  useEffect(() => {
-    const enableAudio = () => {
-      if (audioRef.current) {
-        audioRef.current.muted = false;
-        audioRef.current.play().catch(console.error);
-        setIsMuted(false);
-      }
-      document.removeEventListener('click', enableAudio);
-    };
-    
-    document.addEventListener('click', enableAudio);
-    return () => document.removeEventListener('click', enableAudio);
-  }, []);
-
   const toggleMute = () => {
     if (audioRef.current) {
       audioRef.current.muted = !audioRef.current.muted;
