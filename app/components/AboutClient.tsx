@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from './MovingStars';
+import Image from 'next/image';
 
 interface AboutClientProps {
   cvContent: string;
@@ -12,16 +13,17 @@ export default function AboutClient({ cvContent }: AboutClientProps) {
   return (
     <div 
       className="min-h-screen flex flex-col items-center relative overflow-hidden bg-black"
-      style={{
-        backgroundImage: "url('/background.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
     >
+      <Image
+        src="/background.jpg"
+        alt="Background"
+        fill
+        quality={75}
+        priority
+        className="object-cover opacity-50"
+      />
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-      <MovingStars />
+      {/* <MovingStars /> */}
 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}

@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import MovingStars from '../components/MovingStars';
 import MuteButton from '../components/MuteButton';
+import Image from 'next/image';
 
 const projects = [
   {
@@ -54,16 +55,17 @@ export default function Projects() {
   return (
     <div 
       className="min-h-screen bg-black"
-      style={{
-        backgroundImage: "url('/background.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
     >
+      <Image
+        src="/background.jpg"
+        alt="Background"
+        fill
+        quality={75}
+        priority
+        className="object-cover opacity-50"
+      />
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm"></div>
-      <MovingStars />
+      {/* <MovingStars /> */}
       
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}

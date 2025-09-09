@@ -5,6 +5,7 @@ import Link from 'next/link';
 import MovingStars from '../components/MovingStars';
 import MuteButton from '../components/MuteButton';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface BlogPost {
   slug: string;
@@ -43,16 +44,17 @@ export default function Blog() {
   return (
     <div 
       className="min-h-screen bg-black"
-      style={{
-        backgroundImage: "url('/background.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
     >
+      <Image
+        src="/background.jpg"
+        alt="Background"
+        fill
+        quality={75}
+        priority
+        className="object-cover opacity-50"
+      />
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-      <MovingStars />
+      {/* <MovingStars /> */}
       
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
