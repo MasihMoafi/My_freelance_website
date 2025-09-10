@@ -147,7 +147,7 @@ export default function Architecture() {
         backgroundAttachment: 'fixed'
       }}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-black/70"></div>
       {/* Table of Contents Sidebar */}
       <div
         className={`absolute top-0 left-0 h-full ${isFullScreen ? 'w-0' : isSidebarMinimized ? 'w-12' : 'w-64'} bg-gray-800 p-4 z-30 overflow-y-auto transition-all duration-300 ease-in-out`}

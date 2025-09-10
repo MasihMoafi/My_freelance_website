@@ -126,7 +126,7 @@ export default function EyesWideShutProject() {
         priority
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-black/60"></div>
       {/* <MovingStars starColor="#ffffff" /> */}
       
       <motion.div /* Back to Blog button */ >

@@ -64,7 +64,7 @@ export default function Projects() {
         priority
         className="object-cover"
       />
-      <div className="fixed inset-0 bg-black/70 backdrop-blur-sm"></div>
+      <div className="fixed inset-0 bg-black/70"></div>
       {/* <MovingStars /> */}
       
       <motion.div

@@ -53,7 +53,7 @@ export default function Blog() {
         priority
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-black/60"></div>
       {/* <MovingStars /> */}
       
       <motion.div

@@ -22,7 +22,7 @@ export default function AboutClient({ cvContent }: AboutClientProps) {
         priority
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-black/70"></div>
       {/* <MovingStars /> */}
 
       <motion.div
