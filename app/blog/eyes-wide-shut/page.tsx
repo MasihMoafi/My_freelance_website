@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import MuteButton from '../../components/MuteButton';
@@ -118,18 +117,9 @@ export default function EyesWideShutProject() {
     <div 
       className="min-h-screen bg-black text-white relative overflow-hidden"
     >
-      <Image
-        src="/background.jpg"
-        alt="Background"
-        fill
-        quality={75}
-        priority
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-black/60"></div>
       {/* <MovingStars starColor="#ffffff" /> */}
       
-      <motion.div /* Back to Blog button */ >
+      <div>
         <Link
           href="/blog"
           className="group fixed top-8 left-8 z-50 flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white transition-all duration-300 shadow-xl"
@@ -139,14 +129,11 @@ export default function EyesWideShutProject() {
           </svg>
           <span className="font-semibold">Back to Blog</span>
         </Link>
-      </motion.div>
+      </div>
       
       <div className="pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-6">
-          <motion.article
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+          <article
             className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
           >
             <header className="mb-8 text-center">
@@ -241,7 +228,7 @@ export default function EyesWideShutProject() {
                 {String(markdownContent)}
               </ReactMarkdown>
             </div>
-          </motion.article>
+          </article>
         </div>
       </div>
       
