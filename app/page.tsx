@@ -48,6 +48,10 @@ export default function Home() {
     // Don't change music on theme change
   };
 
+  const getBackgroundStyle = () => {
+    return "url('/background.jpg')";
+  };
+
   const getTextColor = () => {
     return currentTheme === 'sunny' ? 'text-black' : 'text-white';
   };
@@ -69,33 +73,28 @@ export default function Home() {
     return (
       <div 
         className="min-h-screen relative overflow-hidden bg-black" 
+        style={{
+          backgroundImage: getBackgroundStyle(),
+          backgroundSize: '81%',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
+        }}
         data-theme="dark"
-      >
-        <Image
-            src="/background.jpg"
-            alt="Background"
-            fill
-            quality={75}
-            priority
-            className="object-cover"
-          />
-      </div>
+      />
     );
   }
 
   return (
     <div 
       className="min-h-screen relative overflow-hidden bg-black" 
+      style={{
+        backgroundImage: getBackgroundStyle(),
+        backgroundSize: '81%',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat'
+      }}
       data-theme="dark"
     >
-        <Image
-            src="/background.jpg"
-            alt="Background"
-            fill
-            quality={75}
-            priority
-            className="object-cover"
-          />
       <ModernNavbar />
       
       {/* <InfectedDust dustColor='#ffffff' /> */}

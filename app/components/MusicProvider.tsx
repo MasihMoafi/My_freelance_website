@@ -24,6 +24,7 @@ export default function MusicProvider({ children }: { children: React.ReactNode 
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isMuted, setIsMuted] = useState(true);
 
+
   const toggleMute = () => {
     if (audioRef.current) {
       audioRef.current.muted = !audioRef.current.muted;

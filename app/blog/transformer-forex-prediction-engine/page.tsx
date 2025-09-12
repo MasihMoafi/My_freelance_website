@@ -21,7 +21,7 @@ export default function TransformerForexPredictionEnginePost() {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch('/transformer-forex-prediction-engine.md?v=' + Date.now());
+        const response = await fetch('/transformer-forex-prediction-engine.txt?v=' + Date.now());
         let content = await response.text();
 
         // Convert HTML img tags to markdown
@@ -134,7 +134,7 @@ export default function TransformerForexPredictionEnginePost() {
       <div className="pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-6">
           <article
-            className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
+            className="bg-white/5 rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
           >
             <header className="mb-8 text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">

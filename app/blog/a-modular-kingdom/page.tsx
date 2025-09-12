@@ -1,12 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from '../../components/MovingStars';
 import MuteButton from '../../components/MuteButton';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
+import rehypeRaw from 'rehype-raw';
 import { useState, useEffect } from 'react';
 
 export default function AModularKingdomPost() {
@@ -103,9 +103,11 @@ export default function AModularKingdomPost() {
     setIsDragging(false);
   };
 
+
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-black flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-white text-xl">Loading...</div>
       </div>
     );
@@ -113,43 +115,30 @@ export default function AModularKingdomPost() {
 
   return (
     <div 
-      className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black"
+      className="min-h-screen bg-black text-white relative overflow-hidden"
     >
-      <Image
-        src="/background.jpg"
-        alt="Background"
-        fill
-        quality={75}
-        priority
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-black/60"></div>
-      {/* <MovingStars /> */}
+      {/* <MovingStars starColor="#ffffff" /> */}
       
-      <motion.div /* Back to Blog button */ >
+      <div>
         <Link
           href="/blog"
-          className="group fixed top-8 left-8 z-50 flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-300 shadow-xl"
+          className="group fixed top-8 left-8 z-50 flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white transition-all duration-300 shadow-xl"
         >
           <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
           <span className="font-semibold">Back to Blog</span>
         </Link>
-      </motion.div>
+      </div>
 
       <div className="pt-24 pb-12">
         <div className="max-w-4xl mx-auto px-6">
-          <motion.article
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
+          <article
+            className="bg-white/5 rounded-2xl border border-white/10 p-8 md:p-12 relative z-10"
           >
             <header className="mb-8 text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-                <Image src="/a-modular-kingdom.jpg" alt="A-Modular-Kingdom" width={48} height={48} className="w-12 h-12 rounded-lg object-cover" />
-                A-Modular-Kingdom
+                A Modular Kingdom
               </h1>
               <div className="flex items-center justify-center space-x-4 text-gray-400 text-sm mb-6">
                 <span>August 17, 2025</span>
@@ -166,39 +155,11 @@ export default function AModularKingdomPost() {
                   </span>
                 ))}
               </div>
-              {/* --- GITHUB BUTTON ADDED HERE --- */}
-              <div className="mt-8">
-                <a
-                  href="https://github.com/MasihMoafi/A-Modular-Kingdom"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-white/20 hover:bg-white/30 text-white hover:text-gray-200 rounded-xl border border-white/30 transition-all duration-300"
-                >
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0 -6.627-5.373-12-12-12z"/>
-                  </svg>
-                  View the Code on GitHub
-                </a>
-              </div>
             </header>
             
-            {/* Header Image */}
-            <div className="mb-8 text-center">
-              <Image
-                src="/a-modular-kingdom.jpg" 
-                alt="A-Modular-Kingdom Architecture" 
-                width={1000}
-                height={1000}
-                quality={50}
-                className="rounded-lg shadow-lg max-w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
-                onClick={() => openImageViewer('/a-modular-kingdom.jpg')}
-                loading="lazy"
-              />
-            </div>
-            
-            <div className="prose prose-invert prose-white max-w-none text-gray-300">
+            <div className="prose prose-invert prose-white max-w-none text-gray-300 [&_table]:border-collapse [&_table]:border [&_table]:border-gray-600 [&_table]:bg-gray-800/50 [&_table]:my-6 [&_th]:border [&_th]:border-gray-600 [&_th]:px-4 [&_th]:py-3 [&_th]:text-left [&_th]:font-semibold [&_th]:text-white [&_th]:bg-gray-700 [&_td]:border [&_td]:border-gray-600 [&_td]:px-4 [&_td]:py-2 [&_td]:text-gray-300">
               <ReactMarkdown
-                {...({ remarkPlugins: [remarkGfm] } as any)}
+                {...({ remarkPlugins: [remarkGfm], rehypePlugins: [rehypeRaw] } as any)}
                 components={{
                   img: ({ node, ...props }) => (
                     <Image
@@ -266,7 +227,7 @@ export default function AModularKingdomPost() {
                 {String(markdownContent)}
               </ReactMarkdown>
             </div>
-          </motion.article>
+          </article>
         </div>
       </div>
       

@@ -1,24 +1,13 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import MovingStars from '../components/MovingStars';
 import MuteButton from '../components/MuteButton';
-import Image from 'next/image';
 
 const projects = [
-  {
-    id: 4,
-    title: 'Beyond the Hype: Building a Transformer-Based FOREX Prediction Engine',
-    description: 'A deep dive into using Gated Transformer Networks for FOREX prediction.',
-    longDescription: 'A deep dive into using Gated Transformer Networks and LightGBM for predicting EUR/USD trading signals, including architecture, feature engineering, and key findings from extensive backtesting.',
-    githubUrl: '',
-    blogUrl: '/blog/transformer-forex-prediction-engine',
-    tags: ['AI', 'Finance', 'FOREX', 'Transformers', 'LGBM'],
-    featured: true,
-    image: ''
-  },
   {
     id: 1,
     title: 'Eyes Wide Shut',
@@ -40,6 +29,17 @@ const projects = [
     tags: ['AI', 'Multi-Agent', 'Python', 'RAG', 'MCP', 'LLM'],
     featured: true,
     image: '/projects/a-modular-kingdom.png'
+  },
+  {
+    id: 4,
+    title: 'Beyond the Hype: Building a Transformer-Based FOREX Prediction Engine',
+    description: 'A deep dive into building a financial prediction model using Transformers.',
+    longDescription: 'This project explores the application of Transformer architecture, traditionally used for NLP, to the domain of financial time-series forecasting. It covers data preprocessing, feature engineering, model training, and backtesting for predicting FOREX market movements. The implementation uses PyTorch and LGBM for comparison.',
+    githubUrl: 'https://github.com/MasihMoafi/Transformer-Forex-Prediction-Engine',
+    blogUrl: '/blog/transformer-forex-prediction-engine',
+    tags: ['AI', 'Finance', 'FOREX', 'Transformers', 'LGBM', 'PyTorch'],
+    featured: true,
+    image: '/cool.jpeg'
   },
   {
     id: 3,
@@ -65,19 +65,21 @@ export default function Projects() {
   return (
     <div 
       className="min-h-screen bg-black"
+      style={{
+        backgroundImage: "url('/background.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
     >
-      <Image
-        src="/background.jpg"
-        alt="Background"
-        fill
-        quality={75}
-        priority
-        className="object-cover"
-      />
-      <div className="fixed inset-0 bg-black/70"></div>
-      {/* <MovingStars /> */}
+      <div className="fixed inset-0 bg-black/70 backdrop-blur-sm"></div>
+      <MovingStars />
       
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
         className="fixed top-8 left-8 z-50"
       >
         <Link
@@ -90,23 +92,29 @@ export default function Projects() {
           </svg>
           <span className="font-semibold">Home</span>
         </Link>
-      </div>
+      </motion.div>
 
-      <div
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
         className="fixed top-8 right-8 z-50"
       >
         <div className="flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-xl text-xl font-bold">
           <span className="font-semibold">My Projects</span>
         </div>
-      </div>
+      </motion.div>
 
       <div className="pt-16 pb-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col items-center justify-center min-h-screen">
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
               {projects.map((project, index) => (
-                <div
+                <motion.div
                   key={project.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 + index * 0.2 }}
                   className="relative z-10"
                 >
                   <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-300 group">
@@ -152,7 +160,7 @@ export default function Projects() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

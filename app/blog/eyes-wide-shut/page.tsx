@@ -117,6 +117,8 @@ export default function EyesWideShutProject() {
     <div 
       className="min-h-screen bg-black text-white relative overflow-hidden"
     >
+      {/* <MovingStars starColor="#ffffff" /> */}
+
       <div>
         <Link
           href="/blog"

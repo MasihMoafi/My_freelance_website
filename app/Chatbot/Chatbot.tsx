@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useKokoroTTS } from './KokoroTTS';
-import Image from 'next/image';
 
 type Message = {
   text: string;
@@ -408,14 +407,11 @@ export default function Chatbot() {
             {messages.map((msg, index) => (
               <div key={index} style={messageBubbleStyle(msg.sender)}>
                 {msg.image && (
-                  <Image
+                  <img
                     src={msg.image} 
                     alt="Uploaded" 
-                    width={200}
-                    height={200}
                     style={{ 
                       maxWidth: '200px', 
-                      height: 'auto',
                       borderRadius: '8px', 
                       marginBottom: '8px',
                       display: 'block',
