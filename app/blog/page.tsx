@@ -23,6 +23,14 @@ export default function Blog() {
     // Hardcoded posts for now to avoid server function issues
     setPosts([
       {
+        slug: 'transformer-forex-prediction-engine',
+        title: '🚀 Beyond the Hype: Building a Transformer-Based FOREX Prediction Engine',
+        date: '2025-09-11',
+        excerpt: 'A deep dive into using Gated Transformer Networks and LightGBM for predicting EUR/USD trading signals, including architecture, feature engineering, and key findings from extensive backtesting.',
+        author: 'Masih Moafi',
+        tags: ['AI', 'Finance', 'FOREX', 'Transformers', 'LGBM']
+      },
+      {
         slug: 'eyes-wide-shut',
         title: '🎭 Eyes Wide Shut',
         date: '2025-08-25',
