@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
@@ -9,6 +8,17 @@ import MuteButton from '../components/MuteButton';
 import Image from 'next/image';
 
 const projects = [
+  {
+    id: 4,
+    title: 'Beyond the Hype: Building a Transformer-Based FOREX Prediction Engine',
+    description: 'A deep dive into using Gated Transformer Networks for FOREX prediction.',
+    longDescription: 'A deep dive into using Gated Transformer Networks and LightGBM for predicting EUR/USD trading signals, including architecture, feature engineering, and key findings from extensive backtesting.',
+    githubUrl: '',
+    blogUrl: '/blog/transformer-forex-prediction-engine',
+    tags: ['AI', 'Finance', 'FOREX', 'Transformers', 'LGBM'],
+    featured: true,
+    image: ''
+  },
   {
     id: 1,
     title: 'Eyes Wide Shut',
@@ -37,7 +47,7 @@ const projects = [
     description: 'Local AI Voice Assistant with Whisper & Kokoro',
     longDescription: 'A personal, local, and fast voice assistant built with advanced speech recognition and synthesis. Uses whisper.cpp for accurate speech-to-text and Kokoro TTS for natural speech generation, providing seamless voice interaction experience.',
     githubUrl: 'https://github.com/MasihMoafi/TTS-STT-Voice-Assistant',
-    blogUrl: '/blog/tts-stt-voice-assistant',
+    blogUrl: '',
     tags: ['Voice AI', 'Whisper', 'TTS', 'Python', 'Local AI'],
     featured: false
   }
@@ -67,10 +77,7 @@ export default function Projects() {
       <div className="fixed inset-0 bg-black/70"></div>
       {/* <MovingStars /> */}
       
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
+      <div
         className="fixed top-8 left-8 z-50"
       >
         <Link
@@ -83,29 +90,23 @@ export default function Projects() {
           </svg>
           <span className="font-semibold">Home</span>
         </Link>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
+      <div
         className="fixed top-8 right-8 z-50"
       >
         <div className="flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-xl text-xl font-bold">
           <span className="font-semibold">My Projects</span>
         </div>
-      </motion.div>
+      </div>
 
       <div className="pt-16 pb-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col items-center justify-center min-h-screen">
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
               {projects.map((project, index) => (
-                <motion.div
+                <div
                   key={project.id}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 + index * 0.2 }}
                   className="relative z-10"
                 >
                   <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-300 group">
@@ -151,7 +152,7 @@ export default function Projects() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

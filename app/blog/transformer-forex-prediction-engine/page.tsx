@@ -21,7 +21,7 @@ export default function TransformerForexPredictionEnginePost() {
   useEffect(() => {
     async function loadContent() {
       try {
-        const response = await fetch('/blog/posts/transformer-forex-prediction-engine.md?v=' + Date.now());
+        const response = await fetch('/transformer-forex-prediction-engine.md?v=' + Date.now());
         let content = await response.text();
 
         // Convert HTML img tags to markdown
