@@ -15,7 +15,7 @@ export default function AboutClient({ cvContent }: AboutClientProps) {
       className="min-h-screen flex flex-col items-center relative overflow-hidden bg-black"
     >
       <Image
-        src="/background.jpg"
+        src="/eyes-wide-shut-intro.webp"
         alt="Background"
         fill
         quality={75}
@@ -33,7 +33,7 @@ export default function AboutClient({ cvContent }: AboutClientProps) {
       >
         <Link
           href="/"
-          className="group flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-300 shadow-xl"
+          className="group flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-200 shadow-xl"
         >
           <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />

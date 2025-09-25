@@ -45,7 +45,7 @@ export default function Blog() {
       className="min-h-screen bg-black"
     >
       <Image
-        src="/background.jpg"
+        src="/eyes-wide-shut-intro.webp"
         alt="Background"
         fill
         quality={75}
@@ -63,7 +63,7 @@ export default function Blog() {
       >
         <Link
           href="/"
-          className="group flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-300 shadow-xl"
+          className="group flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-200 shadow-xl"
         >
           <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -97,7 +97,7 @@ export default function Blog() {
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-300 relative z-10"
+                  className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-200 relative z-10"
                 >
                   <Link href={`/blog/${post.slug}`}>
                     <h2 className="text-2xl font-bold text-white mb-4 hover:text-orange-300 transition-colors">
