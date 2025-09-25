@@ -180,7 +180,7 @@ export default function Chatbot() {
         }, 300);
       }
     }
-  }, [isOpen]);
+  }, [isOpen, isTTSEnabled, messages.length, speak]);
 
   // Determine styles based on fullscreen state
   const chatWindowStyle: React.CSSProperties = {
