@@ -54,11 +54,11 @@ export default function Home() {
   };
 
   const getButtonClass = () => {
-    return 'px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white hover:bg-white hover:text-black hover:border-white transition-all duration-500 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform';
+    return 'px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white hover:bg-white hover:text-black hover:border-white transition-all duration-200 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform';
   };
 
   const getSecondaryButtonClass = () => {
-    return 'px-8 py-4 bg-transparent border-2 border-white/50 text-white hover:bg-white/10 hover:border-white transition-all duration-500 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform';
+    return 'px-8 py-4 bg-transparent border-2 border-white/50 text-white hover:bg-white/10 hover:border-white transition-all duration-200 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transform';
   };
 
 
