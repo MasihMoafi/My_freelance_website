@@ -91,7 +91,7 @@ export default function ModernNavbar({}: ModernNavbarProps) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${getNavbarBg()}`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-150 ${getNavbarBg()}`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           <div className="flex items-center justify-start h-16">
