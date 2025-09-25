@@ -69,7 +69,7 @@ export default function Home() {
         data-theme="dark"
       >
         <Image
-            src="/background.webp"
+            src="/eyes-wide-shut-intro.webp"
             alt="Background"
             fill
             quality={75}
@@ -86,7 +86,7 @@ export default function Home() {
       data-theme="dark"
     >
         <Image
-            src="/background.webp"
+            src="/eyes-wide-shut-intro.webp"
             alt="Background"
             fill
             quality={75}
