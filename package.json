@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "compress-images": "imagemin public/* --out-dir=public --plugin=mozjpeg --plugin=pngquant"
   },
   "dependencies": {
     "@fontsource/inter": "^5.1.1",
@@ -45,7 +46,10 @@
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^15.1.6"
+    "eslint-config-next": "^15.1.6",
+    "imagemin-cli": "^8.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0"
   },
   "engines": {
     "node": ">=18.0.0"

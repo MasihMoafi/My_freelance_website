@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import MovingStars from '../components/MovingStars';
-import MuteButton from '../components/MuteButton';
 import Image from 'next/image';
 
 const projects = [
@@ -158,7 +157,6 @@ export default function Projects() {
         </div>
       </div>
       
-      <MuteButton className="fixed bottom-8 left-8 z-50" />
     </div>
   );
 }

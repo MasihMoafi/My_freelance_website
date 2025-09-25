@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import MovingStars from '../../components/MovingStars';
-import MuteButton from '../../components/MuteButton';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
@@ -105,7 +103,7 @@ export default function AModularKingdomPost() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-900 to-black flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-white text-xl">Loading...</div>
       </div>
     );
@@ -113,19 +111,8 @@ export default function AModularKingdomPost() {
 
   return (
     <div 
-      className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black"
+      className="min-h-screen bg-black"
     >
-      <Image
-        src="/background.jpg"
-        alt="Background"
-        fill
-        quality={75}
-        priority
-        className="object-cover opacity-50"
-      />
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-      {/* <MovingStars /> */}
-      
       <motion.div /* Back to Blog button */ >
         <Link
           href="/blog"
@@ -361,7 +348,6 @@ export default function AModularKingdomPost() {
         </div>
       )}
       
-      <MuteButton className="fixed bottom-8 left-8 z-50" />
     </div>
   );
 }

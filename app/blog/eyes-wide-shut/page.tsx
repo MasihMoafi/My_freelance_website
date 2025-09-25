@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import MovingStars from '../../components/MovingStars';
-import MuteButton from '../../components/MuteButton';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
@@ -118,17 +116,6 @@ export default function EyesWideShutProject() {
     <div 
       className="min-h-screen bg-black text-white relative overflow-hidden"
     >
-      <Image
-        src="/background.jpg"
-        alt="Background"
-        fill
-        quality={75}
-        priority
-        className="object-cover opacity-50"
-      />
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-      {/* <MovingStars starColor="#ffffff" /> */}
-      
       <motion.div /* Back to Blog button */ >
         <Link
           href="/blog"
@@ -337,7 +324,6 @@ export default function EyesWideShutProject() {
         </div>
       )}
       
-      <MuteButton className="fixed bottom-8 left-8 z-50" />
     </div>
   );
 }

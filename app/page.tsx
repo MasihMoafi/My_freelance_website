@@ -7,8 +7,6 @@ import { useState, useRef, useEffect } from 'react';
 import ModernNavbar from './components/ModernNavbar';
 import InfectedDust from './components/InfectedDust';
 import SocialLinks from './components/SocialLinks';
-import MuteButton from './components/MuteButton';
-import { useMusicContext } from './components/MusicProvider';
 // Removed anime.js for now to fix build
 
 // Using system fonts
@@ -17,7 +15,6 @@ import { useMusicContext } from './components/MusicProvider';
 export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<'sunny' | 'gloomy'>('gloomy');
-  const { audioRef, isMuted, setIsMuted, toggleMute, playMusic } = useMusicContext();
   const nameRef = useRef<HTMLHeadingElement>(null);
   const animationComplete = useRef(false);
   const [displayedName, setDisplayedName] = useState<string>('');
@@ -72,7 +69,7 @@ export default function Home() {
         data-theme="dark"
       >
         <Image
-            src="/background.jpg"
+            src="/background.webp"
             alt="Background"
             fill
             quality={75}
@@ -89,7 +86,7 @@ export default function Home() {
       data-theme="dark"
     >
         <Image
-            src="/background.jpg"
+            src="/background.webp"
             alt="Background"
             fill
             quality={75}
@@ -164,8 +161,6 @@ export default function Home() {
         </motion.div>
 
       </div>
-
-      <MuteButton className="absolute bottom-8 left-8 z-20" />
 
     </div>
   );
