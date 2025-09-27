@@ -3,6 +3,7 @@ import './globals.css';
 // import ModernChatbot from './components/ModernChatbot';
 import { ThemeProvider } from './components/ThemeContext';
 import type { Metadata } from 'next';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const roboto = Roboto({ 
   subsets: ['latin'], 
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className={`${roboto.className} bg-gray-900 text-gray-100`}>
         <ThemeProvider>
             {children}
+            <SpeedInsights />
             {/* <ModernChatbot /> */}
         </ThemeProvider>
       </body>
