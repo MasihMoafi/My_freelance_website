@@ -68,14 +68,14 @@ export default function Home() {
         className="min-h-screen relative overflow-hidden bg-black" 
         data-theme="dark"
       >
-        <Image
+        {/* <Image
             src="/eyes-wide-shut-intro.webp"
             alt="Background"
             fill
             quality={75}
             priority
             className="object-cover opacity-50"
-          />
+          /> */}
       </div>
     );
   }
@@ -85,14 +85,14 @@ export default function Home() {
       className="min-h-screen relative overflow-hidden bg-black" 
       data-theme="dark"
     >
-        <Image
+        {/* <Image
             src="/eyes-wide-shut-intro.webp"
             alt="Background"
             fill
             quality={75}
             priority
             className="object-cover opacity-50"
-          />
+          /> */} 
       <ModernNavbar />
       
       {/* <InfectedDust dustColor='#ffffff' /> */}
