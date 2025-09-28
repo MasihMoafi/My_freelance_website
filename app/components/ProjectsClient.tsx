@@ -34,7 +34,6 @@ const projects = [
     description: 'Local AI Voice Assistant with Whisper & Kokoro',
     longDescription: 'A personal, local, and fast voice assistant built with advanced speech recognition and synthesis. Uses whisper.cpp for accurate speech-to-text and Kokoro TTS for natural speech generation, providing seamless voice interaction experience.',
     githubUrl: 'https://github.com/MasihMoafi/TTS-STT-Voice-Assistant',
-    blogUrl: '/blog/tts-stt-voice-assistant',
     tags: ['Voice AI', 'Whisper', 'TTS', 'Python', 'Local AI'],
     featured: false
   }

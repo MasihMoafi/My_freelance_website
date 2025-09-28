@@ -21,14 +21,6 @@ export default function AboutClient({ cvContent }: AboutClientProps) {
     <div 
       className="min-h-screen flex flex-col items-center relative overflow-hidden bg-black"
     >
-      <Image
-        src="/eyes-wide-shut-intro.webp"
-        alt="Background"
-        fill
-        quality={75}
-        priority
-        className="object-cover opacity-50"
-      />
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
       {mounted && <MovingStars />}
 
