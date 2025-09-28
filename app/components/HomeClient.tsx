@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import ModernNavbar from './ModernNavbar';
 import SocialLinks from './SocialLinks';
+import MovingStars from './MovingStars';
 
 export default function HomeClient() {
   const [mounted, setMounted] = useState(false);
@@ -56,6 +57,7 @@ export default function HomeClient() {
       className="min-h-screen relative overflow-hidden bg-black" 
       data-theme="dark"
     >
+      {mounted && <MovingStars />}
       <ModernNavbar />
       
       <div className="relative z-20 flex flex-col items-center justify-start pt-32 min-h-screen px-4">

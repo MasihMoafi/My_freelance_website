@@ -4,12 +4,19 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import MovingStars from './MovingStars';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 interface AboutClientProps {
   cvContent: string;
 }
 
 export default function AboutClient({ cvContent }: AboutClientProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div 
       className="min-h-screen flex flex-col items-center relative overflow-hidden bg-black"
@@ -23,7 +30,7 @@ export default function AboutClient({ cvContent }: AboutClientProps) {
         className="object-cover opacity-50"
       />
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-      {/* <MovingStars /> */}
+      {mounted && <MovingStars />}
 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}

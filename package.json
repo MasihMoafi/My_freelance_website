@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "compress-images": "imagemin public/* --out-dir=public --plugin=mozjpeg --plugin=pngquant"
+    "compress-images": "imagemin public/* --out-dir=public --plugin=mozjpeg --plugin=pngquant",
+    "compress-webp": "imagemin public/*.webp --out-dir=public --plugin=webp"
   },
   "dependencies": {
     "@fontsource/inter": "^5.1.1",
@@ -21,6 +22,7 @@
     "autoprefixer": "^10.4.18",
     "framer-motion": "^12.0.5",
     "gray-matter": "^4.0.3",
+    "imagemin-webp": "^8.0.0",
     "lucide-react": "^0.474.0",
     "next": "^14.2.15",
     "postcss": "^8.4.35",
