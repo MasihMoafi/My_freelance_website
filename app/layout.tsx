@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} bg-gray-900 text-gray-100`}>
+      <body className={`${roboto.className} bg-black text-gray-100 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 to-black`}>
         <ThemeProvider>
             {children}
             <SpeedInsights />
