@@ -21,8 +21,8 @@ export default function AboutClient({ cvContent }: AboutClientProps) {
     <div 
       className="min-h-screen flex flex-col items-center relative overflow-hidden bg-black"
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-      {mounted && <MovingStars />}
+      <div className="absolute inset-0 bg-black/70"></div>
+      {/* {mounted && <MovingStars />} */}
 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}

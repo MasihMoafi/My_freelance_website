@@ -57,13 +57,13 @@ export default function HomeClient() {
       className="min-h-screen relative overflow-hidden bg-black" 
       data-theme="dark"
     >
-      {mounted && <MovingStars />}
+      {/* {mounted && <MovingStars />} */}
       <ModernNavbar />
       
       <div className="relative z-20 flex flex-col items-center justify-start pt-32 min-h-screen px-4">
         <motion.div
-          initial={{ opacity: 0, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 1.5, delay: 0.5 }}
           className="text-center"
         >
@@ -81,8 +81,8 @@ export default function HomeClient() {
           </p>
 
           <motion.div
-            initial={{ opacity: 0, filter: 'blur(5px)' }}
-            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 1.2 }}
             className="space-y-4"
           >

@@ -58,7 +58,7 @@ export default function ProjectsClient() {
       >
         <Link
           href="/"
-          className="group flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-200 shadow-xl text-xl font-bold"
+          className="group flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 border border-white/20 hover:bg-white/20 text-white hover:text-orange-200 transition-all duration-200 shadow-xl text-xl font-bold"
         >
           <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -74,7 +74,7 @@ export default function ProjectsClient() {
         transition={{ duration: 0.8, delay: 0.4 }}
         className="fixed top-8 right-8 z-50"
       >
-        <div className="flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-xl text-xl font-bold">
+        <div className="flex items-center space-x-3 px-6 py-3 rounded-2xl bg-white/10 border border-white/20 text-white shadow-xl text-xl font-bold">
           <span className="font-semibold">My Projects</span>
         </div>
       </motion.div>
@@ -91,7 +91,7 @@ export default function ProjectsClient() {
                   transition={{ duration: 0.8, delay: 0.3 + index * 0.2 }}
                   className="relative z-10"
                 >
-                  <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-200 group">
+                  <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-orange-300/50 transition-all duration-200 group">
                     <div className="text-center">
                       <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-orange-300 transition-colors">
                         {project.title}
