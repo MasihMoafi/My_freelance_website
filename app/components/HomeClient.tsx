@@ -57,10 +57,24 @@ export default function HomeClient() {
       className="min-h-screen relative overflow-hidden bg-black" 
       data-theme="dark"
     >
-      {/* {mounted && <MovingStars />} */}
+      <Image
+        alt="The stage is set for Masih Moafi's portfolio, featuring a microphone and a theatrical mask, symbolizing the art of communication and technology."
+        src="/background.webp"
+        quality={75}
+        fill
+        sizes="100vw"
+        style={{
+          objectFit: 'cover',
+          zIndex: -1,
+        }}
+        priority
+      />
       <ModernNavbar />
       
-      <div className="relative z-20 flex flex-col items-center justify-start pt-32 min-h-screen px-4">
+      <div 
+        className="relative z-20 flex flex-col items-center justify-start pt-32 min-h-screen px-4"
+        style={{ willChange: 'transform, opacity' }}
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
