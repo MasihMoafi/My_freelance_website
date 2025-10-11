@@ -36,6 +36,15 @@ const projects = [
     githubUrl: 'https://github.com/MasihMoafi/TTS-STT-Voice-Assistant',
     tags: ['Voice AI', 'Whisper', 'TTS', 'Python', 'Local AI'],
     featured: false
+  },
+  {
+    id: 4,
+    title: 'Voice Commander',
+    description: 'AI-Powered Voice Transcription with Gemini Refinement',
+    longDescription: 'Local voice transcription tool using GPU-accelerated Whisper.cpp with AI-powered text refinement via Gemini API. Removes filler words, fixes grammar, and structures output into XML/JSON formats. Features F8/F9 hotkeys, auto-paste functionality, and VS Code integration. Built for developers who want hands-free coding with clean, structured prompts.',
+    githubUrl: 'https://github.com/MasihMoafi/Voice-commander',
+    tags: ['Voice AI', 'Whisper', 'Gemini', 'Python', 'CUDA', 'Developer Tools'],
+    featured: false
   }
 ];
 
